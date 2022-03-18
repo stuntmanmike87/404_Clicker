@@ -12,19 +12,26 @@
  /* Template default CSS
  /*----------------------------------------*/
  $color1: #d473d4;
- $color2: #131313;
+ $color2: #303030;
+ $color3: #F5F5F5;
+ $color4: #77b5fe;
 
  html,
  body {
    height: 100%;
    font-family: 'Roboto', sans-serif;
    -webkit-font-smoothing: antialiased;
-   font-smoothing: antialiased;
    background-image: url("../images/background_404.png");
    background-repeat: no-repeat;
    background-size: cover;
    background-position: top center;
    position: relative;
+   h1{
+    font-family: 'Press Start 2P', cursive;
+   }
+   p{
+    font-family: 'EB Garamond', serif;
+   }
   }
 
 
@@ -33,46 +40,76 @@
    Header section
  ---------------------*/
  .header-section {
-   background: #131313;
+   position: relative;
+   background: $color3;
    clear: both;
    overflow: hidden;
    padding: 18px 0;
    border-bottom: 1px solid $color1;
+   .container{
+    width: 100%;
+  
+   }
  }
  .site-logo {
-   display: inline-block;
    float: left;
-   padding-top: 6px;
+   right: 0;   
  }
  
+ .site-logo img{
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 0;
+  bottom: 0;
+  left:0;
+  right: 300;
+ }
+
+ .button{
+  position: absolute;
+  right: 0;
+ }
+
  .user-panel {
    float: right;
    font-weight: 500;
-   background: #d473d4;
+   background: $color1;
    padding: 8px 28px;
-   border-radius: 30px;
+   border-radius: 15px;
    a {
+    font-family: 'EB Garamond', serif;
      font-size: 14px;
-     color: #131313;
+     color: $color2;
+   }
+   &:hover{
+     a{
+      text-decoration: none;
+      color: $color3;
+    }
+     background: $color4;  
    }
  }
  .main-menu {
-   float: right;
-   margin-right: 170px;
+   float:inherit;
+   text-align: center;
    ul {
+    margin-bottom: 0rem;
+     padding-left: 0px;
      list-style: none;
      li {
        display: inline;
        a {
+        font-family: 'Sansita Swashed', cursive;
          display: inline-block;
          font-size: 16px;
-         color: #fff;
-         margin-left: 35px;
+         color: $color2;
          font-weight: 500;
          padding:10px 5px;
          &:hover {
-           color:#d473d4 ;
-         }
+          color: $color1 ;
+          text-decoration: none;
+        }
        }
      }
    }
@@ -92,25 +129,33 @@
    Footer Section
  ------------------------*/
  .footer-section{
-   padding: 18px 0 16px;
+  background: $color3;
+   padding: 8px 0 4px;
    overflow: hidden;
-   background: #252525;
    position : absolute;
    left: 0;
    right: 0;
    bottom: 0;
+   border-top: 1px solid $color4;
  }
  .footer-menu {
+  font-family: 'Sansita Swashed', cursive;
+   padding-left: 0rem;
+   margin-bottom: 0px;
+   text-align: center;
    list-style: none;
-   float: right;
    li{
      display: inline;
      a{
        display: inline-block;
        font-size: 14px;
        font-weight: 500;
-       color: #aeaeae;
+       color: $color2;
        margin-left: 30px;
+       &:hover{
+        text-decoration: none;
+        color: $color4;
+       }
      }
    }
  }
