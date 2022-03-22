@@ -1,21 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="example-wrapper">
+        <h1>404 Clicker</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, corrupti atque reiciendis qui, a sunt iusto illo labore culpa voluptatibus aliquam voluptates ratione dignissimos id quam similique animi incidunt. Velit inventore vel debitis impedit. Nemo, architecto debitis atque iusto nulla repellendus adipisci minima impedit ullam maxime commodi eos nihil fuga error sapiente tempora nam vitae fugit ut. Nihil molestias asperiores eius animi iste. Amet ducimus quis facilis ratione maxime consequuntur quas deleniti soluta dolor, possimus ex rem, quidem nam quam, aliquam commodi. Delectus at sint, illo placeat ipsum facilis reprehenderit voluptates earum eveniet tenetur repellat tempora alias officiis quo modi reiciendis sapiente debitis saepe ut similique perferendis, maxime in commodi mollitia? Doloremque velit provident labore ab nihil voluptatem dolorum quia itaque, distinctio est quo doloribus repellendus animi autem quas amet minus excepturi fuga? Culpa aliquid alias rem hic velit ipsam? Minima eligendi sit harum ea, quod soluta laudantium omnis doloribus. Rerum officia magnam mollitia, voluptate maxime minima laboriosam. Sed quam aspernatur expedita officia architecto? Vel, facilis labore? Expedita quisquam ad porro quam sapiente alias id, doloribus perspiciatis accusantium similique, eos explicabo reprehenderit autem optio vero itaque recusandae doloremque fugit illum corrupti dignissimos deleniti inventore? Voluptate officia sint veritatis eligendi natus.</p>
+        {# Images #}
+        <div class="image-container">
+            <div>
+                <img src="{{ asset("assets/images/home/1.jpg") }}" alt="">    
+            </div>
+            <div>
+                <img src="{{ asset("assets/images/home/2.jpg") }}" alt="">    
+            </div>
+            <div>
+                <img src="{{ asset("assets/images/home/3.jpg") }}" alt="">    
+            </div>
+        </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/app/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/app/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-    <p>Eh coucou !</p>
-</div>
+        
+        {# <div class="image-container">
+        	<div class="row">
+        		<div class="col-lg-4 col-md-6">
+        			<div class="recent-game-item">
+        				<div class="rgi-thumb set-bg">
+        					<img src="{{ asset("assets/images/home/1.jpg") }}" alt="">    
+        				</div>
+        			</div>	
+        		</div>
+        		<div class="col-lg-4 col-md-6">
+        			<div class="recent-game-item">
+        				<div class="rgi-thumb set-bg">	
+                            <img src="{{ asset("assets/images/home/2.jpg") }}" alt="">    
+        				</div>
+        			</div>	
+        		</div>
+        		<div class="col-lg-4 col-md-6">
+        			<div class="recent-game-item">
+        				<div class="rgi-thumb set-bg">
+                            <img src="{{ asset("assets/images/home/3.jpg") }}" alt="">    
+        				</div>
+        			</div>	
+        		</div>
+        	</div>
+        </div> #}
+
+    </div>
+    
 {% endblock %}
