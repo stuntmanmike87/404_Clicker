@@ -5,171 +5,204 @@
  ------------------------------------ 
  ====================================*/
 
-
- 
- 
+/*----------------------------------------*/
+/* Template default CSS
  /*----------------------------------------*/
- /* Template default CSS
- /*----------------------------------------*/
- $color1: #d473d4;
- $color2: #303030;
- $color3: #F5F5F5;
- $color4: #77b5fe;
+$color1: #d473d4;
+$color2: #303030;
+$color3: #f5f5f5;
+$color4: #77b5fe;
 
- html,
- body {
-   height: 100%;
-   font-family: 'Roboto', sans-serif;
-   -webkit-font-smoothing: antialiased;
-   background-image: url("../images/background_404.png");
-   background-repeat: no-repeat;
-   background-size: cover;
-   background-position: top center;
-   position: relative;
-   h1{
-    font-family: 'Press Start 2P', cursive;
-   }
-   p{
-    font-family: 'EB Garamond', serif;
-   }
+html,
+body {
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-image: url("../images/background_404.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  position: relative;
+  h1 {
+    font-family: "Press Start 2P", cursive;
   }
+  p {
+    font-family: "EB Garamond", serif;
+  }
+  .example-wrapper-plan{ 
+    margin: 1em auto; 
+    h1 {
+      font-family: "Press Start 2P", cursive;
+      text-align: center;
+    }
+    p{
+      font-weight: bold; 
+      text-align: center;
+    }
+    .none_connected{
+      margin: 2rem auto;
+      ul{
+        list-style: none;
+        padding-left: 0;
+      }
+      
+      a{
+        font-family: "EB Garamond", serif;
+        font-size: 14px;
+        color: $color2;
+        &:hover {
+          text-decoration: none;
+          color: $color4;
+        }
+      }
+    }
 
+    .connected{
+      margin: 2rem auto;
+      ul{
+        list-style: none;
+        padding-left: 0;
+      }
+      a{
+        font-family: "EB Garamond", serif;
+        font-size: 14px;
+        color: $color2;
+        &:hover {
+          text-decoration: none;
+          color: $color4;
+        }
+      }
+    }
 
- 
- /*------------------
+    
+  }
+}
+
+/*------------------
    Header section
  ---------------------*/
- .header-section {
-   position: relative;
-   background: $color3;
-   clear: both;
-   overflow: hidden;
-   padding: 18px 0;
-   border-bottom: 1px solid $color1;
-   .container{
+.header-section {
+  position: relative;
+  background: $color3;
+  clear: both;
+  overflow: hidden;
+  padding: 18px 0;
+  border-bottom: 1px solid $color1;
+  .container {
     width: 100%;
-  
-   }
- }
- .site-logo {
-   float: left;
-   right: 0;   
- }
- 
- .site-logo img{
+  }
+}
+.site-logo {
+  float: left;
+  right: 0;
+}
+
+.site-logo img {
   position: absolute;
   width: 80px;
   height: 80px;
   top: 0;
   bottom: 0;
-  left:0;
+  left: 0;
   right: 300;
- }
+}
 
- .button{
+.button {
   position: absolute;
   right: 0;
- }
+}
 
- .user-panel {
-   float: right;
-   font-weight: 500;
-   background: $color1;
-   padding: 8px 28px;
-   border-radius: 15px;
-   a {
-    font-family: 'EB Garamond', serif;
-     font-size: 14px;
-     color: $color2;
-   }
-   &:hover{
-     a{
+.user-panel {
+  float: right;
+  font-weight: 500;
+  background: $color1;
+  padding: 8px 28px;
+  border-radius: 15px;
+  a {
+    font-family: "EB Garamond", serif;
+    font-size: 14px;
+    color: $color2;
+  }
+  &:hover {
+    a {
       text-decoration: none;
       color: $color3;
     }
-     background: $color4;  
-   }
- }
- .main-menu {
-   float:inherit;
-   text-align: center;
-   ul {
+    background: $color4;
+  }
+}
+.main-menu {
+  float: inherit;
+  text-align: center;
+  ul {
     margin-bottom: 0rem;
-     padding-left: 0px;
-     list-style: none;
-     li {
-       display: inline;
-       a {
-        font-family: 'Sansita Swashed', cursive;
-         display: inline-block;
-         font-size: 16px;
-         color: $color2;
-         font-weight: 500;
-         padding:10px 5px;
-         &:hover {
-          color: $color1 ;
+    padding-left: 0px;
+    list-style: none;
+    li {
+      display: inline;
+      a {
+        font-family: "Sansita Swashed", cursive;
+        display: inline-block;
+        font-size: 16px;
+        color: $color2;
+        font-weight: 500;
+        padding: 10px 5px;
+        &:hover {
+          color: $color1;
           text-decoration: none;
         }
-       }
-     }
-   }
- }
- 
- .header-btn {
-   float: right;
-   margin-right: 0;
- }
- 
- .nav-switch {
-   display: none;
- }
- 
- 
- /*----------------------
+      }
+    }
+  }
+}
+
+.header-btn {
+  float: right;
+  margin-right: 0;
+}
+
+.nav-switch {
+  display: none;
+}
+
+/*----------------------
+   Body Section
+ ------------------------*/
+
+
+
+
+/*----------------------
    Footer Section
  ------------------------*/
- .footer-section{
+.footer-section {
   background: $color3;
-   padding: 8px 0 4px;
-   overflow: hidden;
-   position : absolute;
-   left: 0;
-   right: 0;
-   bottom: 0;
-   border-top: 1px solid $color4;
- }
- .footer-menu {
-  font-family: 'Sansita Swashed', cursive;
-   padding-left: 0rem;
-   margin-bottom: 0px;
-   text-align: center;
-   list-style: none;
-   li{
-     display: inline;
-     a{
-       display: inline-block;
-       font-size: 14px;
-       font-weight: 500;
-       color: $color2;
-       margin-left: 30px;
-       &:hover{
+  padding: 8px 0 4px;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-top: 1px solid $color4;
+}
+.footer-menu {
+  font-family: "Sansita Swashed", cursive;
+  padding-left: 0rem;
+  margin-bottom: 0px;
+  text-align: center;
+  list-style: none;
+  li {
+    display: inline;
+    a {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 500;
+      color: $color2;
+      margin-left: 30px;
+      &:hover {
         text-decoration: none;
         color: $color4;
-       }
-     }
-   }
- }
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+      }
+    }
+  }
+}

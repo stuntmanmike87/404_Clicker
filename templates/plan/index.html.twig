@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plan du site{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper-plan">
+    <h1>Plan du site</h1>
+
+    <div class="none_connected">
+    <p>Non Connecté :</p>
+    <ul>
+        <li><a href="{{ path('home') }}">Accueil</a></li>
+        <li><a href="{{ path('home') }}">Présentation</a></li>
+        <li><a href="{{ path('home') }}">Classement</a></li>
+        <li><a href="{{ path('home') }}">Inscription</a></li>
+        <li><a href="{{ path('home') }}">Connexion</a></li>
+    </ul>
+    </div>
+
+    <div class="connected">
+    <p>Connecté :</p>
+    <ul>
+        <li><a href="{{ path('home') }}">Accueil</a></li>
+        <li><a href="{{ path('home') }}">Présentation</a></li>
+        <li><a href="{{ path('home') }}">Classement</a></li>
+        <li><a href="{{ path('home') }}">Connexion</a></li>
+        <li><a href="{{ path('home') }}">Jouer</a></li>
+        <li><a href="{{ path('home') }}">Profil</a></li>
+    </ul> 
+    </div>   
+</div>
+{% endblock %}
