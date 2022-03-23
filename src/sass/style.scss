@@ -5,9 +5,6 @@
  ------------------------------------ 
  ====================================*/
 
-
- 
- 
  /*----------------------------------------*/
  /* Template default CSS
  /*----------------------------------------*/
@@ -24,7 +21,7 @@
    background-image: url("../images/background_404.png");
    background-repeat: no-repeat;
    background-size: cover;
-   background-position: top center;
+   background-position: bottom;
    position: relative;
    .example-wrapper {
      margin: 1em auto;
@@ -37,7 +34,7 @@
     margin-left: 1rem;
     margin-right: 1rem;
     font-family: 'EB Garamond', serif;
-    font-size: 25px;
+    font-size: 1.56rem;
    }
   }
 
@@ -91,9 +88,10 @@
       text-decoration: none;
       color: $color3;
     }
-     background: $color4;  
+     background: $color3;  
    }
  }
+
  .main-menu {
    float:inherit;
    text-align: center;
@@ -114,7 +112,7 @@
           color: $color1 ;
           text-decoration: none;
         }
-       }
+      }
      }
    }
  }
@@ -131,18 +129,47 @@
  /*----------------------
   Page d'accueil
 ------------------------*/
-
 .home-wrapper p {
   text-align: justify;
-  margin-top: 2rem;
+  margin-bottom: 0;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text-container a {
+  text-decoration: none;
+}
+
+.home-wrapper-text { 
+  text-align: justify;
+  list-style: none;
+  text-decoration: none; 
+}
+
+.home-wrapper a strong  {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.56rem;
+  color: $color2;
+  display: block;
+  &:hover{
+    a{
+     color: $color3;
+   }
+    color: $color3;  
+  }
 }
 
 .image-container {
-  margin: 2rem auto;
+  margin: 1rem auto;
   text-align: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
+
 
  /*----------------------
    Footer Section
@@ -151,14 +178,14 @@
   background: $color3;
    padding: 8px 0 4px;
    overflow: hidden;
-   position : absolute;
+   position: absolute;
    left: 0;
    right: 0;
    bottom: 0;
    border-top: 1px solid $color4;
  }
  .footer-menu {
-  font-family: 'Sansita Swashed', cursive;
+   font-family: 'Sansita Swashed', cursive;
    padding-left: 0rem;
    margin-bottom: 0px;
    text-align: center;
@@ -179,14 +206,33 @@
    }
  }
  
- 
- 
- 
- 
- 
- 
- 
- 
+ /* Media queries */
+ @media screen and (max-width: 768px) {
+  .user-panel {
+    padding: 5px 5px;
+  }
+ }
+
+ @media screen and (max-width: 1200px) {
+   body {
+    height: auto;
+    p {
+      font-size: 1.2rem;
+    }
+    .main-menu {
+      padding-right: 75px;
+    }
+    .image-container {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }  
+    .footer-section {
+      position: static; 
+    }
+   }  
+}
+
+
  
  
  
