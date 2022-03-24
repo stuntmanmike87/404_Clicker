@@ -1,21 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/app/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/app/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-    <p>Eh coucou !</p>
-</div>
+    <section class="home-wrapper">
+        <h1>404 Clicker</h1>    
+        <p>Les développeurs web sont toujours confrontés à des pages d'erreur 404 lors du dévéloppement d'un projet. Ca peut être très frustrant, mais c'est grâce à ces erreurs qu'on fini par apprendre et à se perfecctionner. 404 Clicker c'est un jeu qui consiste à cumuler le plus d'erreurs (points) possibles pour acquérir plus d'expérience et ainsi devenir un meilleur programmeur.</p>
+        <div class="text-container">
+            <a href="#"><strong>Créez un compte 404 Clicker et commencez à jouer tout de suite!</strong></a>
+            <p>Une fois le jeu lancé, cliquez sur l'image centrale pour cumuler des erreurs.</p>
+            <p>A un certain nombre d'erreurs vous acquérez plus d'expérience et vous passez de niveau :</p>
+            <ul class="home-wrapper-text">
+                <li><span>Level 1</span> - Apprenti développeur : 0 erreur</li>
+                <li><span>Level 2</span> - Développeur junior : 20 erreurs</li>
+                <li><span>Level 3</span> - Développeur senior : 50 erreurs</li>
+                <li><span>Level 4</span> - Développeur senior++ : 100 erreurs</li>
+            </ul>
+            <p class="home-wrapper-text">Surmonter le plus d'erreurs fera de vous le meilleur programmeur! </p>
+        </div>
+           
+        {# Images #}
+        <div class="image-container">
+            <div>
+                <img src="{{ asset("assets/images/home/1.jpg") }}" alt="Capture d'écran d'une partie du jeu">    
+            </div>
+            <div>
+                <img src="{{ asset("assets/images/home/2.jpg") }}" alt="Capture d'écran d'une partie du jeu">    
+            </div>
+            <div>
+                <img src="{{ asset("assets/images/home/3.jpg") }}" alt="Capture d'écran d'une partie du jeu">    
+            </div>
+        </div>   
+    </section>
+    
 {% endblock %}
