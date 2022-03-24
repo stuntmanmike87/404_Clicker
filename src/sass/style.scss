@@ -176,6 +176,95 @@
   }
 }
 
+/*------------------
+   Présentation section
+   ---------------------*/
+   .example-wrapper-presentation{ 
+    margin: 1em auto;
+    h1{
+      text-align: center;
+     }
+    p{
+      margin-left: 1rem;
+      margin-right: 1rem;
+      font-size: 1.56rem;
+     }
+     .imagespresentation{
+      margin: 2rem auto;
+      text-align: center;
+    }
+    img{
+      margin-left: 4rem;
+      margin-bottom: 1rem;
+    }
+    ul {
+      margin-bottom: 0rem;
+      padding-left: 1rem;
+      list-style: none;
+       li {
+        font-family: 'EB Garamond', serif;
+        font-size: 1.56rem;
+       }
+    }
+  }
+
+/*----------------------
+   Plan Section
+ ------------------------*/
+ .example-wrapper-plan{ 
+  margin: 1rem auto; 
+  h1 {
+    font-family: "Press Start 2P", cursive;
+    text-align: center;
+  }
+  p{
+    font-weight: bold; 
+    text-align: center;
+    font-size: 1.56rem;
+  }  
+}
+
+.none_connected{
+  margin-top: 6rem;
+  ul{
+    list-style: none;
+    padding-left: 0;
+    li{
+      text-align: center;
+    a{
+      font-family: "EB Garamond", serif;
+      font-size: 1.56rem;
+      color: $color2;
+      &:hover{
+        text-decoration: none;
+        color: $color3;
+      }
+    }
+  }
+  }
+}
+
+.connected{
+  margin-top: 6rem;
+  ul{
+    list-style: none;
+    padding-left: 0;
+    text-align: center;
+    li{
+    a{
+      font-family: "EB Garamond", serif;
+      font-size: 1.56rem;
+      color: $color2;
+      &:hover{
+        text-decoration: none;
+        color: $color3;
+      }
+    }
+  }
+  }
+}
+
+
  /*----------------------
    Footer Section
  ------------------------*/
