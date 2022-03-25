@@ -19,7 +19,6 @@
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
-<<<<<<< HEAD
 .vscode
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
@@ -27,12 +26,3 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
-=======
-.vscode
-###> symfony/webpack-encore-bundle ###
-/node_modules/
-/public/build/
-npm-debug.log
-yarn-error.log
-###< symfony/webpack-encore-bundle ###
->>>>>>> 5638a6dfc10f70aa16330329abe8f4961558458d
