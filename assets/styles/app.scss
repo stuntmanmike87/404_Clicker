@@ -1,0 +1,363 @@
+/* =================================
+------------------------------------
+  Game Warrior Template
+  Version: 1.0
+ ------------------------------------ 
+ ====================================*/
+/* Import bootstrap */
+@import '~bootstrap';
+
+ /*----------------------------------------*/
+ /* Template default CSS
+ /*----------------------------------------*/
+ $color1: #d473d4;
+ $color2: #303030;
+ $color3: #F5F5F5;
+ $color4: #77b5fe;
+
+ html,
+ body {
+   min-height: 100vh;
+   font-family: 'Roboto', sans-serif;
+   -webkit-font-smoothing: antialiased;
+   background-image: url("../images/background_404.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: bottom;
+   position: relative;
+   h1{
+    font-family: 'Press Start 2P', cursive;
+   }
+   p{
+    font-family: 'EB Garamond', serif;
+   }
+  }
+
+ /*------------------
+   Header section
+ ---------------------*/
+ .header-section {
+   position: relative;
+   background: $color3;
+   clear: both;
+   overflow: hidden;
+   padding: 18px 0;
+   border-bottom: 1px solid $color1;
+   .container{
+    width: 100%;
+   }
+ }
+ .site-logo {
+   float: left;
+   right: 0;   
+ }
+ 
+ .site-logo img{
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 0;
+  bottom: 0;
+  left:0;
+  right: 300;
+ }
+
+ .button{
+  position: absolute;
+  right: 0;
+ }
+
+ .user-panel {
+   float: right;
+   font-weight: 500;
+   background: $color1;
+   padding: 8px 28px;
+   border-radius: 15px;
+   a {
+    font-family: 'EB Garamond', serif;
+     font-size: 14px;
+     color: $color2;
+   }
+   &:hover{
+     a{
+      text-decoration: none;
+      color: $color3;
+    }
+     background: $color4;  
+   }
+ }
+
+ .main-menu {
+   float:inherit;
+   text-align: center;
+   ul {
+    margin-bottom: 0rem;
+     padding-left: 0px;
+     list-style: none;
+     li {
+       display: inline;
+       a {
+        font-family: 'Sansita Swashed', cursive;
+         display: inline-block;
+         font-size: 16px;
+         color: $color2;
+         font-weight: 500;
+         padding:10px 5px;
+         &:hover {
+          color: $color1 ;
+          text-decoration: none;
+        }
+      }
+     }
+   }
+ }
+ 
+ .header-btn {
+   float: right;
+   margin-right: 0;
+ }
+ 
+ .nav-switch {
+   display: none;
+ }
+
+ /*----------------------
+  Page d'accueil
+------------------------*/
+.home-wrapper {
+  margin: 1em auto;
+  h1{
+    text-align: center;
+   }
+  p{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-size: 1.56rem;
+    text-align: justify;
+    margin-bottom: 0;
+   }
+   .text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .text-container a {
+    text-decoration: none; 
+  }
+  
+  .home-wrapper-text { 
+    text-align: justify;
+    list-style: none;
+    text-decoration: none; 
+    font-family: 'EB Garamond', serif;
+    font-size: 1.2rem;
+  }
+  
+  .home-wrapper-text li > span {
+    color: $color2;
+    font-weight: bold;
+  }
+  a strong {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.56rem;
+    color: $color2;
+    display: block;
+    &:hover{
+      a{
+      color: $color3;
+      }
+      color: $color3;  
+    }
+  }
+  .image-container {
+    margin: 1rem auto 0;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/*------------------
+   Présentation section
+   ---------------------*/
+   .example-wrapper-presentation{ 
+    margin: 1em auto;
+    h1{
+      text-align: center;
+     }
+    p{
+      margin-left: 1rem;
+      margin-right: 1rem;
+      font-size: 1.56rem;
+     }
+     .imagespresentation{
+      margin: 2rem auto;
+      text-align: center;
+    }
+    img{
+      margin-left: 4rem;
+      margin-bottom: 1rem;
+    }
+    ul {
+      margin-bottom: 0rem;
+      padding-left: 1rem;
+      list-style: none;
+       li {
+        font-family: 'EB Garamond', serif;
+        font-size: 1.56rem;
+       }
+    }
+  }
+
+/*----------------------
+   Plan Section
+ ------------------------*/
+ .example-wrapper-plan{ 
+  margin: 1rem auto; 
+  h1 {
+    font-family: "Press Start 2P", cursive;
+    text-align: center;
+  }
+  p{
+    font-weight: bold; 
+    text-align: center;
+    font-size: 1.56rem;
+  }  
+}
+
+.none_connected{
+  margin-top: 4rem;
+  ul{
+    list-style: none;
+    padding-left: 0;
+    li{
+      text-align: center;
+    a{
+      font-family: "EB Garamond", serif;
+      font-size: 1.56rem;
+      color: $color2;
+      &:hover{
+        text-decoration: none;
+        color: $color3;
+      }
+    }
+  }
+  }
+}
+
+.connected{
+  margin-top: 4rem;
+  ul{
+    list-style: none;
+    padding-left: 0;
+    text-align: center;
+    li{
+    a{
+      font-family: "EB Garamond", serif;
+      font-size: 1.56rem;
+      color: $color2;
+      &:hover{
+        text-decoration: none;
+        color: $color3;
+      }
+    }
+  }
+  }
+}
+
+
+ /*----------------------
+   Footer Section
+ ------------------------*/
+ .footer-section{
+  background: $color3;
+   padding: 8px 0 4px;
+   overflow: hidden;
+   position: absolute;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   border-top: 1px solid $color4;
+ }
+ .footer-menu {
+   font-family: 'Sansita Swashed', cursive;
+   padding-left: 0rem;
+   margin-bottom: 0px;
+   text-align: center;
+   list-style: none;
+   li{
+     display: inline;
+     a{
+       display: inline-block;
+       font-size: 14px;
+       font-weight: 500;
+       color: $color2;
+       margin-left: 30px;
+       &:hover{
+        text-decoration: none;
+        color: $color4;
+       }
+     }
+   }
+ }
+ 
+ /* Media queries */
+ @media screen and (max-width: 630px) {
+   .home-wrapper .text-container a {
+     text-align: center;
+   }
+ }
+ @media screen and (max-width: 768px) {
+  .user-panel {
+    padding: 5px 5px;
+  }
+ }
+
+ @media screen and (max-width: 1200px) {
+   body {
+    height: auto;
+    .home-wrapper p {
+      font-size: 1.2rem;
+    }
+    .main-menu {
+      padding-right: 4.6875rem;
+    }
+    .home-wrapper .image-container {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }  
+    .footer-section {
+      position: static; 
+    }
+   }  
+}
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+
+ /*---------------------
+   Mentions section
+  ----------------------*/
+  .example-wrapper-mentions{
+    overflow:scroll;
+    h1,h2{
+      text-align: center;
+    }
+    p{
+     margin-left: 1rem;
+     margin-right: 1rem;
+     font-size: 20px;
+    }
+  }
+  
+
+ 
+ 
+ 
