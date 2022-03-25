@@ -4,6 +4,8 @@
   Version: 1.0
  ------------------------------------ 
  ====================================*/
+/* Import bootstrap */
+@import '~bootstrap';
 
  /*----------------------------------------*/
  /* Template default CSS
@@ -28,6 +30,9 @@
    }
    p{
     font-family: 'EB Garamond', serif;
+   }
+   a{
+     text-decoration: none;
    }
   }
 
@@ -225,7 +230,7 @@
 }
 
 .none_connected{
-  margin-top: 6rem;
+  margin-top: 4rem;
   ul{
     list-style: none;
     padding-left: 0;
@@ -245,7 +250,7 @@
 }
 
 .connected{
-  margin-top: 6rem;
+  margin-top: 4rem;
   ul{
     list-style: none;
     padding-left: 0;
