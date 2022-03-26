@@ -12,3 +12,6 @@ import 'bootstrap';
 
 // start the Stimulus application
 import './bootstrap';
+
+// import jQuery to use Bootstrap JS
+import $ from 'jquery';
