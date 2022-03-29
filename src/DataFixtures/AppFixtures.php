@@ -26,13 +26,11 @@ class AppFixtures extends Fixture
 
         $date = new DateTimeImmutable('now');
 
-        $user->setUsername('toto');
+        $user->setUsername('test');
         $user->setEmail('test@test.com');
         $user->setPassword($this->hasher->hashPassword($user, $password));
         $user->setRoles(['ROLE_USER']);
         $user->setPoints(10);
-        $user->setCreatedAt($date);
-        $user->setUpdatedAt($date);
 
         $manager->persist($user);
 
