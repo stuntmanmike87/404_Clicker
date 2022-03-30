@@ -66,6 +66,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $tokenDateValid;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="idUser")
+     */
+    private $level;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -225,6 +230,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTokenDateValid(?\DateTimeInterface $tokenDateValid): self
     {
         $this->tokenDateValid = $tokenDateValid;
+
+        return $this;
+    }
+
+    public function getLevel(): ?Level
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?Level $level): self
+    {
+        $this->level = $level;
 
         return $this;
     }
