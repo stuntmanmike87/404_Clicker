@@ -19,8 +19,17 @@
     <div class="hud">
         <p>username</p>
         <p>nom du level</p>
-        <p>nombre de points</p>
+        <div id="score">
+        <p> Le nombre d'erreur(s) est de 0 </p>
+        </div>
     </div>
-    <img src="{{asset('build/images/404.png')}}" alt="">
+    <div id="image">
+        <img src="{{asset('build/images/404.png')}}" alt="">
+    </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {# Appel au fichier assets/js/fichier.js #}
+    {{ encore_entry_script_tags('jouer') }}
 {% endblock %}
