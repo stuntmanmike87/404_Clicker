@@ -435,6 +435,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    /*flex-wrap: wrap;
+    align-content: center;*/
     .form-field {
      margin-top: 0.5rem;
      width: calc(100% - 2rem);

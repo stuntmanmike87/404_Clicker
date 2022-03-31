@@ -4,13 +4,12 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @ORM\HasLifecycleCallbacks
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -58,9 +57,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $isVerified = false;
+    private $token;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $tokenDateValid;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="idUser")
+     */
+    private $level;
 
     public function getId(): ?int
     {
@@ -175,9 +184,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTimeImmutable;
 
         return $this;
     }
@@ -187,21 +199,49 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAt(): self
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTimeImmutable;
 
         return $this;
     }
 
-    public function isVerified(): bool
+    public function getToken(): ?string
     {
-        return $this->isVerified;
+        return $this->token;
     }
 
-    public function setIsVerified(bool $isVerified): self
+    public function setToken(?string $token): self
     {
-        $this->isVerified = $isVerified;
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function getTokenDateValid(): ?\DateTimeInterface
+    {
+        return $this->tokenDateValid;
+    }
+
+    public function setTokenDateValid(?\DateTimeInterface $tokenDateValid): self
+    {
+        $this->tokenDateValid = $tokenDateValid;
+
+        return $this;
+    }
+
+    public function getLevel(): ?Level
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?Level $level): self
+    {
+        $this->level = $level;
 
         return $this;
     }
