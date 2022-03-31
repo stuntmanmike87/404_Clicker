@@ -18,6 +18,7 @@ window.onload = () => {
         Game.scoreJS = Game.scoreJS + Game.incrementeur;
         score.innerHTML = "<p>Le nombre d'erreur(s) est de \n" + Game.scoreJS + "</p>";
 		localStorage.getItem(Game.scoreJS);
+		console.log(localStorage.getItem(Game.scoreJS));
     })
 	/*=====================================================================================
 	PASSAGE DES LEVELS
