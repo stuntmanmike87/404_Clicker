@@ -9,9 +9,9 @@
             <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">Position</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Points</th>
+                    <th class="table-title" scope="col">Position</th>
+                    <th class="table-title" scope="col">Username</th>
+                    <th class="table-title" scope="col">Points</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -19,7 +19,7 @@
                     {# Increments default number to show the position in the classement #}
                     {% set position = (position | default(0)) + 1 %}
                   <tr>
-                    <th scope="row">{{ position }}</th>
+                    <td scope="row">{{ position }}</td>
                     <td>{{ user.username }}</td>
                     <td>{{ user.points }}</td>
                   </tr>
