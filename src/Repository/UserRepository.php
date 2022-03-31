@@ -62,6 +62,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    /**
+     * Get user by DESC number of points
+     *
+     * @param integer $limit
+     * @return User[] Returns an array of User objects
+     */
+    public function findByPointsDesc($limit=3)
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.points', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
