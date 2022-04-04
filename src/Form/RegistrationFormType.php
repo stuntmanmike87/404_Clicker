@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -21,39 +23,38 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class)
             ->add('username', TextType::class)
-            ->add('agreeTerms', CheckboxType::class, [
+            /* ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Consentir à nos termes.',
                     ]),
                 ],
-            ])
-            ->add('password', RepeatedType::class, [
+            ]) */
+            ->add('plainPassword', RepeatedType::class, [//'password'
                 'type' => PasswordType::class,
-
-                    // instead of being set onto the object directly,
-                    // this is read and encoded in the controller
-                    'mapped' => false,
-                    'attr' => ['autocomplete' => 'new-password'],
-                    'constraints' => [
-                        new NotBlank([
-                            'message' => 'Entrer votre mot de passe',
-                        ]),
-                        new Length([
-                            'min' => 6,
-                            'minMessage' => 'Votre mot de passe doit comporter au minimum {{ limit }} caractères',
-                            // max length allowed by Symfony for security reasons
-                            'max' => 4096,
-                        ]),
-                    ],
-
-                'invalid_message' => 'Le mot de passe doit correspondre.',
-                'options' => ['attr' => ['class' => 'password-field']],
+                // instead of being set onto the object directly, this is read and encoded in the controller
+                'mapped' => false,
+                //'attr' => ['autocomplete' => 'new-password'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Entrer votre mot de passe',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Votre mot de passe doit comporter au minimum {{ limit }} caractères',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
+                //'invalid_message' => 'Les mots de passe doivent correspondre.',
+                //'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
+                'invalid_message' => 'Les mots de passe doivent correspondre.',
             ])
+            ->add('register', SubmitType::class)
         ;
     }
 

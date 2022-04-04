@@ -67,6 +67,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $tokenDateValid;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="idUser")
      */
     private $level;
@@ -242,6 +247,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLevel(?Level $level): self
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

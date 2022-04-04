@@ -31,7 +31,9 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        $user = new User();$level = new Level();
+        $user = new User();
+        $level = new Level();
+        
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -45,12 +47,12 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $user->setUsername('Email Bot');
-            $user->setEmail('mail@your-mail.com');
+            //$user->setUsername('Email Bot');
+            //$user->setEmail('mail@your-mail.com');
             //$user->setRoles(['ROLE_USER']);
             $user->setPoints(0);
-            //$level->setNomLevel('conception');
-            $user->setLevel($level->setNomLevel('conception'));
+            $user->setLevel($level->getNomLevel('conception'));
+            $user->setIsVerified(false);
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -70,7 +72,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-        ]);
+        ]);//var_dump($user);
     }
 
     /**

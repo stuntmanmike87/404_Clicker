@@ -50,8 +50,8 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // For example:
-        return new RedirectResponse($this->urlGenerator->generate('inscription'));
-        throw new \Exception('Fournir ici une redirection valide '.__FILE__);//TODO: provide a valid redirect inside 
+        return new RedirectResponse($this->urlGenerator->generate('home'));
+        //throw new \Exception('Fournir ici une redirection valide '.__FILE__);//TODO: provide a valid redirect inside 
     }
 
     protected function getLoginUrl(Request $request): string
