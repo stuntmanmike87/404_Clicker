@@ -8,7 +8,7 @@ window.onload = () => {
         image : document.getElementById("image"),
         scoreJS : 0,
         incrementeur: 1,
-		url: "http://localhost:1234",
+		url: "http://localhost:1234/",
     }
 	/*=====================================================================================
 	VERIF DES POINTS USER
@@ -26,11 +26,13 @@ window.onload = () => {
 		let score1 = localStorage.getItem("score");
 		console.log(score1);
 
-        score.innerHTML = "<p>Le nombre d'erreur(s) est de \n" + Game.scoreJS + "</p>";
+        Game.score.innerHTML = "<p>Le nombre d'erreur(s) est de \n" + Game.scoreJS + "</p>";
 
 		// https://blog.logrocket.com/using-axios-set-request-headers/
-		function sendData($data) {
-			axios.post(Game.url, $data)
+		function sendData(data) {
+			axios.post(Game.url, {
+				data: data
+			})
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 

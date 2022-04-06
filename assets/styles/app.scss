@@ -178,6 +178,10 @@
     text-align: center;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    img {
+    border: 5px solid $color3;
+    width: 330px;
+  }
   }
 }
 
@@ -457,7 +461,10 @@
     .home-wrapper .image-container {
       grid-template-columns: 1fr;
       gap: 1rem;
-    }  
+      .image-content img {
+        width: 400px;
+      } 
+    } 
     .footer-section {
       position: static; 
     }
