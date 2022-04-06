@@ -386,10 +386,10 @@
     #image img {
       position: relative;
     }
-    #image img:hover {
+    #image:hover {
       transform: scale(1.10);
     }
-    #image img:active {
+    #image:active {
       transform: scale(0.99);
     }
     img{
