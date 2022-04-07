@@ -29,10 +29,4 @@ class AxiosController extends AbstractController
         return new JsonResponse(["message" => "ajout des points dans la BDD"], 200);
     }
 
-    /**
-     * @Route("/load_axios", name="app_load_axios")
-     */
-    public function load(){
-
-    }
 }
