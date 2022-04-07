@@ -6,7 +6,7 @@ let game = {
 	saveButton: document.querySelector('.savePoints'),
     scoreJS : 0,
     incrementeur: 1,
-	url: "http://localhost:1234/axios",
+	url: "http://localhost:1234/save_axios",
 
 	init: function() {
 		game.image.addEventListener("click", game.handleClick);

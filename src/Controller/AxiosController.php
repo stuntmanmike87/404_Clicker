@@ -12,9 +12,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AxiosController extends AbstractController
 {
     /**
-     * @Route("/axios", name="app_axios")
+     * @Route("/save_axios", name="app_save_axios")
      */
-    public function index(Request $request, UserRepository $userRepository): Response
+    public function save(Request $request, UserRepository $userRepository): Response
     {
         // Récupère la donnée envoyé par le front
         $data = json_decode($request->getContent(), true);
@@ -26,6 +26,13 @@ class AxiosController extends AbstractController
             $points = $data["points"];
             $userRepository->insertPoints($points , $user);
         }
-        return new JsonResponse(["message" => "ok"], 200);
+        return new JsonResponse(["message" => "ajout des points dans la BDD"], 200);
+    }
+
+    /**
+     * @Route("/load_axios", name="app_load_axios")
+     */
+    public function load(){
+
     }
 }
