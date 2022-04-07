@@ -68,13 +68,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * @param [type] $points
      * @return void
      */
-    public function insertPoints($points) {
-        $user = new User();
+    public function insertPoints($points , $user) {
         
-        $user->setUsername('test6');
-        $user->setEmail('test6@test.com');
         $user->setPoints($points);
-        $user->setPassword('password');
 
         $this->_em->persist($user);
         $this->_em->flush();

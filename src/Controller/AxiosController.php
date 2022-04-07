@@ -22,8 +22,9 @@ class AxiosController extends AbstractController
         
         // Vérifie si la clé "points" existe
         if (isset($data["points"])) {
+            $user = $this->getUser();
             $points = $data["points"];
-            $userRepository->insertPoints($points);
+            $userRepository->insertPoints($points , $user);
         }
         return new JsonResponse(["message" => "ok"], 200);
     }
