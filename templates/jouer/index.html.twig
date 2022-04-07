@@ -19,7 +19,8 @@
     <div class="hud">
         <p>{{app.user.username}}</p>
         <p>nom du level</p>
-        <div id="score">
+        {# Passage d'un data- attribut pour récupérer les points dans JS #}
+        <div id="score" data-user-points="{{ app.user.points }}">
         <p> Le nombre d'erreur(s) est de {{app.user.points}} </p>
         </div>
     </div>

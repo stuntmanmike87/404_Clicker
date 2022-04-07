@@ -4,7 +4,7 @@ let game = {
 	score : document.getElementById("score"),
     image : document.getElementById("image"),
 	saveButton: document.querySelector('.savePoints'),
-    scoreJS : 0,
+	scoreJS: parseFloat(score.dataset.userPoints),
     incrementeur: 1,
 	url: "http://localhost:1234/save_axios",
 
@@ -26,9 +26,6 @@ let game = {
 		var score = game.scoreJS;
 		// https://stackoverflow.com/questions/47817325/storing-my-game-score-in-local-storage
 		localStorage.setItem("points", JSON.stringify(score));
-		// console.log(score);
-
-		// game.loadGame();
 	},
 
 	loadGame: function () {
