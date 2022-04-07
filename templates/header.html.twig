@@ -5,21 +5,35 @@
 			<img src="{{ asset('build/images/logo.png') }}" alt="">
 		</a>
 		<div class="button">
-		<div class="user-panel">
-			<a href="#">Connexion</a>
+			{% if app.user is null  %}
+				<div class="user-panel">
+					<a href="{{ path('app_login')}}">Connexion</a>
+				</div>
+        		<div class="user-panel">
+            		<a href="{{ path('inscription')}}">Inscription</a>{# 'app_register' #}
+        		</div>
+			{% else %}
+				<div class="user-panel">
+					<a href="{{ path('app_logout')}}">Déconnexion</a>
+				</div>
+			{% endif %}
 		</div>
-        <div class="user-panel">
-            <a href="#">Inscription</a>
-        </div>
 	</div>
 
 	<!-- site menu -->
 	<nav class="main-menu">
-		<ul>
-			<li><a href="{{path('presentation')}}">Présentation</a></li>
-			<li><a href="categories.html">Classement</a></li>
-			<!--<li><a href="community.html">Forums</a></li>
-			<li><a href="contact.html">Contact</a></li>-->
-		</ul>
+		{% if app.user is null  %}
+			<ul>
+				<li><a href="{{path('presentation')}}">Présentation</a></li>
+				<li><a href="#">Classement</a></li>
+			</ul>
+		{% else %}
+			<ul>
+				<li><a href="{{path('jouer')}}">Jouer</a></li>
+				<li><a href="#">Profil</a></li>
+				<li><a href="{{path('presentation')}}">Présentation</a></li>
+				<li><a href="#">Classement</a></li>
+			</ul>
+		{% endif %}
 	</nav>
 </header>

@@ -3,74 +3,89 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    {# {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %} #}
-
-    <h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
 
     <div class="form-container">
-
-    {{ form_start(registrationForm) }}
-
-    {# <h1 class="h3 mb-3 font-weight-normal">Inscription</h1> #}
- 
-        <div class="form-content">
+    
+        {{ form_start(registrationForm) }}
         
-        <div class="form-field">
-        {{ form_row(registrationForm.username) }}
-        </div>
+            <div class="form-content">
+                {% for flash_error in app.flashes('verify_email_error') %}
+                    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                {% endfor %}
+            </div>
 
-        <div class="form-field">
-        {{ form_row(registrationForm.email) }}
-        </div>
+            <div class="form-content">
+                <h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
+            </div>
 
-        </div>
+            <div class="form-content">
+            
+                <div class="form-field">
+                    {{ form_label(registrationForm.username, 'Nom d\'utilisateur') }}
+                </div>
+                <div class="form-field">
+                    {{ form_widget(registrationForm.username) }}
+                </div>
 
-        <div class="form-content">
+                <div class="form-field">
+                    {{ form_label(registrationForm.email, 'Adresse e-mail') }}
+                </div>
+                 <div class="form-field">
+                    {{ form_widget(registrationForm.email) }}
+                </div>
 
-        <div class="form-field">
-        {{ form_row(registrationForm.plainPassword.first, {
-            label: 'Password'
-        }) }}
-        </div>
+            </div>
 
-        <div class="form-field">
-        {{ form_row(registrationForm.plainPassword.second, {
-            label: 'Password'
-        }) }}
-        </div>
+            <div class="form-content">
 
-        {# <div class="form-field"> #}
-        {# {{ form_row(form.plainPassword.first) }} #}
-        {# </div> #}
+                <div class="form-field">
+                    {{ form_label(registrationForm.plainPassword.first, 'Mot de passe') }}
+                </div>
+                <div class="form-field">
+                    {{ form_widget(registrationForm.plainPassword.first) }}
+                </div>
 
-        </div>
+                <div class="form-field">
+                    {{ form_label(registrationForm.plainPassword.second, 'Confirmer le mot de passe') }}
+                </div>
+                <div class="form-field">
+                    {{ form_widget(registrationForm.plainPassword.second) }}
+                </div>
 
-        {# <div class="form-field"> #}
-        {# {{ form_row(form.plainPassword.second) }} #}
-        {# </div> #}
+            </div>
 
-        {# <div class="form-content"> #}
-        {# <div class="form-field">
-        {{ form_row(registrationForm.agreeTerms) }}
-        </div> #}
-        {# </div> #}
-        
-        {# <div class="checkbox mb-3"> #}
+            {# <div class="form-content">
 
-        {# <div class="form-links">
-        
-        <button type="submit" class="btn">Inscription</button>
+                <div class="form-field">
+                    {{ form_row(registrationForm.plainPassword.first, {label: 'Mot de passe'}) }}
+                </div>
 
-        </div> #}
+                <div class="form-field">
+                    {{ form_row(registrationForm.plainPassword.second, {label: 'Confirmer le mot de passe'}) }}
+                </div>
 
-        <div class="form-field">
-        {{ form_row(registrationForm.register) }}
-        </div>
+            </div> #}
 
-        {# </div> #}
-    {{ form_end(registrationForm) }}
+            {# <div class="form-content">
+                <div class="form-field">
+                    {{ form_row(registrationForm.agreeTerms) }}
+                </div>
+            </div>
+            <div class="checkbox mb-3"> #}
+
+            {# <div class="form-content"> #}
+                {# <div class="form-links"> #}
+                    <button type="submit" class="btn btn-lg">Inscription</button>
+                {# </div> #}
+            {# </div> #}
+
+            {# <div class="form-content">
+                <div class="form-field">
+                    {{ form_row(registrationForm.register) }}
+                </div>
+            </div> #}
+
+        {{ form_end(registrationForm) }}
 
     </div>
     

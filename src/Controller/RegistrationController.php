@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Level;
+use App\DataFixtures\LevelFixtures;
+
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +18,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -31,6 +34,10 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        if($this->getUser()){
+            return $this->render('home/index.html.twig');
+        }
+        
         $user = new User();
         $level = new Level();
         
@@ -47,11 +54,9 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            //$user->setUsername('Email Bot');
-            //$user->setEmail('mail@your-mail.com');
-            //$user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_USER']);
             $user->setPoints(0);
-            $user->setLevel($level->getNomLevel('conception'));
+            $level->setMaxPoints(0);
             $user->setIsVerified(false);
 
             $entityManager->persist($user);
@@ -88,7 +93,7 @@ class RegistrationController extends AbstractController
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
 
-            return $this->redirectToRoute('inscription');
+            return $this->redirectToRoute('home');//'inscription'
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
@@ -96,4 +101,37 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('inscription');
     }
+
+    /**
+     * @Route("/verifyMyEmail", name="app_verify_my_email")
+     */
+    /* public function newVerificationEmail(Request $request, User $user): Response
+    {
+        if($this->getUser()->getIsVerified()){
+            return $this->render('home/index.html.twig');
+            $this->addFlash('success', 'Votre adresse email a bien été vérifiée.');
+        }else{
+            return $this->render('registration/verify_my_email.html.twig');
+        }
+    } */
+
+    /**
+     * @Route("/newVerificationEmailUser", name="app_new_verification_email_user")
+     */
+    /* public function sendNewVerificationEmail(Request $request): Response
+    {
+        if($this->getUser() && !$this->getUser()->isVerified()){
+            $user = $this->getUser();
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            (new TemplatedEmail())
+                ->from(new Address('mail@your-mail.com', 'Email Bot'))
+                ->to($user->getEmail())
+                ->subject('Veuillez confirmer votre adresse mail')
+                ->htmlTemplate('registration/confirmation_email.html.twig')
+            );
+            return $this->render('registration/check_email.html.twig');
+        }else{
+            return $this->redirectToRoute('inscription');
+        }
+    } */
 }
