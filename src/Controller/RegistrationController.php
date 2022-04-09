@@ -39,7 +39,6 @@ class RegistrationController extends AbstractController
         }
         
         $user = new User();
-        $level = new Level();
         
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -56,8 +55,9 @@ class RegistrationController extends AbstractController
 
             $user->setRoles(['ROLE_USER']);
             $user->setPoints(0);
-            $level->setMaxPoints(0);
             $user->setIsVerified(false);
+            $level = $this->getDoctrine()->getRepository(Level::class)->find(1);
+            $user->setLevel($level);
 
             $entityManager->persist($user);
             $entityManager->flush();
