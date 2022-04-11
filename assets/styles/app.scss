@@ -213,6 +213,37 @@
     }
   }
 
+  /*----------------------
+  Classement Section
+------------------------*/
+.classement-wrapper {
+  height: 81vh;
+  display: flex;
+  justify-content: center;
+  margin: 1rem auto;
+  .classement-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    min-width: 350px;
+    height: 100%;
+  .table.table-bordered {
+    border: 1px solid $color2;
+    margin-top: 1rem;
+    .table-title {
+      font-weight: bold;
+    }
+    tr > th, tr > td {
+      text-align: center;
+      font-family: "EB Garamond", serif;
+      font-size: 1.2rem;
+    }
+  }
+  }
+}
+
 /*----------------------
    Plan Section
  ------------------------*/

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220331203131 extends AbstractMigration
+final class Version20220330122650 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,9 +21,8 @@ final class Version20220331203131 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE level (id INT AUTO_INCREMENT NOT NULL, max_points DOUBLE PRECISION NOT NULL, path_img VARCHAR(255) NOT NULL, nom_level VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE user ADD level_id INT DEFAULT NULL, ADD token VARCHAR(255) DEFAULT NULL, ADD token_date_valid DATETIME DEFAULT NULL, DROP is_verified');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, level_id INT DEFAULT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, points DOUBLE PRECISION DEFAULT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', updated_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', token VARCHAR(255) DEFAULT NULL, token_date_valid DATETIME DEFAULT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), INDEX IDX_8D93D6495FB14BA7 (level_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D6495FB14BA7 FOREIGN KEY (level_id) REFERENCES level (id)');
-        $this->addSql('CREATE INDEX IDX_8D93D6495FB14BA7 ON user (level_id)');
     }
 
     public function down(Schema $schema): void
@@ -31,7 +30,6 @@ final class Version20220331203131 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D6495FB14BA7');
         $this->addSql('DROP TABLE level');
-        $this->addSql('DROP INDEX IDX_8D93D6495FB14BA7 ON user');
-        $this->addSql('ALTER TABLE user ADD is_verified TINYINT(1) NOT NULL, DROP level_id, DROP token, DROP token_date_valid');
+        $this->addSql('DROP TABLE user');
     }
 }
