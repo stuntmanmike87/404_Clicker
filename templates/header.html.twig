@@ -10,7 +10,7 @@
 					<a href="{{ path('app_login')}}">Connexion</a>
 				</div>
         		<div class="user-panel">
-            		<a href="#">Inscription</a>
+            		<a href="{{ path('inscription')}}">Inscription</a>{# 'app_register' #}
         		</div>
 			{% else %}
 				<div class="user-panel">
@@ -25,14 +25,14 @@
 		{% if app.user is null  %}
 			<ul>
 				<li><a href="{{path('presentation')}}">Présentation</a></li>
-				<li><a href="#">Classement</a></li>
+				<li><a href="{{path('classement')}}">Classement</a></li>
 			</ul>
 		{% else %}
 			<ul>
 				<li><a href="{{path('jouer')}}">Jouer</a></li>
 				<li><a href="#">Profil</a></li>
 				<li><a href="{{path('presentation')}}">Présentation</a></li>
-				<li><a href="#">Classement</a></li>
+				<li><a href="{{path('classement')}}">Classement</a></li>
 			</ul>
 		{% endif %}
 	</nav>
