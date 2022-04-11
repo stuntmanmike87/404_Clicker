@@ -63,7 +63,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * Get user by DESC number of points
+     * Insert points into points's field
+     *
+     * @param [type] $points
+     * @return void
+     */
+    public function insertPoints($points , $user) {
+        
+        $user->setPoints($points);
+
+        $this->_em->persist($user);
+        $this->_em->flush();
+    }
+     /* Get user by DESC number of points
      *
      * @param integer $limit
      * @return User[] Returns an array of User objects

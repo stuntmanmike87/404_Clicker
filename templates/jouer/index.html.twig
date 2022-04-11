@@ -17,15 +17,17 @@
 
 <div class="example-wrapper-jouer">
     <div class="hud">
-        <p>username</p>
+        <p>{{app.user.username}}</p>
         <p>nom du level</p>
-        <div id="score">
-        <p> Le nombre d'erreur(s) est de 0 </p>
+        {# Passage d'un data- attribut pour récupérer les points dans JS #}
+        <div id="score" data-user-points="{{ app.user.points }}">
+        <p> Le nombre d'erreur(s) est de {{app.user.points}} </p>
         </div>
     </div>
-    <div id="image">
-        <img src="{{asset('build/images/404.png')}}" alt="">
+    <div>
+        <img id="image" src="{{asset('build/images/404.png')}}" alt="">
     </div>
+    <button class="savePoints" type="submit">Sauvegardez les points</button>
 </div>
 {% endblock %}
 
