@@ -25,6 +25,7 @@ class AxiosController extends AbstractController
             $user = $this->getUser();
             $points = $data["points"];
             $userRepository->insertPoints($points , $user);
+            $userRepository->setLevelByNumberOfPoints($points, $user);
         }
         return new JsonResponse(["message" => "ajout des points dans la BDD"], 200);
     }

@@ -6,20 +6,26 @@ let game = {
 	saveButton: document.querySelector('.savePoints'),
 	scoreJS: parseFloat(score.dataset.userPoints),
     incrementeur: 1,
+	changeLevelScore: 100,
 	url: "http://localhost:1234/save_axios",
 
 	init: function() {
 		game.image.addEventListener("click", game.handleClick);
 		game.saveButton.addEventListener("click", game.loadGame);
-		console.log(game.saveButton);
+		// console.log(game.saveButton);
 	},
 
 	handleClick: function() {
 		game.scoreJS = game.scoreJS + game.incrementeur;
 		
-		game.score.innerHTML = "<p>Le nombre d'erreur(s) est de \n" + game.scoreJS + "</p>";	
+		game.score.innerHTML = "<p>Le nombre d'erreur(s) est de \n" + game.scoreJS + "</p>";
+		
+		if (game.scoreJS === game.changeLevelScore) {
+			// console.log('Changement de niveau');
+			game.postData(game.scoreJS);
+		}
 
-		game.saveGame();
+		// game.saveGame();
 	},
 
 	saveGame: function() {
