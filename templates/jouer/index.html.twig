@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jouer!{% endblock %}
+
+{% block body %}
+
+<!--<div class="loader">
+    <div class="one"></div>
+    <div class="two"></div>
+    <div class="three"></div>
+    <div class="four"></div>
+    <div class="five"></div>
+    <div class="six"></div>
+    <div class="seven"></div>
+    <div class="eight"></div>
+</div>-->
+
+<div class="example-wrapper-jouer">
+    <div class="hud">
+        <p>{{app.user.username}}</p>
+        <p>nom du level</p>
+        {# Passage d'un data- attribut pour récupérer les points dans JS #}
+        <div id="score" data-user-points="{{ app.user.points }}">
+        <p> Le nombre d'erreur(s) est de {{app.user.points}} </p>
+        </div>
+    </div>
+    <div>
+        <img id="image" src="{{asset('build/images/404.png')}}" alt="">
+    </div>
+    <button class="savePoints" type="submit">Sauvegardez les points</button>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {# Appel au fichier assets/js/fichier.js #}
+    {{ encore_entry_script_tags('jouer') }}
+{% endblock %}
