@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Changement mot de passe{% endblock %}
+
+{% block body %}
+    <h1>Changement mot de passe</h1>
+
+    {{ include('user/_form.html.twig', {'button_label': 'Confirmer'}) }}
+
+    <a href="{{ path('app_user_show', {'id': user.id}) }}">Retour au profil</a>
+
+{% endblock %}
