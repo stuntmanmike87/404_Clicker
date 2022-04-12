@@ -66,6 +66,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $tokenDateValid;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="idUser")
+     */
+    private $level;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -94,7 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     * Gets the user's username
      */
     public function getUsername(): string
     {
@@ -228,4 +238,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getLevel(): ?Level
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?Level $level): self
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /* public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    } */
 }

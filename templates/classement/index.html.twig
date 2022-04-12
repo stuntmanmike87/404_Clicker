@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classement{% endblock %}
+
+{% block body %}
+    <section class="classement-wrapper">
+        <div class="classement-content">
+            <h1>Classement</h1>
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="table-title" scope="col">Position</th>
+                    <th class="table-title" scope="col">Username</th>
+                    <th class="table-title" scope="col">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for user in users %}
+                    {# Increments default number to show the position in the classement #}
+                    {% set position = (position | default(0)) + 1 %}
+                  <tr>
+                    <td scope="row">{{ position }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.points }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}
