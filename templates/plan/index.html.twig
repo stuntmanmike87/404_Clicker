@@ -25,8 +25,13 @@
             <li><a href="{{ path('home') }}">Accueil</a></li>
             <li><a href="{{ path('presentation') }}">Présentation</a></li>
             <li><a href="{{ path('classement') }}">Classement</a></li>
-            <li><a href="{{ path('jouer') }}">Jouer</a></li>
-            <li><a href="{{ path('app_user_show', {'id': app.user.id}) }}">Profil</a></li>
+            {% if app.user is null  %}
+                <li><a href="{{ path('app_login') }}">Jouer</a></li>
+                <li><a href="{{ path('app_login') }}">Profil</a></li>
+            {% else %}
+                <li><a href="{{ path('jouer') }}">Jouer</a></li>
+                <li><a href="{{ path('app_user_show', {'id': app.user.id} ) }}">Profil</a></li>
+            {% endif %}
         </ul> 
     </div>   
 </div>
