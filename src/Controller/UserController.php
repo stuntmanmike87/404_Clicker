@@ -52,6 +52,8 @@ class UserController extends AbstractController
             $user->setPassword($encodedPassword);
             $this->entityManager->flush();
 
+            // Destroy the currently active session.
+            session_destroy();
 
             return $this->redirectToRoute('app_login');
         }
