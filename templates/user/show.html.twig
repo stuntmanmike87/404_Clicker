@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User
+{% block title %}Profil
 {% endblock %}
 
 {% block body %}
@@ -23,7 +23,7 @@
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+	<a href="{{ path('app_user_edit', {'id': user.id}) }}">changer de mot de passe</a>
 
 	{{ include('user/_delete_form.html.twig') }}
 {% endblock %}
