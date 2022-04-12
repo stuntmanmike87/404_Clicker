@@ -73,6 +73,9 @@ class UserController extends AbstractController
             $userRepository->remove($user);
         }
 
-        return $this->redirectToRoute('app_user_show', [], Response::HTTP_SEE_OTHER);
+        // Destroy the currently active session.
+        session_destroy();
+
+        return $this->redirectToRoute('home');
     }
 }
