@@ -116,6 +116,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
+    public function findByPoints()
+    {
+        return $this->createQueryBuilder('u')
+            //->andWhere('u.isVerified = 1')
+            ->orderBy('u.points', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
