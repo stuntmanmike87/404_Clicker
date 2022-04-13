@@ -4,26 +4,28 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Profil</h1>
+<section class="profil-wrapper">
+    <h1>Profil</h1>
 
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Username</th>
-				<td>{{ user.username }}</td>
-			</tr>
-			<tr>
-				<th>Email</th>
-				<td>{{ user.email }}</td>
-			</tr>
-			<tr>
-				<th>Points</th>
-				<td>{{ user.points }}</td>
-			</tr>
-		</tbody>
-	</table>
+    <table class="table-profil">
+        <tbody>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Points</th>
+                <td>{{ user.points }}</td>
+            </tr>
+        </tbody>
+    </table>
 
-	<a href="{{ path('app_user_edit', {'id': user.id}) }}">changer de mot de passe</a>
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}">changer de mot de passe</a>
 
-	{{ include('user/_delete_form.html.twig') }}
+    {{ include('user/_delete_form.html.twig') }}
+</section>
 {% endblock %}
