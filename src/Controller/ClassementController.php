@@ -14,10 +14,9 @@ class ClassementController extends AbstractController
      */
     public function index(UserRepository $repository): Response
     {
-        $users = $repository->findByPointsDesc();
-
         return $this->render('classement/index.html.twig', [
-            'users' => $users,
+            //'points' => $points,
+            'users' => $repository->findByPoints(),
         ]);
     }
 }
