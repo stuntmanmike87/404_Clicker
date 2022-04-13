@@ -25,7 +25,23 @@
         </div>
     </div>
     <div>
-        <img id="image" src="{{asset('build/images/404.png')}}" alt="">
+        {% if app.user.points < 20 %} 
+        <img id="image" src="{{asset('build/images/level1_concept.png')}}" alt="Level concept">   
+        {% endif %}
+        
+        {% if app.user.points >= 20 and app.user.points < 50 %} 
+        <img id="image"
+        src="{{asset('build/images/level2_dev.png')}}" alt="Level dev">
+        {% endif %}
+
+        {% if app.user.points >= 50 and app.user.points < 100 %} 
+        <img id="image"
+        src="{{asset('build/images/level3_prod.png')}}" alt="Level production">
+        {% endif %}
+        
+        {% if app.user.points >= 100 %}
+        <img id="image" src="{{asset('build/images/404.png')}}" alt="Level 404">
+        {% endif %}
     </div>
     <button class="savePoints" type="submit">Sauvegardez les points</button>
 </div>
