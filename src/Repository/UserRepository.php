@@ -99,6 +99,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    public function ChangeLevel($user)
+    {
+        $changeLevelScore = 0;
+
+        if (isset($user)) {
+            if ($user->getPoints() < 20) {
+                return $changeLevelScore = 20;
+            }
+            if ($user->getPoints() >= 20 && $user->getPoints() < 50) {
+                return $changeLevelScore = 50;
+            }
+            if ($user->getPoints() >= 50 && $user->getPoints() < 100) {
+                return $changeLevelScore = 100;
+            }
+        }
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
