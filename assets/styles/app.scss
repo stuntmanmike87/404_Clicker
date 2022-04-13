@@ -657,13 +657,13 @@
 .profil-wrapper{
   text-align: center;
   .table-profil{
-    padding-top: 2rem;
+    margin-top: 2rem;
     border:3px solid $color4;
     border-collapse:collapse;
     width:90%;
     margin:auto;
   }
-
+  
   thead, tfoot {
     text-align: center;
     background-color:$color3;
@@ -675,7 +675,7 @@
   }
   th {
   font-family:monospace;
-  border:1px solid $color4;
+  border:1px dotted $color4;
   padding:5px;
   background-color: $color3;
   width:50%;
@@ -689,3 +689,5 @@
   }
 }
 
+
+ 
