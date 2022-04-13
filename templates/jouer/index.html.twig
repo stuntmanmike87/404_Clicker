@@ -20,7 +20,7 @@
         <p>{{app.user.username}}</p>
         <p>{{ app.user.level.getNomLevel() }}</p>
         {# Passage d'un data- attribut pour récupérer les points dans JS #}
-        <div id="score" data-user-points="{{ app.user.points }}">
+        <div id="score" data-user-level="{{ changeLevel }}" data-user-points="{{ app.user.points }}">
         <p> Le nombre d'erreur(s) est de {{app.user.points}} </p>
         </div>
     </div>
