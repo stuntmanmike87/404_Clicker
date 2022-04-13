@@ -26,6 +26,6 @@
 
     <a href="{{ path('app_user_edit', {'id': user.id}) }}">changer de mot de passe</a>
 
-	{{ include('user/_delete_form.html.twig') }}
+	<a href="{{ path('app_user_delete', {'id': user.id}) }}">Supprimer</a>
 </section>
 {% endblock %}
