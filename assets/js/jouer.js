@@ -4,15 +4,23 @@ let game = {
 	score: document.getElementById("score"),
 	image: document.getElementById("image"),
 	saveButton: document.querySelector('.savePoints'),
+	modal: document.querySelector(".modal"),
 	scoreJS: parseFloat(score.dataset.userPoints),
 	incrementeur: 1,
 	changeLevelScore: parseInt(score.dataset.userLevel),
 	url: "http://localhost:1234/save_axios",
 
 	init: function () {
+		// Preloader
+		game.modal.style.display = "block";
+
+		setTimeout(() => {
+			game.modal.style.display = "none";
+		}, 2000);
+		
 		game.image.addEventListener("click", game.handleClick);
 		game.saveButton.addEventListener("click", game.loadGame);
-		// console.log(game.saveButton);
+		
 	},
 
 	handleClick: function () {
