@@ -11,8 +11,6 @@ let game = {
 	url: "http://localhost:2345/save_axios",
 
 	init: function () {
-<<<<<<< HEAD
-=======
 		// Preloader
 		game.modal.style.display = "block";
 
@@ -20,7 +18,6 @@ let game = {
 			game.modal.style.display = "none";
 		}, 2000);
 		
->>>>>>> 1944a5a5798a48a99af82c56aa358f3833769a4b
 		game.image.addEventListener("click", game.handleClick);
 		game.saveButton.addEventListener("click", game.loadGame);
 		
