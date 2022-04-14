@@ -73,6 +73,7 @@ class RegistrationController extends AbstractController
             // do anything else you need here, like send an email
             $this->addFlash('success', 'Vous êtes bien inscrit, merci de bien regarder vos mails pour faire la vérification.');
 
+            $this->addFlash('success', 'Vous êtes bien inscrit, merci de bien regarder vos mails pour faire la vérification.');
             return $this->redirectToRoute('home');
         }
 
