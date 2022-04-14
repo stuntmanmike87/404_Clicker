@@ -79,6 +79,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
+    /* Get user by DESC number of points
+     *
+     * @param integer $limit
+     * @return User[] Returns an array of User objects
+     */
+    public function findByPointsDesc($limit=3)
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.points', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 
     public function setLevelByNumberOfPoints($points, $user)
     {
@@ -116,16 +129,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
-    public function findByPoints()
-    {
-        return $this->createQueryBuilder('u')
-            //->andWhere('u.isVerified = 1')
-            ->orderBy('u.points', 'DESC')
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
