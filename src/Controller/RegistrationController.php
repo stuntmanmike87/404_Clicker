@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Level;
 use App\Security\EmailVerifier;
-
 use App\Form\RegistrationFormType;
-use App\DataFixtures\LevelFixtures;
 use App\Repository\LevelRepository;
 use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,7 +16,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -33,7 +29,8 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/inscription", name="inscription")
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, LevelRepository $levelRepository): Response
+    public function register(
+        Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, LevelRepository $levelRepository): Response
     {
         if ($this->getUser()) {
             return $this->render('home/index.html.twig');
@@ -75,12 +72,13 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
             $this->addFlash('success', 'Vous êtes bien inscrit, merci de bien regarder vos mails pour faire la vérification.');
+
             return $this->redirectToRoute('home');
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-        ]); //var_dump($user);
+        ]);
     }
 
     /**
@@ -96,7 +94,7 @@ class RegistrationController extends AbstractController
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
 
-            return $this->redirectToRoute('home'); //'inscription'
+            return $this->redirectToRoute('home');
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
