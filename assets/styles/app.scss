@@ -593,10 +593,14 @@
    
  
   
-  /*----------------------
-   Register Section
- ------------------------*/
- .form-container {
+/*----------------------
+  Register Section
+------------------------*/
+
+.register-wrapper{
+
+  text-align:center;
+
   height: 80vh;
   width: 100%;
   margin: 2rem auto;
@@ -605,37 +609,52 @@
   justify-content: center;
   align-items: center;
   max-width: 450px;
+
+  h1{
+    display:inline-block;
+    margin: 2rem auto;
+  }
+
   .form-content {
     padding: 2rem;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /*flex-wrap: wrap;
-    align-content: center;*/
+    //flex-wrap: wrap;
+    //align-content: center;
+
     .form-field {
-     margin-top: 0.5rem;
-     width: calc(100% - 2rem);
-     label {
+      margin-top: 0.5rem;
+      width: calc(100% - 2rem);
+
+      label {
        font-family: 'EB Garamond';
        font-weight: 400;
        font-size: 1.2rem;
-     }
+      }
+
     }
- }
- button {
-  background-color: $color1;
-  color: $color2;
-  font-family: "EB Garamond", serif;
-  font-weight: 400;
-  &:hover {
-    color: $color3;
-    background-color: $color4;
+
   }
+
+  button {
+    background-color: $color1;
+    color: $color2;
+    font-family: "EB Garamond", serif;
+    font-weight: 400;
+
+    &:hover {
+      color: $color3;
+      background-color: $color4;
+    }
   }
+
   .form-links {
     display: flex;
-    flex-direction: column;
+    //flex-direction: column;
+    //
+
     a {
       display: block;
       color: $color2;
@@ -643,13 +662,15 @@
       text-decoration: underline;
       font-size: 1.2rem;
       margin-top: 1rem;
+
       &:hover {
         color: $color4;
         text-decoration: underline $color4;
       }
     }
   }
- }
+
+}
 
  /*----------------------
    Profil Section

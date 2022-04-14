@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Vérifier mon e-mail{% endblock %}
+
 {% block main_id %}verifEmail{% endblock %}
+
 {% block body %}
 
     <form action="{{ path('app_new_verification_email_user') }}" method="post" class="text-center">
