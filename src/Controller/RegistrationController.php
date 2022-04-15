@@ -4,19 +4,20 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Level;
-use App\DataFixtures\LevelFixtures;
+use App\Security\EmailVerifier;
 
 use App\Form\RegistrationFormType;
-use App\Security\EmailVerifier;
+use App\DataFixtures\LevelFixtures;
+use App\Repository\LevelRepository;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
@@ -32,22 +33,22 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/inscription", name="inscription")
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, LevelRepository $levelRepository): Response
     {
-        if($this->getUser()){
+        if ($this->getUser()) {
             return $this->render('home/index.html.twig');
         }
-        
+
         $user = new User();
-        
+
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             // encode the plain password
             $user->setPassword(
-            $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
@@ -56,14 +57,16 @@ class RegistrationController extends AbstractController
             $user->setRoles(['ROLE_USER']);
             $user->setPoints(0);
             $user->setIsVerified(false);
-            $level = $this->getDoctrine()->getRepository(Level::class)->find(1);
+            $level = $levelRepository->find(1);
             $user->setLevel($level);
 
             $entityManager->persist($user);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('mail@your-mail.com', 'Email Bot'))
                     ->to($user->getEmail())
@@ -78,7 +81,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-        ]);//var_dump($user);
+        ]); //var_dump($user);
     }
 
     /**
@@ -94,7 +97,7 @@ class RegistrationController extends AbstractController
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
 
-            return $this->redirectToRoute('home');//'inscription'
+            return $this->redirectToRoute('home'); //'inscription'
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates

@@ -4,28 +4,46 @@
 
 {% block body %}
 
-<!--<div class="loader">
-    <div class="one"></div>
-    <div class="two"></div>
-    <div class="three"></div>
-    <div class="four"></div>
-    <div class="five"></div>
-    <div class="six"></div>
-    <div class="seven"></div>
-    <div class="eight"></div>
-</div>-->
+<div id="Mymodal" class="modal">
+    <div class="loader">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="four"></div>
+        <div class="five"></div>
+        <div class="six"></div>
+        <div class="seven"></div>
+        <div class="eight"></div>
+    </div>
+</div>
 
 <div class="example-wrapper-jouer">
     <div class="hud">
         <p>{{app.user.username}}</p>
-        <p>nom du level</p>
+        <p>{{ app.user.level.getNomLevel() }}</p>
         {# Passage d'un data- attribut pour récupérer les points dans JS #}
-        <div id="score" data-user-points="{{ app.user.points }}">
+        <div id="score" data-user-level="{{ changeLevel }}" data-user-points="{{ app.user.points }}">
         <p> Le nombre d'erreur(s) est de {{app.user.points}} </p>
         </div>
     </div>
     <div>
-        <img id="image" src="{{asset('build/images/404.png')}}" alt="">
+        {% if app.user.points < 20 %} 
+        <img id="image" src="{{asset('build/images/level1_concept.png')}}" alt="Level concept">   
+        {% endif %}
+        
+        {% if app.user.points >= 20 and app.user.points < 50 %} 
+        <img id="image"
+        src="{{asset('build/images/level2_dev.png')}}" alt="Level dev">
+        {% endif %}
+
+        {% if app.user.points >= 50 and app.user.points < 100 %} 
+        <img id="image"
+        src="{{asset('build/images/level3_prod.png')}}" alt="Level production">
+        {% endif %}
+        
+        {% if app.user.points >= 100 %}
+        <img id="image" src="{{asset('build/images/404.png')}}" alt="Level 404">
+        {% endif %}
     </div>
     <button class="savePoints" type="submit">Sauvegardez les points</button>
 </div>

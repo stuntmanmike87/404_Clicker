@@ -3,13 +3,14 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use App\Repository\LevelRepository;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,9 +20,12 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    private $levelRepository;
+
+    public function __construct(ManagerRegistry$registry, LevelRepository $levelRepository)
     {
         parent::__construct($registry, User::class);
+        $this->levelRepository = $levelRepository;
     }
 
     /**
@@ -75,7 +79,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
-     /* Get user by DESC number of points
+    /* Get user by DESC number of points
      *
      * @param integer $limit
      * @return User[] Returns an array of User objects
@@ -87,6 +91,42 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
+    }
+
+    public function setLevelByNumberOfPoints($points, $user)
+    {
+        if ($points >= 20) {
+            $level = $this->levelRepository->find(2);
+            $user->setLevel($level);
+        }
+        if ($points >= 50) {
+            $level = $this->levelRepository->find(3);
+            $user->setLevel($level);
+        }
+        if ($points >= 100) {
+            $level = $this->levelRepository->find(4);
+            $user->setLevel($level);
+        }
+
+        $this->_em->persist($user);
+        $this->_em->flush();
+    }
+
+    public function ChangeLevel($user)
+    {
+        $changeLevelScore = 0;
+
+        if (isset($user)) {
+            if ($user->getPoints() < 20) {
+                return $changeLevelScore = 20;
+            }
+            if ($user->getPoints() >= 20 && $user->getPoints() < 50) {
+                return $changeLevelScore = 50;
+            }
+            if ($user->getPoints() >= 50 && $user->getPoints() < 100) {
+                return $changeLevelScore = 100;
+            }
+        }
     }
 
     // /**
