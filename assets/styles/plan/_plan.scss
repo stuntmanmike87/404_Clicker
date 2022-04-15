@@ -1,0 +1,64 @@
+/*----------------------
+   Plan Section
+ ------------------------*/
+.example-wrapper-plan {
+    margin: 1rem auto;
+
+    h1 {
+        font-family: "Press Start 2P", cursive;
+        text-align: center;
+    }
+
+    p {
+        font-weight: bold;
+        text-align: center;
+        font-size: 1.56rem;
+    }
+}
+
+.none_connected {
+    margin-top: 4rem;
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+
+        li {
+            text-align: center;
+
+            a {
+                font-family: "EB Garamond", serif;
+                font-size: 1.56rem;
+                color: $color2;
+
+                &:hover {
+                    text-decoration: none;
+                    color: $color3;
+                }
+            }
+        }
+    }
+}
+
+.connected {
+    margin-top: 4rem;
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+        text-align: center;
+
+        li {
+            a {
+                font-family: "EB Garamond", serif;
+                font-size: 1.56rem;
+                color: $color2;
+
+                &:hover {
+                    text-decoration: none;
+                    color: $color3;
+                }
+            }
+        }
+    }
+}

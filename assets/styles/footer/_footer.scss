@@ -1,0 +1,38 @@
+/*----------------------
+   Footer Section
+ ------------------------*/
+.footer-section {
+    background: $color3;
+    padding: 8px 0 4px;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: 1px solid $color4;
+}
+
+.footer-menu {
+    font-family: 'Sansita Swashed', cursive;
+    padding-left: 0rem;
+    margin-bottom: 0px;
+    text-align: center;
+    list-style: none;
+
+    li {
+        display: inline;
+
+        a {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 500;
+            color: $color2;
+            margin-left: 30px;
+
+            &:hover {
+                text-decoration: none;
+                color: $color4;
+            }
+        }
+    }
+}
