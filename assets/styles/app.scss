@@ -40,3 +40,104 @@
 
 
 
+<<<<<<< HEAD
+=======
+ /*----------------------
+   Profil Section
+ ------------------------*/
+.profil-wrapper{
+  text-align: center;
+  h1{
+    display:inline-block;
+    margin: 2rem auto;
+  }
+  .table-profil{
+    margin: 2rem auto;
+    border:3px solid $color4;
+    border-collapse:collapse;
+    width:90%;
+  }
+  
+  thead, tfoot {
+    text-align: center;
+    background-color:$color3;
+    border:1px solid $color4;
+  }
+  tbody {
+  background-color: $color3;
+  border:1px solid $color4;
+  }
+  th {
+    font-family: 'EB Garamond', serif;
+    font-size:1.25rem;
+  border:1px solid $color4;
+  padding:5px;
+  background-color: $color3;
+  width:50%;
+  }
+  td {
+    text-align: center;
+    font-family: 'EB Garamond', serif;
+    font-size:1.25rem;
+    border:1px solid $color4;
+    padding:5px;
+  }
+  a{
+    font-family: 'Sansita Swashed', cursive;
+    margin:2rem auto;
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: $color2;
+    &:hover{
+     text-decoration: none;
+     color: $color4;
+    }
+  }
+}
+
+.edit-wrapper{
+  text-align: center;
+  h1{
+    display:inline-block;
+    margin: 2rem auto;
+  }
+  .form-edit{
+    margin:2rem auto;
+    label{
+      font-family: 'EB Garamond', serif;
+      font-size:1.25rem;
+    }
+    
+    input{
+      width: 50%;
+      margin: auto;
+      text-align: center;
+    }
+    button{
+      font-family: 'Sansita Swashed', cursive;
+    margin-top:2rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: $color2;
+    &:hover{
+     text-decoration: none;
+     color: $color4;
+    }
+
+    }
+  }
+  a{
+    font-family: 'Sansita Swashed', cursive;
+    margin:2rem auto;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: $color2;
+    &:hover{
+     text-decoration: none;
+     color: $color4;
+    }
+  }
+}
+ 
+>>>>>>> master

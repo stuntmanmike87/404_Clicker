@@ -29,8 +29,8 @@
 			</ul>
 		{% else %}
 			<ul>
-				<li class="play"><a href="{{path('jouer')}}">Jouer</a></li>
-				<li><a href="#">Profil</a></li>
+				<li><a href="{{path('jouer')}}">Jouer</a></li>
+				<li><a href="{{ path('app_user_show', {'id': app.user.id} ) }}">Profil</a></li>
 				<li><a href="{{path('presentation')}}">Présentation</a></li>
 				<li><a href="{{path('classement')}}">Classement</a></li>
 			</ul>
