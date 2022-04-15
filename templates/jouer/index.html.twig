@@ -26,7 +26,7 @@
         <p> Le nombre d'erreur(s) est de {{app.user.points}} </p>
         </div>
     </div>
-    <div>
+    <div class="image-button">
         {% if app.user.points < 20 %} 
         <img id="image" src="{{asset('build/images/level1_concept.png')}}" alt="Level concept">   
         {% endif %}
@@ -44,8 +44,8 @@
         {% if app.user.points >= 100 %}
         <img id="image" src="{{asset('build/images/404.png')}}" alt="Level 404">
         {% endif %}
+        <button class="save-points" type="submit">Sauvegardez les points</button>
     </div>
-    <button class="savePoints" type="submit">Sauvegardez les points</button>
 </div>
 {% endblock %}
 
