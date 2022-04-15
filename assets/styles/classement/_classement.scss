@@ -17,8 +17,9 @@
         height: 100%;
 
         .table.table-bordered {
-            border: 1px solid $color2;
+            border: 3px solid $color4;
             margin-top: 1rem;
+            background-color: $color3;
 
             .table-title {
                 font-weight: bold;

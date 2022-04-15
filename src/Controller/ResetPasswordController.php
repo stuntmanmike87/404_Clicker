@@ -22,6 +22,9 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
 /**
  * @Route("/reset-password")
+ * 
+ * Contrôleur qui gère la réinitialisation du mot de passe de l'utilisateur
+ * 
  */
 class ResetPasswordController extends AbstractController
 {
@@ -40,6 +43,17 @@ class ResetPasswordController extends AbstractController
      * Display & process form to request a password reset.
      *
      * @Route("", name="app_forgot_password_request")
+     * 
+     * Fonction qui traite la demande de réinitialisation du mot de passe
+     * 
+     * @param Request $request
+     * 
+     * @param MailerInterface $mailer
+     * 
+     * @param TranslatorInterface $translator
+     * 
+     * @return reset_password/request.html.twig page de demande de réinitialisation du mot de passe
+     * 
      */
     public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
@@ -63,6 +77,11 @@ class ResetPasswordController extends AbstractController
      * Confirmation page after a user has requested a password reset.
      *
      * @Route("/check-email", name="app_check_email")
+     * 
+     * Fonction qui traite la récupération de l'adresse e-mail de l'utilisateur, afin de traiter sa demande de réinitialisation du mot de passe
+     * 
+     * @return reset_password/check_email.html.twig page de récupération de l'adresse e-mail de l'utilisateur
+     * 
      */
     public function checkEmail(): Response
     {
@@ -81,6 +100,19 @@ class ResetPasswordController extends AbstractController
      * Validates and process the reset URL that the user clicked in their email.
      *
      * @Route("/reset/{token}", name="app_reset_password")
+     * 
+     * Fonction qui traite la réinitialisation du mot de passe
+     * 
+     * @param Request $request
+     * 
+     * @param UserPasswordHasherInterface $userPasswordHasher
+     * 
+     * @param TranslatorInterface $translator
+     * 
+     * @param string $token = null
+     * 
+     * @return reset_password/reset.html.twig page de réinitialisation du mot de passe
+     * 
      */
     public function reset(Request $request, UserPasswordHasherInterface $userPasswordHasher, TranslatorInterface $translator, string $token = null): Response
     {
@@ -137,6 +169,14 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
+    /**
+     * Fonction privée qui traite l'envoi d'une adresse e-mail de réinitialisation de mot de passe
+     *
+     * @param string $emailFormData
+     * @param MailerInterface $mailer
+     * @param TranslatorInterface $translator
+     * @return RedirectResponse
+     */
     private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer, TranslatorInterface $translator): RedirectResponse
     {
         $user = $this->entityManager->getRepository(User::class)->findOneBy([

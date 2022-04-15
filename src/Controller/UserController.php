@@ -14,6 +14,9 @@ use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @Route("/user")
+ * 
+ * Contrôleur qui traite le CRUD de l'utilisateur
+ * 
  */
 class UserController extends AbstractController
 {
@@ -26,6 +29,13 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}", name="app_user_show", methods={"GET"})
+     * 
+     * Fonction qui permet l'affichage d'un utilisateur (selon son identifiant)
+     * 
+     * @param User $user
+     * 
+     * @return user/show.html.twig page d'affichage d'un joeur
+     * 
      */
     public function show(User $user): Response
     {
@@ -36,8 +46,19 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="app_user_edit", methods={"GET", "POST"})
+     * 
+     * Fonction de modification d'un utilisateur
+     * 
+     * @param Request $request
+     * 
+     * @param User $user
+     * 
+     * @param UserPasswordHasherInterface $userPasswordHasher
+     * 
+     * @return user/edit.html.twig page de modification d'un joueur
+     * 
      */
-    public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function edit(Request $request, User $user, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -66,6 +87,17 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}", name="app_user_delete", methods={"POST"})
+     * 
+     * Fonction de suppression d'un utilisateur
+     * 
+     * @param Request $request
+     * 
+     * @param User $user
+     * 
+     * @param UserRepository $userRepository
+     * 
+     * @return home : redirection vers la page d'accueil
+     * 
      */
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {

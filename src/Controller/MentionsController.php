@@ -11,14 +11,14 @@ class MentionsController extends AbstractController
     /**
      * @Route("/mentions", name="mentions_legales", methods={"GET"})
      * 
-     * Fonction qui permet l'affichage de la page est la page mentions légales du site
+     * Fonction qui permet l'affichage de la page des mentions légales du site
      * 
+     * @return mentions/index.html.twig page des mentions légales du site
      * 
-     * @return mentions.twig 
      */
-    public function mentions(): Response
+    public function index(): Response
     {
-        return $this->render('mentions.twig', [
+        return $this->render('mentions/index.html.twig', [
             'controller_name' => 'MentionsController',
         ]);
     }

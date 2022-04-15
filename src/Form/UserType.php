@@ -13,6 +13,13 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserType extends AbstractType
 {
+    /**
+     * Fonction qui permet la construction du formulaire de création d'un utilisateur
+     *
+     * @param FormBuilderInterface $builder : variable qui permet la création d'un formulaire
+     * @param array $options : tableau qui permet de lister les champs du formulaire
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

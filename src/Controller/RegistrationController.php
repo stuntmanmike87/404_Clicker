@@ -17,6 +17,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
+/**
+ * Classe qui traite l'enregistrement d'un utilisateur
+ */
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
@@ -28,6 +31,19 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/inscription", name="inscription")
+     * 
+     * Fonction qui traite l'inscription d'un utilisateur (joueur)
+     * 
+     * @param Request $request
+     * 
+     * @param UserPasswordHasherInterface $userPasswordHasher
+     * 
+     * @param EntityManagerInterface $entityManager
+     * 
+     * @param LevelRepository $levelRepository
+     * 
+     * @return home : redirection vers la page d'accueil
+     * 
      */
     public function register(
         Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, LevelRepository $levelRepository): Response
@@ -43,6 +59,11 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            if ($user) {
+                $this->addFlash('error', 'Utilisateur et/ou email déjà enregistré');
+                return $this->redirectToRoute('inscription');
+            }
+            
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -50,13 +71,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            //initialisation des propriétés (champs) d'un user à l'enregistrement
             $user->setRoles(['ROLE_USER']);
             $user->setPoints(0);
             $user->setIsVerified(false);
             $level = $levelRepository->find(1);
             $user->setLevel($level);
-
+            //persistance d'un user en base de données
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -71,9 +92,7 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
-            $this->addFlash('success', 'Vous êtes bien inscrit, merci de bien regarder vos mails pour faire la vérification.');
-
-            $this->addFlash('success', 'Vous êtes bien inscrit, merci de bien regarder vos mails pour faire la vérification.');
+           $this->addFlash('success', 'Vous êtes bien inscrit, merci de bien regarder vos mails pour faire la vérification.');
             return $this->redirectToRoute('home');
         }
 
@@ -84,6 +103,15 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/verify/email", name="app_verify_email")
+     * 
+     * Fonction de vérification de l'adresse e-mail de l'utilisateur
+     * 
+     * @param Request $request
+     * 
+     * @param TranslatorInterface $translator
+     * 
+     * @return inscription redirection vers 'inscription'
+     * 
      */
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {

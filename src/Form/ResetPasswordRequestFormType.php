@@ -10,11 +10,18 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ResetPasswordRequestFormType extends AbstractType
 {
+    /**
+     * Fonction qui permet la construction du formulaire de réinitialisation du mot de passe d'un utilisateur
+     *
+     * @param FormBuilderInterface $builder : variable qui permet la création d'un formulaire
+     * @param array $options : tableau qui permet de lister les champs du formulaire
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email', EmailType::class, [
-            'attr' => ['autocomplete' => 'email'/*,'class' => 'form-control','placeholder' => "reset@domaine.fr"*/],
+            'attr' => ['autocomplete' => 'email','class' => 'form-control','placeholder' => "reset@domaine.fr"],
             //'label' => "Adresse email :",
                 'constraints' => [
                     new NotBlank([

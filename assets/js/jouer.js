@@ -3,7 +3,7 @@ const { default: axios } = require('axios');
 let game = {
 	score: document.getElementById("score"),
 	image: document.getElementById("image"),
-	saveButton: document.querySelector('.savePoints'),
+	saveButton: document.querySelector('.save-points'),
 	modal: document.querySelector(".modal"),
 	scoreJS: parseFloat(score.dataset.userPoints),
 	incrementeur: 1,
