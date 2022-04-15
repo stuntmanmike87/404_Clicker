@@ -1,0 +1,96 @@
+/*------------------
+   Header section
+ ---------------------*/
+.header-section {
+    position: relative;
+    background: $color3;
+    clear: both;
+    overflow: hidden;
+    padding: 18px 0;
+    border-bottom: 1px solid $color1;
+
+    .container {
+        width: 100%;
+    }
+}
+
+.site-logo {
+    float: left;
+    right: 0;
+}
+
+.site-logo img {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 300;
+}
+
+.button {
+    position: absolute;
+    right: 0;
+}
+
+.user-panel {
+    float: right;
+    font-weight: 500;
+    background: $color1;
+    padding: 8px 28px;
+    border-radius: 15px;
+
+    a {
+        font-family: 'EB Garamond', serif;
+        font-size: 14px;
+        color: $color2;
+    }
+
+    &:hover {
+        a {
+            text-decoration: none;
+            color: $color3;
+        }
+
+        background: $color4;
+    }
+}
+
+.main-menu {
+    float: inherit;
+    text-align: center;
+
+    ul {
+        margin-bottom: 0rem;
+        padding-left: 0px;
+        list-style: none;
+
+        li {
+            display: inline;
+
+            a {
+                font-family: 'Sansita Swashed', cursive;
+                display: inline-block;
+                font-size: 16px;
+                color: $color2;
+                font-weight: 500;
+                padding: 10px 5px;
+
+                &:hover {
+                    color: $color1;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+.header-btn {
+    float: right;
+    margin-right: 0;
+}
+
+.nav-switch {
+    display: none;
+}

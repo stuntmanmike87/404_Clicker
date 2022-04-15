@@ -1,0 +1,39 @@
+/* Media queries */
+@media screen and (max-width: 630px) {
+    .home-wrapper .text-container a {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .user-panel {
+        padding: 5px 5px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    body {
+        height: auto;
+
+        .home-wrapper p {
+            font-size: 1.2rem;
+        }
+
+        .main-menu {
+            padding-right: 4.6875rem;
+        }
+
+        .home-wrapper .image-container {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+
+            .image-content img {
+                width: 400px;
+            }
+        }
+
+        .footer-section {
+            position: static;
+        }
+    }
+}
