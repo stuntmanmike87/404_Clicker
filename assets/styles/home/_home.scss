@@ -2,67 +2,72 @@
   Page d'accueil
 ------------------------*/
 .home-wrapper {
-    margin: 1em auto;
-
-    h1 {
-        text-align: center;
-    }
-
-    p {
-        margin-left: 1rem;
-        margin-right: 1rem;
-        font-size: 1.56rem;
-        text-align: justify;
-        margin-bottom: 0;
-    }
-
-    .text-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .text-container a {
-        text-decoration: none;
-    }
-
-    .home-wrapper-text {
-        text-align: justify;
-        list-style: none;
-        text-decoration: none;
-        font-family: 'EB Garamond', serif;
-        font-size: 1.2rem;
-    }
-
-    .home-wrapper-text li>span {
-        color: $color2;
-        font-weight: bold;
-    }
-
-    a strong {
-        font-family: 'EB Garamond', serif;
-        font-size: 1.56rem;
-        color: $color2;
-        display: block;
-
-        &:hover {
-            a {
+    height: 85vh;
+    .home-content {
+        margin: 1rem auto;
+        overflow: scroll;
+        height: 100%;
+        width: 100%;
+        h1 {
+            text-align: center;
+        }
+        
+        p {
+            margin-left: 1rem;
+            margin-right: 1rem;
+            font-size: 1.4rem;
+            text-align: justify;
+            margin-bottom: 0;
+        }
+        
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .text-container a {
+            text-decoration: none;
+        }
+        
+        .home-wrapper-text {
+            text-align: justify;
+            list-style: none;
+            text-decoration: none;
+            font-family: 'EB Garamond', serif;
+            font-size: 1.2rem;
+        }
+        
+        .home-wrapper-text li>span {
+            color: $color2;
+            font-weight: bold;
+        }
+        
+        a strong {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.56rem;
+            color: $color2;
+            display: block;
+        
+            &:hover {
+                a {
+                    color: $color3;
+                }
+        
                 color: $color3;
             }
-
-            color: $color3;
         }
-    }
-
-    .image-container {
-        margin: 1rem auto 0;
-        text-align: center;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-
-        img {
-            border: 5px solid $color3;
-            width: 330px;
+        
+        .image-container {
+            margin: 1rem auto 0;
+            text-align: center;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        
+            img {
+                border: 5px solid $color3;
+                width: 330px;
+            }
         }
-    }
+    }  
 }

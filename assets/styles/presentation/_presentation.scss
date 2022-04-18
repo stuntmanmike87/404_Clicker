@@ -2,37 +2,44 @@
    Présentation section
    ---------------------*/
 .example-wrapper-presentation {
-  margin: 1em auto;
-
-  h1 {
-    text-align: center;
-  }
-
-  p {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    font-size: 1.56rem;
-  }
-
-  .imagespresentation {
-    margin: 2rem auto;
-    text-align: center;
-  }
-
-  img {
-    margin-left: 4rem;
-    margin-bottom: 1rem;
-  }
-
-  ul {
-    margin-bottom: 0rem;
-    padding-left: 1rem;
-    list-style: none;
-
-    li {
-      font-family: 'EB Garamond', serif;
+  height: 80vh;
+  .presentation-content {
+    margin: 1em auto;
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+    
+    h1 {
+      text-align: center;
+    }
+    
+    p {
+      margin-left: 1rem;
+      margin-right: 1rem;
       font-size: 1.56rem;
     }
+    
+    .imagespresentation {
+      margin: 2rem auto;
+      text-align: center;
+    }
+    
+    img {
+      margin-left: 4rem;
+      margin-bottom: 1rem;
+    }
+    
+    ul {
+      margin-bottom: 0rem;
+      padding-left: 1rem;
+      list-style: none;
+    
+      li {
+        font-family: 'EB Garamond', serif;
+        font-size: 1.56rem;
+      }
+    }
   }
+  
 }
 

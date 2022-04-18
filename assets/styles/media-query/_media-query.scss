@@ -1,7 +1,19 @@
 /* Media queries */
 @media screen and (max-width: 630px) {
+    header .site-logo img {
+        width: 4rem;
+        height: 4rem;
+        top: 5px;
+        bottom: 5px;
+    }
     .home-wrapper .text-container a {
         text-align: center;
+    }
+    .example-wrapper-presentation {
+        .presentation-content p,
+        .presentation-content ul li {
+            font-size: 1.2rem;
+        }   
     }
 }
 
@@ -9,34 +21,45 @@
     .user-panel {
         padding: 5px 5px;
     }
+    .example-wrapper-jouer {
+        .image-button {
+            height: 65vh;
+            img {
+                margin-top: 3rem;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 1200px) {
     body {
         height: auto;
 
-        .home-wrapper p {
-            font-size: 1.2rem;
-        }
-
         .main-menu {
             padding-right: 4.6875rem;
+        
             ul li a {
                 font-size: 14px;
             }
         }
 
-        .home-wrapper .image-container {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-
-            .image-content img {
-                width: 400px;
-            }
+        .home-wrapper {
+            overflow: scroll;
+            .home-content {
+                p {
+                    font-size: 1.2rem;
+                }
+                .image-container {
+                    grid-template-columns: 1fr;
+                    gap: 1rem;
+                
+                    .image-content img {
+                        width: 400px;
+                    }
+                }
+            } 
+            
         }
-
-        .footer-section {
-            position: static;
-        }
+            
     }
 }
