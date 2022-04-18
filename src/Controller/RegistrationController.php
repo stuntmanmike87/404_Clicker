@@ -59,7 +59,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($user) {
+            if ($this->getUser()) {
                 $this->addFlash('error', 'Utilisateur et/ou email déjà enregistré');
                 return $this->redirectToRoute('inscription');
             }
