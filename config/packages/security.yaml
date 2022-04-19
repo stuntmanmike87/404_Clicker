@@ -35,9 +35,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/jouer, roles: ROLE_USER }
-        - { path: ^/user/id, roles: ROLE_USER }
-        - { path: ^/user/id/edit, roles: ROLE_USER }
+         - { path: ^/jouer, roles: ROLE_USER }
+         - { path: ^/user/id, roles: ROLE_USER }
+         - { path: ^/user/id/edit, roles: ROLE_USER }
 
 when@test:
     security:
