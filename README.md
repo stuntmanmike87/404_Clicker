@@ -56,9 +56,9 @@ MAILER_DSN=smtp://docker_sf5_maildev:25
 ###< symfony/mailer ###
 
 ###> doctrine/doctrine-bundle ###
- # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
+### # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
 DATABASE_URL="mysql://nomduuser:motdepasseduuser@docker_sf5_mysql:3306/nomdevotrebdd?serverVersion=5.7"
- # DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
+### # DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
 ###< doctrine/doctrine-bundle ###
 
 
