@@ -2,12 +2,13 @@
    Mentions section
   ----------------------*/
 .example-wrapper-mentions {
-    height: 86vh;
+    height: 85vh;
     .mentions-content {
         margin : 1rem auto;
         overflow: scroll;
         height: 100%;
         width: 100%;
+        overflow-x: hidden;
 
         h1,
         h2 {
