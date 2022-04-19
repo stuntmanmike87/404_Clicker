@@ -48,6 +48,7 @@
         .home-wrapper {
             .home-content {
                 overflow: scroll;
+                overflow-x: hidden;
                 p {
                     font-size: 1.2rem;
                 }
