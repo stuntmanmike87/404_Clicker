@@ -59,6 +59,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            //vérifier si les champs saisis pour cet utilisateur existent déjà dans la base de données
             if ($this->getUser()) {
                 $this->addFlash('error', 'Utilisateur et/ou email déjà enregistré');
                 return $this->redirectToRoute('inscription');
@@ -132,36 +133,4 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('inscription');
     }
 
-    /**
-     * @Route("/verifyMyEmail", name="app_verify_my_email")
-     */
-    /* public function newVerificationEmail(Request $request, User $user): Response
-    {
-        if($this->getUser()->getIsVerified()){
-            return $this->render('home/index.html.twig');
-            $this->addFlash('success', 'Votre adresse email a bien été vérifiée.');
-        }else{
-            return $this->render('registration/verify_my_email.html.twig');
-        }
-    } */
-
-    /**
-     * @Route("/newVerificationEmailUser", name="app_new_verification_email_user")
-     */
-    /* public function sendNewVerificationEmail(Request $request): Response
-    {
-        if($this->getUser() && !$this->getUser()->isVerified()){
-            $user = $this->getUser();
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-            (new TemplatedEmail())
-                ->from(new Address('mail@your-mail.com', 'Email Bot'))
-                ->to($user->getEmail())
-                ->subject('Veuillez confirmer votre adresse mail')
-                ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-            return $this->render('registration/check_email.html.twig');
-        }else{
-            return $this->redirectToRoute('inscription');
-        }
-    } */
 }

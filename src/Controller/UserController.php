@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 /**
  * @Route("/user")
  * 
- * Contrôleur qui traite le CRUD de l'utilisateur
+ * Contrôleur qui traite le profil de l'utilisateur
  * 
  */
 class UserController extends AbstractController
