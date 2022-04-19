@@ -49,11 +49,23 @@ class Level
         return $this->id;
     }
 
+    /**
+     * Fonction qui permet de récupérer le score maximal d'un joueur
+     * 
+     */
     public function getMaxPoints(): ?float
     {
         return $this->maxPoints;
     }
 
+    /**
+     * Fonction qui permet de définir le score maximal d'un joueur
+     *
+     * @param float $maxPoints
+     * 
+     * @return self
+     * 
+     */
     public function setMaxPoints(float $maxPoints): self
     {
         $this->maxPoints = $maxPoints;
@@ -61,11 +73,25 @@ class Level
         return $this;
     }
 
+    /**
+     * Fonction qui permet de récupérer le chemin de l'image associée à un niveau
+     *
+     * @return string|null
+     * 
+     */
     public function getPathImg(): ?string
     {
         return $this->pathImg;
     }
 
+    /**
+     * Fonction qui permet de définir le chemin de l'image associée à un niveau
+     *
+     * @param string $pathImg
+     * 
+     * @return self
+     * 
+     */
     public function setPathImg(string $pathImg): self
     {
         $this->pathImg = $pathImg;
@@ -73,11 +99,25 @@ class Level
         return $this;
     }
 
+    /**
+     * Fonction qui permet de récupérer le nom d'un niveau
+     *
+     * @return string|null
+     * 
+     */
     public function getNomLevel(): ?string
     {
         return $this->nomLevel;
     }
 
+    /**
+     * Fonction qui permet de définir le nom d'un niveau
+     *
+     * @param string $nomLevel
+     * 
+     * @return self
+     * 
+     */
     public function setNomLevel(string $nomLevel): self
     {
         $this->nomLevel = $nomLevel;

@@ -18,20 +18,19 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class RegistrationFormType extends AbstractType
 {
+    /**
+     * Fonction qui permet la construction du formulaire d'enregistrement d'un utilisateur
+     *
+     * @param FormBuilderInterface $builder : variable qui permet la création d'un formulaire
+     * @param array $options : tableau qui permet de lister les champs du formulaire
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email', EmailType::class)
             ->add('username', TextType::class)
-            /* ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'Consentir à nos termes.',
-                    ]),
-                ],
-            ]) */
-            ->add('plainPassword', RepeatedType::class, [//'password'
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 // instead of being set onto the object directly, this is read and encoded in the controller
                 'mapped' => false,

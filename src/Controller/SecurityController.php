@@ -7,10 +7,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Classe qui traite la connexion sécurisée d'un utilisateur
+ */
 class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
+     * 
+     * Fonction qui traite la connexion d'un utilisateur
+     * 
+     * @param AuthenticationUtils $authenticationUtils
+     * 
+     * @return security/login.html.twig page de connexion
+     * 
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -28,6 +38,9 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/logout", name="app_logout")
+     * 
+     * Fonction qui déconnecte l'utilisateur
+     * 
      */
     public function logout(): void
     {

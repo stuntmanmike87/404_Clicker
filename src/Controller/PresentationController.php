@@ -10,6 +10,11 @@ class PresentationController extends AbstractController
 {
     /**
      * @Route("/presentation", name="presentation")
+     * 
+     * Fonction qui pointe vers la page de présentation du jeu et de l'équipe
+     * 
+     * @return presentation/index.html.twig page de présentation
+     * 
      */
     public function index(): Response
     {

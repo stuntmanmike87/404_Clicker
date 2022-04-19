@@ -6,8 +6,17 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Level;
 
+/**
+ * Classe qui gère les fixtures d'un objet Level qui représente le niveau d'un joueur
+ */
 class LevelFixtures extends Fixture
 {
+    /**
+     * Fonction qui permet de charger les fixtures: enregistrement des niveaux en base de données
+     *
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         for($i = 0; $i<4; $i++){

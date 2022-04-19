@@ -16,6 +16,13 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class LevelRepository extends ServiceEntityRepository
 {
+    /**
+     * Fonction qui est le constructeur de la classe LevelRepository
+     * 
+     * Cette fonction permet de contruire l'objet LevelRepository en reprenant les fonctions de sa classe parent qui est ServiceEntityRepository
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Level::class);

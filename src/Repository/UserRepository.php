@@ -22,6 +22,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 {
     private $levelRepository;
 
+    /**
+     * Fonction qui est le constructeur de la classe UserRepository
+     * 
+     * Cette fonction permet de contruire l'objet UserRepository en reprenant les fonctions de sa classe parent qui est ServiceEntityRepository
+     *
+     * @param ManagerRegistry $registry
+     * @param LevelRepository $levelRepository
+     */
     public function __construct(ManagerRegistry$registry, LevelRepository $levelRepository)
     {
         parent::__construct($registry, User::class);
@@ -92,7 +100,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getResult();
     }
-
+    /**
+     * Fonction qui permet de définir pour un joueur, le score à atteindre pour passer au niveau suivant
+     *
+     * @param [type] $points
+     * @param [type] $user
+     * @return void
+     */
     public function setLevelByNumberOfPoints($points, $user)
     {
         if ($points >= 20) {
@@ -111,7 +125,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
-
+    /**
+     * Fonction qui gère le changement de niveau selon le score du joueur
+     *
+     * @param [type] $user
+     * @return void
+     */
     public function ChangeLevel($user)
     {
         $changeLevelScore = 0;
