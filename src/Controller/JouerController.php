@@ -11,6 +11,13 @@ class JouerController extends AbstractController
 {
     /**
      * @Route("/jouer", name="jouer")
+     * 
+     * Fonction qui gère la page "jouer"
+     * 
+     * @param UserRepository $userRepository
+     * 
+     * @return jouer/index.html.twig page du jeu
+     * 
      */
     public function index(UserRepository $userRepository): Response
     {

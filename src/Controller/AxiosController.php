@@ -13,6 +13,15 @@ class AxiosController extends AbstractController
 {
     /**
      * @Route("/save_axios", name="app_save_axios")
+     * 
+     * Fonction qui permet la sauvegarde des points du joueur
+     * 
+     * @param Request $request
+     * 
+     * @param $UserRepository $userRepository
+     * 
+     * @return JsonResponse
+     * 
      */
     public function save(Request $request, UserRepository $userRepository): Response
     {

@@ -39,9 +39,17 @@
 
         .main-menu {
             padding-right: 4.6875rem;
-        
             ul li a {
                 font-size: 14px;
+            }
+        }
+
+        .home-wrapper .image-container {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+
+            .image-content img {
+                width: 400px;
             }
         }
 

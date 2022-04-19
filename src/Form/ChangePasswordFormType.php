@@ -12,13 +12,20 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ChangePasswordFormType extends AbstractType
 {
+    /**
+     * Fonction qui permet la construction du formulaire de changement de mot de passe
+     *
+     * @param FormBuilderInterface $builder : variable qui permet la création d'un formulaire
+     * @param array $options :  tableau qui permet de lister les champs du formulaire
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'attr' => ['autocomplete' => 'new-password'/**,'class' => 'form-control' */],
+                    'attr' => ['autocomplete' => 'new-password','class' => 'form-control'],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Veuillez saisir un mot de passe',
@@ -33,7 +40,7 @@ class ChangePasswordFormType extends AbstractType
                     'label' => 'Nouveau mot de passe',
                 ],
                 'second_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
+                    'attr' => ['autocomplete' => 'new-password','class' => 'form-control'],
                     'label' => 'Saisir à nouveau le mot de passe',
                 ],
                 'invalid_message' => 'Les mots de passe doivent correspondre.',

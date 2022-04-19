@@ -81,11 +81,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
+    /**
+     * Fonction qui permet de récupérer l'adresse e-mail de l'utilisateur
+     *
+     * @return string|null
+     * 
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * Fonction qui permet de définir l'adresse e-mail de l'utilisateur
+     *
+     * @param string $email
+     * 
+     * @return self
+     * 
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -104,7 +118,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Gets the user's username
+     * Fonction qui permet de récupérer le pseudo de l'utilisateur
      */
     public function getUsername(): string
     {
@@ -123,6 +137,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * Fonction qui permet de définir le rôle de l'utilisateur
+     *
+     * @param array $roles
+     * 
+     * @return self
+     * 
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -138,6 +160,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
+    /**
+     * Fonction qui permet de définir le mot de passe de l'utilisateur
+     *
+     * @param string $password
+     * 
+     * @return self
+     * 
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -165,6 +195,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+    /**
+     * Fonction qui permet de définir le pseudo de l'utilisateur
+     *
+     * @param string $username
+     * 
+     * @return self
+     * 
+     */
     public function setUsername(string $username): self
     {
         $this->username = $username;
@@ -172,11 +210,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Fonction qui permet de récupérer le score de l'utilisateur
+     *
+     * @return float|null
+     * 
+     */
     public function getPoints(): ?float
     {
         return $this->points;
     }
 
+    /**
+     * Fonction qui permet de définir le score de l'utilisateur
+     *
+     * @param float|null $points
+     * 
+     * @return self
+     * 
+     */
     public function setPoints(?float $points): self
     {
         $this->points = $points;
@@ -184,6 +236,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Fonction qui permet de récupérer la date d'enregistrement de l'utilisateur
+     *
+     * @return \DateTimeImmutable|null
+     * 
+     */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -199,6 +257,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Fonction qui permet de récupérer la date de mise à jour de l'utilisateur
+     *
+     * @return \DateTimeImmutable|null
+     * 
+     */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
@@ -239,11 +303,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Fonction qui permet de récupérer le niveau atteint par l'utilisateur
+     *
+     * @return Level|null
+     * 
+     */
     public function getLevel(): ?Level
     {
         return $this->level;
     }
 
+    /**
+     * Fonction qui permet de définir le niveau auquel se situe l'utilisateur
+     *
+     * @param Level|null $level
+     * 
+     * @return self
+     * 
+     */
     public function setLevel(?Level $level): self
     {
         $this->level = $level;
@@ -251,11 +329,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Fonction de test qui indique si l'adresse e-mail de l'utilisateur est vérifiée ou non
+     *
+     * @return boolean
+     * 
+     */
     public function isVerified(): bool
     {
         return $this->isVerified;
     }
 
+    /**
+     * Fonction qui permet de définir le statut de vérification de l'adresse e-mail de l'utilisateur
+     *
+     * @param boolean $isVerified
+     * 
+     * @return self
+     * 
+     */
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;

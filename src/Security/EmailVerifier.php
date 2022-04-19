@@ -10,19 +10,36 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
+/**
+ * Classe qui traite la vérification des adresses e-mail
+ */
 class EmailVerifier
 {
     private $verifyEmailHelper;
     private $mailer;
     private $entityManager;
 
+    /**
+     * Constructeur de la classe EmailVerifier
+     *
+     * @param VerifyEmailHelperInterface $helper
+     * @param MailerInterface $mailer
+     * @param EntityManagerInterface $manager
+     */
     public function __construct(VerifyEmailHelperInterface $helper, MailerInterface $mailer, EntityManagerInterface $manager)
     {
         $this->verifyEmailHelper = $helper;
         $this->mailer = $mailer;
         $this->entityManager = $manager;
     }
-
+    /**
+     * Fonction qui traite l'envoi d'une adresse e-mail de confirmation
+     *
+     * @param string $verifyEmailRouteName
+     * @param User $user
+     * @param TemplatedEmail $email
+     * @return void
+     */
     public function sendEmailConfirmation(string $verifyEmailRouteName, User $user, TemplatedEmail $email): void
     {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(

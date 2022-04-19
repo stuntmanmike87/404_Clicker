@@ -8,6 +8,9 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * Classe héritée de Fixture, qui gère les fixtures d'un objet de fixture
+ */
 class AppFixtures extends Fixture
 {
     private UserPasswordHasherInterface $hasher;
@@ -17,6 +20,12 @@ class AppFixtures extends Fixture
         $this->hasher = $hasher;
     }
 
+    /**
+     * Fonction qui permet de charger des fixtures en persistant des objets [user (utilisateur)] en base de données
+     *
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         // Create an user
