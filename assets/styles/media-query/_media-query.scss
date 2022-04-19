@@ -9,11 +9,13 @@
     .home-wrapper .text-container a {
         text-align: center;
     }
-    .example-wrapper-presentation {
-        .presentation-content p,
-        .presentation-content ul li {
-            font-size: 1.2rem;
-        }   
+    .example-wrapper-presentation {   
+        .presentation-content {
+            overflow: scroll;
+            p, ul li {
+                font-size: 1.2rem;
+            }  
+        } 
     }
 }
 
@@ -44,8 +46,8 @@
         }
 
         .home-wrapper {
-            overflow: scroll;
             .home-content {
+                overflow: scroll;
                 p {
                     font-size: 1.2rem;
                 }
