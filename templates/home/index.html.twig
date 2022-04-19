@@ -3,36 +3,43 @@
 {% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success alert-test">
-                {{ message }}
-            </div>
-        {% endfor %}
-    <section class="home-wrapper">
-        <h1>404 Clicker</h1>
-        <p>Les développeurs web sont toujours confrontés à des pages d'erreur 404 lors du développement d'un projet. Ça peut être très frustrant, mais c'est grâce à ces erreurs qu'on finit par apprendre et à se perfectionner. 404 Clicker c'est un jeu qui consiste à cumuler le plus d'erreurs (points) possibles pour acquérir plus d'expérience et ainsi de pouvoir passer à une nouvelle étape d’un projet.</p>
-        <div class="text-container">
-            <a href="{{ path('inscription') }}"><strong>Créez un compte 404 Clicker et commencez à jouer tout de suite!</strong></a>
-            <p>Une fois le jeu lancé, cliquez sur l'image centrale pour cumuler des erreurs.</p>
-            <p>A un certain nombre d'erreurs vous acquérez plus d'expérience et vous passez de niveau :</p>
-            <ul class="home-wrapper-text">
-                <li><span>Level 1</span> - Conception : 0 erreur</li>
-                <li><span>Level 2</span> - Développement : 20 erreurs</li>
-                <li><span>Level 3</span> - Production : 50 erreurs</li>
-                <li><span>Level 4</span> - Mise en ligne / 404 : 100 erreurs</li>
-            </ul>
-            <p class="home-wrapper-text">Surmonter le plus d'erreurs fera de vous le meilleur programmeur! </p>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-test">
+            {{ message }}
         </div>
-        {# Images #}
-        <div class="image-container">
-            <div class="image-content">
-                <img src="{{ asset("build/images/home/screenshot-conception.png") }}" alt="Capture d'écran d'une partie du jeu">    
+    {% endfor %}
+    <section class="home-wrapper">
+        <div class="home-content">
+            <h1>404 Clicker</h1>
+            <p>Les développeurs web sont toujours confrontés à des pages d'erreur 404 lors du développement d'un projet. Ça peut
+                être très frustrant, mais c'est grâce à ces erreurs qu'on finit par apprendre et à se perfectionner. 404 Clicker
+                c'est un jeu qui consiste à cumuler le plus d'erreurs (points) possibles pour acquérir plus d'expérience et ainsi de
+                pouvoir passer à une nouvelle étape d’un projet.</p>
+            <div class="text-container">
+                <a href="{{ path('inscription') }}"><strong>Créez un compte 404 Clicker et commencez à jouer tout de
+                        suite!</strong></a>
+                <p>Une fois inscris, lancez le jeu en cliquant sur Jouer dans le menu de navigation. Ensuite, cliquez sur l'image centrale pour cumuler des erreurs.</p>
+                <p>A un certain nombre d'erreurs vous acquérez plus d'expérience et vous passez de niveau :</p>
+                <ul class="home-wrapper-text">
+                    <li><span>Level 1</span> - Conception : 0 erreur</li>
+                    <li><span>Level 2</span> - Développement : 20 erreurs</li>
+                    <li><span>Level 3</span> - Production : 50 erreurs</li>
+                    <li><span>Level 4</span> - Mise en ligne / 404 : 100 erreurs</li>
+                </ul>
+                <p class="home-wrapper-text">Surmonter le plus d'erreurs fera de vous le meilleur programmeur! </p>
             </div>
-            <div class="image-content" >
-                <img src="{{ asset("build/images/home/screenshot-dev.png") }}" alt="Capture d'écran d'une partie du jeu">    
-            </div>
-            <div class="image-content">
-                <img src="{{ asset("build/images/home/screenshot-prod.png") }}" alt="Capture d'écran d'une partie du jeu">    
+            {# Images #}
+            <div class="image-container">
+                <div class="image-content">
+                    <img src="{{ asset("build/images/home/screenshot-conception.png") }}"
+                        alt="Capture d'écran d'une partie du jeu">
+                </div>
+                <div class="image-content">
+                    <img src="{{ asset("build/images/home/screenshot-dev.png") }}" alt="Capture d'écran d'une partie du jeu">
+                </div>
+                <div class="image-content">
+                    <img src="{{ asset("build/images/home/screenshot-prod.png") }}" alt="Capture d'écran d'une partie du jeu">
+                </div>
             </div>
         </div>
     </section>
