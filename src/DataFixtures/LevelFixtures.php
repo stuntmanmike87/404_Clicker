@@ -19,7 +19,7 @@ class LevelFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        for($i = 0; $i<4; $i++){
+        for($i = 0; $i<6; $i++){
             $level = new Level();
             switch($i){
                 case 0:
@@ -40,7 +40,17 @@ class LevelFixtures extends Fixture
                 case 3:
                     $level->setMaxPoints(100);
                     $level->setPathImg('/assets/images/404.png'); 
-                    $level->setNomLevel('404'); 
+                    $level->setNomLevel('404');
+                    break;
+                case 4:
+                    $level->setMaxPoints(200);
+                    $level->setPathImg('/assets/images/500.webp'); 
+                    $level->setNomLevel('500');
+                    break;
+                case 5:
+                    $level->setMaxPoints(500);
+                    $level->setPathImg('/assets/images/403.png'); 
+                    $level->setNomLevel('403');
                     break;
             }
             $manager->persist($level);

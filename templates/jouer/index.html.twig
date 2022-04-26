@@ -18,6 +18,7 @@
 </div>
 
 <div class="example-wrapper-jouer">
+
     <div class="hud">
         <p>{{app.user.username}}</p>
         <p>{{ app.user.level.getNomLevel() }}</p>
@@ -26,7 +27,9 @@
         <p> Le nombre d'erreur(s) est de {{app.user.points}} </p>
         </div>
     </div>
+    
     <div class="image-button">
+
         {% if app.user.points < 20 %} 
         <img id="image" src="{{asset('build/images/level1_concept.png')}}" alt="Level concept">   
         {% endif %}
@@ -40,10 +43,21 @@
         <img id="image"
         src="{{asset('build/images/level3_prod.png')}}" alt="Level production">
         {% endif %}
-        
-        {% if app.user.points >= 100 %}
-        <img id="image" src="{{asset('build/images/404.png')}}" alt="Level 404">
+
+        {% if app.user.points >= 100 and app.user.points < 200 %} 
+        <img id="image"
+        src="{{asset('build/images/404.png')}}" alt="Level 404">
         {% endif %}
+
+        {% if app.user.points >= 200 and app.user.points < 500 %} 
+        <img id="image"
+        src="{{asset('build/images/500.webp')}}" alt="Level 500">
+        {% endif %}
+        
+        {% if app.user.points >= 500 %}
+        <img id="image" src="{{asset('build/images/403.png')}}" alt="Level 403">
+        {% endif %}
+
         <button class="save-points" type="submit">Sauvegardez les points</button>
     </div>
 </div>

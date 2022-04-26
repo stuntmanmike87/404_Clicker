@@ -1,4 +1,4 @@
-const { default: axios } = require('axios');
+import { default as axios } from 'axios';
 
 let game = {
 	score: document.getElementById("score"),
@@ -7,7 +7,13 @@ let game = {
 	modal: document.querySelector(".modal"),
 	scoreJS: parseFloat(score.dataset.userPoints),
 	incrementeur: 1,
-	changeLevelScore: parseInt(score.dataset.userLevel),
+	_changeLevelScore: parseInt(score.dataset.userLevel),
+	get changeLevelScore() {
+		return this._changeLevelScore;
+	},
+	set changeLevelScore(value) {
+		this._changeLevelScore = value;
+	},
 	url: "http://localhost:2345/save_axios",
 
 	init: function () {

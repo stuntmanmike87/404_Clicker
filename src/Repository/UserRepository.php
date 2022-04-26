@@ -109,6 +109,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function setLevelByNumberOfPoints($points, $user)
     {
+        if ($points < 20) {
+            $level = $this->levelRepository->find(1);
+            $user->setLevel($level);
+        }
         if ($points >= 20) {
             $level = $this->levelRepository->find(2);
             $user->setLevel($level);
@@ -119,6 +123,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
         if ($points >= 100) {
             $level = $this->levelRepository->find(4);
+            $user->setLevel($level);
+        }
+        if ($points >= 200) {
+            $level = $this->levelRepository->find(5);
+            $user->setLevel($level);
+        }
+        if ($points >= 500) {
+            $level = $this->levelRepository->find(6);
             $user->setLevel($level);
         }
 
@@ -137,15 +149,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         if (isset($user)) {
             if ($user->getPoints() < 20) {
-                return $changeLevelScore = 20;
+                return 20;
             }
             if ($user->getPoints() >= 20 && $user->getPoints() < 50) {
-                return $changeLevelScore = 50;
+                return 50;
             }
             if ($user->getPoints() >= 50 && $user->getPoints() < 100) {
-                return $changeLevelScore = 100;
+                return 100;
             }
+            if ($user->getPoints() >= 100 && $user->getPoints() < 200) {
+                return 200;
+            }
+            if ($user->getPoints() >= 200 && $user->getPoints() < 500) {
+                return 500;
+            }
+
+            return $changeLevelScore;
         }
+
+        //return $changeLevelScore;
     }
 
     // /**
