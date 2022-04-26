@@ -8,7 +8,7 @@ let game = {
 	scoreJS: parseFloat(score.dataset.userPoints),
 	incrementeur: 1,
 	changeLevelScore: parseInt(score.dataset.userLevel),
-	url: "http://localhost:1234/save_axios",
+	url: "http://localhost:2345/save_axios",
 
 	init: function () {
 		// Preloader

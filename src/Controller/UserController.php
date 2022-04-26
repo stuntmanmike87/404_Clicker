@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/user")
@@ -28,6 +29,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
+     * 
      * @Route("/{id}", name="app_user_show", methods={"GET"})
      * 
      * Fonction qui permet l'affichage d'un utilisateur (selon son identifiant)
@@ -45,6 +48,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
+     * 
      * @Route("/{id}/edit", name="app_user_edit", methods={"GET", "POST"})
      * 
      * Fonction de modification d'un utilisateur
@@ -86,6 +91,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
+     * 
      * @Route("/{id}", name="app_user_delete", methods={"POST"})
      * 
      * Fonction de suppression d'un utilisateur
