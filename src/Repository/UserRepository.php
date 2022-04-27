@@ -145,7 +145,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function ChangeLevel($user)
     {
-        $changeLevelScore = 0;
+        //$changeLevelScore = 0;
 
         if (isset($user)) {
             if ($user->getPoints() < 20) {
@@ -164,10 +164,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 return 500;
             }
 
-            return $changeLevelScore;
+            //return $changeLevelScore;
         }
 
-        //return $changeLevelScore;
     }
 
     // /**

@@ -26,31 +26,37 @@ class LevelFixtures extends Fixture
                     $level->setMaxPoints(0);
                     $level->setPathImg('/assets/images/level1_concept.png'); 
                     $level->setNomLevel('conception');
+                    $this->addReference('conception', $level);
                     break;
                 case 1:
                     $level->setMaxPoints(20);
                     $level->setPathImg('/assets/images/level2_dev.png'); 
                     $level->setNomLevel('developpement');
+                    $this->addReference('developpement', $level);
                     break;
                 case 2:
                     $level->setMaxPoints(50);
                     $level->setPathImg('/assets/images/level3_prod.png'); 
                     $level->setNomLevel('production');
+                    $this->addReference('production', $level);
                     break;
                 case 3:
                     $level->setMaxPoints(100);
                     $level->setPathImg('/assets/images/404.png'); 
                     $level->setNomLevel('404');
+                    $this->addReference('404', $level);
                     break;
                 case 4:
                     $level->setMaxPoints(200);
                     $level->setPathImg('/assets/images/500.webp'); 
                     $level->setNomLevel('500');
+                    $this->addReference('500', $level);
                     break;
                 case 5:
                     $level->setMaxPoints(500);
                     $level->setPathImg('/assets/images/403.png'); 
                     $level->setNomLevel('403');
+                    $this->addReference('403', $level);
                     break;
             }
             $manager->persist($level);

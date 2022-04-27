@@ -8,12 +8,14 @@ let game = {
 	scoreJS: parseFloat(score.dataset.userPoints),
 	incrementeur: 1,
 	_changeLevelScore: parseInt(score.dataset.userLevel),
+	
 	get changeLevelScore() {
 		return this._changeLevelScore;
 	},
 	set changeLevelScore(value) {
 		this._changeLevelScore = value;
 	},
+
 	url: "http://localhost:2345/save_axios",
 
 	init: function () {
@@ -30,6 +32,7 @@ let game = {
 	},
 
 	handleClick: function () {
+
 		game.scoreJS = game.scoreJS + game.incrementeur;
 
 		game.score.innerHTML = "<p>Le nombre d'erreur(s) est de \n" + game.scoreJS + "</p>";
@@ -43,7 +46,8 @@ let game = {
 	},
 
 	saveGame: function () {
-		var score = game.scoreJS;
+
+		let score = game.scoreJS;
 		// https://stackoverflow.com/questions/47817325/storing-my-game-score-in-local-storage
 		localStorage.setItem("points", JSON.stringify(score));
 	},
@@ -52,7 +56,6 @@ let game = {
 		// Get data from localStorage
 		let savedGame = JSON.parse(localStorage.getItem("points"));
 		// console.log(savedGame);
-
 		// Vérification si localStorage n'est pas vide
 		if (localStorage.getItem("points") !== null) {
 			if (typeof savedGame.points !== "undefined") {
@@ -62,7 +65,6 @@ let game = {
 			game.postData(game.scoreJS);
 		}
 	},
-
 	// https://blog.logrocket.com/using-axios-set-request-headers/
 	postData: function (data) {
 		axios.post(game.url, {

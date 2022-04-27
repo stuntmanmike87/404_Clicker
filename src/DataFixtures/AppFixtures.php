@@ -2,16 +2,17 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Level;
 use App\Entity\User;
-use DateTimeImmutable;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
  * Classe héritée de Fixture, qui gère les fixtures d'un objet de fixture
  */
-class AppFixtures extends Fixture
+class AppFixtures extends Fixture implements DependentFixtureInterface
 {
     private UserPasswordHasherInterface $hasher;
 
@@ -38,6 +39,7 @@ class AppFixtures extends Fixture
         $user1->setPassword($this->hasher->hashPassword($user1, $password));
         $user1->setRoles(['ROLE_USER']);
         $user1->setPoints(10);
+        $user1->setLevel($this->getReference('conception'));
 
         $manager->persist($user1);
 
@@ -51,6 +53,9 @@ class AppFixtures extends Fixture
         $user2->setPassword($this->hasher->hashPassword($user2, $password));
         $user2->setRoles(['ROLE_USER']);
         $user2->setPoints(20);
+        $user2->setLevel($this->getReference('developpement'));
+
+        $manager->persist($user1);
 
         $manager->persist($user2);
 
@@ -64,9 +69,18 @@ class AppFixtures extends Fixture
         $user3->setPassword($this->hasher->hashPassword($user3, $password));
         $user3->setRoles(['ROLE_USER']);
         $user3->setPoints(50);
+        $user3->setLevel($this->getReference('production'));
 
         $manager->persist($user3);
 
         $manager->flush();
     }
+
+    public function getDependencies()
+   {
+      return [
+         LevelFixtures::class  
+      ];
+   }
+
 }
