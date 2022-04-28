@@ -2,41 +2,16 @@
 @import '~bootstrap';
 
 @import '_global';
-@import 'header/_header';
-@import 'home/_home';
-@import 'presentation/_presentation';
-@import 'classement/_classement';
-@import 'plan/_plan';
-@import 'preloader/_preloader';
-@import 'jouer/_jouer';
-@import 'footer/_footer';
-@import 'login/_login';
-@import 'media-query/_media-query';
-@import 'mentions/_mentions';
-@import 'register/_register';
-@import 'profil/_profil';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@import 'libs/_header';
+@import 'libs/_home';
+@import 'libs/_presentation';
+@import 'libs/_classement';
+@import 'libs/_plan';
+@import 'libs/_preloader';
+@import 'libs/_jouer';
+@import 'libs/_footer';
+@import 'libs/_login';
+@import 'libs/_media-query';
+@import 'libs/_mentions';
+@import 'libs/_register';
+@import 'libs/_profil';
