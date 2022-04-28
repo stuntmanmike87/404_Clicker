@@ -16,9 +16,14 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+
     <body>
+        {% if app.user is null %}
+			{% include 'home/cookies.html.twig'%}
+		{% else %}
+		{% endif %}
         {% include 'header.html.twig' %}
         {% block body %}{% endblock %}
-        {% include 'footer.html.twig' %}  
+        {% include 'footer.html.twig' %}
     </body>
 </html>

@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Level;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -29,23 +28,21 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        // Create an user
-        $user1 = new User();
-        // Set a password
-        $password = 'password';
+        $user1 = new User();// Create an user
+        $password = 'password';// Set a password
 
         $user1->setUsername('apprenti');
         $user1->setEmail('apprenti@apprenti.com');
         $user1->setPassword($this->hasher->hashPassword($user1, $password));
         $user1->setRoles(['ROLE_USER']);
         $user1->setPoints(10);
-        $user1->setLevel($this->getReference('conception'));
+
+        $user1->setLevel($this->getReference('conception'));//get a reference to a LevelFixture
 
         $manager->persist($user1);
 
-        // Create an user
+
         $user2 = new User();
-        // Set a password
         $password = 'password';
 
         $user2->setUsername('junior');
@@ -53,15 +50,13 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $user2->setPassword($this->hasher->hashPassword($user2, $password));
         $user2->setRoles(['ROLE_USER']);
         $user2->setPoints(20);
-        $user2->setLevel($this->getReference('developpement'));
 
-        $manager->persist($user1);
+        $user2->setLevel($this->getReference('developpement'));
 
         $manager->persist($user2);
 
-        // Create an user
+
         $user3 = new User();
-        // Set a password
         $password = 'password';
 
         $user3->setUsername('senior');
@@ -69,9 +64,11 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $user3->setPassword($this->hasher->hashPassword($user3, $password));
         $user3->setRoles(['ROLE_USER']);
         $user3->setPoints(50);
+
         $user3->setLevel($this->getReference('production'));
 
         $manager->persist($user3);
+
 
         $manager->flush();
     }
