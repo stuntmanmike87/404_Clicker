@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<div class="bg-white p-5 contact-form">{# <div class="contact-wrapper"> #}
+<div class="contact-wrapper">{# <div class="bg-white p-5 contact-form"> #}
 
     {{ form_start(contactForm) }}
 
@@ -21,32 +21,22 @@
         {% endfor %}
 
         <div class="form-content">
-                <h1 class="h3 mb-3 font-weight-normal">Formulaire de contact</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Contactez-nous</h1>
         </div>
     
-        <div class="form-group">{# <div class="form-content"> #}
+        <div class="form-content">
 
-            {{ form_row(contactForm.nom, {'attr': {'class': 'form-control'}}) }}
+            {# <div class="form-group"> #}
+                {{ form_row(contactForm.nom, {'attr': {'class': 'form-control'}}) }}
 
-        </div>
+                {{ form_row(contactForm.email, {'attr': {'class': 'form-control'}}) }}
 
-        <div class="form-group">
-
-            {{ form_row(contactForm.email, {'attr': {'class': 'form-control'}}) }}
-
-        </div>
-
-        <div class="form-group">
-
-            {{ form_row(contactForm.message, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(contactForm.message, {'attr': {'class': 'form-control'}}) }}
+            {# </div> #}
+                <button type="submit" class="btn btn-lg">Envoyer</button>{# <input type="submit" value="Envoyer" class="btn btn-primary py-3 px-5"> #}
+            {# </div> #}
 
         </div>
-
-        <div class="form-group">
-            <input type="submit" value="Envoyer" class="btn btn-primary py-3 px-5">
-        </div>
-
-        {# </div> #}
 
     {{ form_end(contactForm) }}
 
