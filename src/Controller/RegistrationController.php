@@ -76,8 +76,9 @@ class RegistrationController extends AbstractController
             $user->setRoles(['ROLE_USER']);
             $user->setPoints(0);
             $user->setIsVerified(false);
-            //$level = $levelRepository->find(1);
-            $user->setLevel($levelRepository->find(1));//$user->setLevel($level);
+            $user->setFullName('');
+            $user->setMessage('');
+            $user->setLevel($levelRepository->find(1));
             //persistance d'un user en base de données
             $entityManager->persist($user);
             $entityManager->flush();

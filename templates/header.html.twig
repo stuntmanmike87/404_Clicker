@@ -26,6 +26,7 @@
 			<ul>
 				<li><a href="{{path('presentation')}}">Présentation</a></li>
 				<li><a href="{{path('classement')}}">Classement</a></li>
+				<li><a href="{{path('contact')}}">Contact</a></li>{# app_contact #}
 			</ul>
 		{% else %}
 			<ul>
@@ -33,6 +34,7 @@
 				<li><a href="{{ path('app_user_show', {'id': app.user.id} ) }}">Profil</a></li>
 				<li><a href="{{path('presentation')}}">Présentation</a></li>
 				<li><a href="{{path('classement')}}">Classement</a></li>
+				<li><a href="{{path('contact')}}">Contact</a></li>
 			</ul>
 		{% endif %}
 	</nav>

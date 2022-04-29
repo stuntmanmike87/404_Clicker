@@ -19,6 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/reset-password")
@@ -40,6 +41,8 @@ class ResetPasswordController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
+     * 
      * Display & process form to request a password reset.
      *
      * @Route("", name="app_forgot_password_request")
@@ -74,6 +77,8 @@ class ResetPasswordController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
+     * 
      * Confirmation page after a user has requested a password reset.
      *
      * @Route("/check-email", name="app_check_email")
@@ -97,6 +102,8 @@ class ResetPasswordController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
+     * 
      * Validates and process the reset URL that the user clicked in their email.
      *
      * @Route("/reset/{token}", name="app_reset_password")

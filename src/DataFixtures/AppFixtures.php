@@ -36,6 +36,8 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $user1->setPassword($this->hasher->hashPassword($user1, $password));
         $user1->setRoles(['ROLE_USER']);
         $user1->setPoints(10);
+        $user1->setFullName('Théo Apprend');
+        $user1->setMessage('Bonjour Team LAG, Théo');
 
         $user1->setLevel($this->getReference('conception'));//get a reference to a LevelFixture
 
@@ -50,6 +52,8 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $user2->setPassword($this->hasher->hashPassword($user2, $password));
         $user2->setRoles(['ROLE_USER']);
         $user2->setPoints(20);
+        $user2->setFullName('Luc Junior');
+        $user2->setMessage('Hello la Team :)');
 
         $user2->setLevel($this->getReference('developpement'));
 
@@ -64,6 +68,8 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $user3->setPassword($this->hasher->hashPassword($user3, $password));
         $user3->setRoles(['ROLE_USER']);
         $user3->setPoints(50);
+        $user1->setFullName('Lucas Senior');
+        $user1->setMessage('');
 
         $user3->setLevel($this->getReference('production'));
 

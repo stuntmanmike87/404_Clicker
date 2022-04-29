@@ -76,6 +76,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $level;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $message;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fullName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -359,4 +369,56 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->isVerified;
     } */
+
+    /**
+     * Fonction qui permet de récupérer le message écrit par l'utilisateur dans le formulaire de contact
+     * 
+     * @return string|null
+     * 
+     */
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    /**
+     * Fonction qui permet de spécifier le message écrit par l'utilisateur dans le formulaire de contact
+     *
+     * @param string|null $message
+     * 
+     * @return self
+     * 
+     */
+    public function setMessage(?string $message): self
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * Fonction qui permet de récupérer le nom complet de l'utilisateur
+     *
+     * @return string|null
+     * 
+     */
+    public function getFullName(): ?string
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * Fonction qui permet de définir le nom complet de l'utilisateur
+     *
+     * @param string $fullName
+     * 
+     * @return self
+     * 
+     */
+    public function setFullName(string $fullName): self
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
 }
