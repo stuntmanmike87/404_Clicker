@@ -43,7 +43,7 @@ class ContactController extends AbstractController
 
             $this->addFlash('success', 'Votre message a été envoyé');
 
-            return $this->redirectToRoute('contact');
+            return $this->redirectToRoute('home');/* 'contact' */
         }
 
         return $this->render('contact/index.html.twig', [
