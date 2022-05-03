@@ -68,8 +68,8 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $user3->setPassword($this->hasher->hashPassword($user3, $password));
         $user3->setRoles(['ROLE_USER']);
         $user3->setPoints(50);
-        $user1->setFullName('Lucas Senior');
-        $user1->setMessage('');
+        $user3->setFullName('Lucas Senior');
+        $user3->setMessage('');
 
         $user3->setLevel($this->getReference('production'));
 

@@ -2,7 +2,7 @@
    Contact Section
  ------------------------*/
 
- .contact-wrapper {
+.contact-wrapper {
     height: 80vh;
     width: 100%;
     margin: 2rem auto;
@@ -35,8 +35,8 @@
         color: $color2;
         font-family: "EB Garamond", serif;
         font-weight: 400;
-        max-width: 150px;
-        margin-left: 121px;
+        //max-width: 150px;
+        margin: auto;
 
         &:hover {
             color: $color3;
