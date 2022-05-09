@@ -10,18 +10,30 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserChecker implements UserCheckerInterface
 {
+    /**
+     * Fonction de vérification d'un utilisateur authentifié dont le compte a été supprimé
+     *
+     * @param UserInterface $user
+     * @return void
+     */
     public function checkPreAuth(UserInterface $user): void
     {
         if (!$user instanceof AppUser) {
             return;
         }
 
-        /* if ($user->isDeleted()) {
+        if ($user->getIsDeleted()) {
             // the message passed to this exception is meant to be displayed to the user
             throw new CustomUserMessageAccountStatusException('Your user account no longer exists.');
-        } */
+        }
     }
 
+    /**
+     * Fonction de vérification d'un utilisateur authentifié dont le compte a expiré
+     *
+     * @param UserInterface $user
+     * @return void
+     */
     public function checkPostAuth(UserInterface $user): void
     {
         if (!$user instanceof AppUser) {
@@ -29,8 +41,8 @@ class UserChecker implements UserCheckerInterface
         }
 
         // user account is expired, the user may be notified
-        /* if ($user->isExpired()) {
+        if ($user->getIsExpired()) {
             throw new AccountExpiredException('Your account is expired');
-        } */
+        }
     }
 }

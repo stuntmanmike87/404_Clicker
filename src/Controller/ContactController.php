@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UserRepository;
+use App\DataFixtures\AppFixtures;
 
 class ContactController extends AbstractController
 {
@@ -17,13 +20,10 @@ class ContactController extends AbstractController
      * Fonction qui traite le formulaire de contact
      * 
      * @param Request $request
-     * 
      * @param MailerInterface $mailer
-     * 
      * @return contact/index.html.twig page de contact
-     * 
      */
-    public function index(Request $request, MailerInterface $mailer)
+    public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $entityManager)
     {
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
@@ -36,9 +36,7 @@ class ContactController extends AbstractController
                 ->from($contactFormData['email'])
                 ->to('your@mail.com')
                 ->subject('vous avez reçu un e-mail')
-                ->text('Sender : '.$contactFormData['email'].\PHP_EOL.
-                    $contactFormData['message'],
-                    'text/plain');
+                ->text('Sender : '.$contactFormData['email'].\PHP_EOL.$contactFormData['message'],'text/plain');
             $mailer->send($message);
 
             $this->addFlash('success', 'Votre message a été envoyé');
