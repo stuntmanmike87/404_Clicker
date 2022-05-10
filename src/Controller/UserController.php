@@ -36,9 +36,7 @@ class UserController extends AbstractController
      * Fonction qui permet l'affichage d'un utilisateur (selon son identifiant)
      * 
      * @param User $user
-     * 
      * @return user/show.html.twig page d'affichage d'un joeur
-     * 
      */
     public function show(User $user): Response
     {
@@ -55,13 +53,9 @@ class UserController extends AbstractController
      * Fonction de modification d'un utilisateur
      * 
      * @param Request $request
-     * 
      * @param User $user
-     * 
      * @param UserPasswordHasherInterface $userPasswordHasher
-     * 
      * @return user/edit.html.twig page de modification d'un joueur
-     * 
      */
     public function edit(Request $request, User $user, UserPasswordHasherInterface $userPasswordHasher): Response
     {
@@ -98,13 +92,9 @@ class UserController extends AbstractController
      * Fonction de suppression d'un utilisateur
      * 
      * @param Request $request
-     * 
      * @param User $user
-     * 
      * @param UserRepository $userRepository
-     * 
      * @return home : redirection vers la page d'accueil
-     * 
      */
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {

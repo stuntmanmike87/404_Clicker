@@ -18,9 +18,7 @@ class SecurityController extends AbstractController
      * Fonction qui traite la connexion d'un utilisateur
      * 
      * @param AuthenticationUtils $authenticationUtils
-     * 
      * @return security/login.html.twig page de connexion
-     * 
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {

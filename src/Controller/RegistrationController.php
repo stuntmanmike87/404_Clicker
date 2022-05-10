@@ -35,18 +35,14 @@ class RegistrationController extends AbstractController
      * Fonction qui traite l'inscription d'un utilisateur (joueur)
      * 
      * @param Request $request
-     * 
      * @param UserPasswordHasherInterface $userPasswordHasher
-     * 
      * @param EntityManagerInterface $entityManager
-     * 
      * @param LevelRepository $levelRepository
-     * 
      * @return home : redirection vers la page d'accueil
-     * 
      */
     public function register(
-        Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, LevelRepository $levelRepository): Response
+        Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, 
+        LevelRepository $levelRepository): Response
     {
         if ($this->getUser()) {
             return $this->render('home/index.html.twig');
@@ -77,7 +73,6 @@ class RegistrationController extends AbstractController
             $user->setPoints(0);
             $user->setIsVerified(false);
             $user->setFullName('');
-            $user->setMessage('');
             $user->setLevel($levelRepository->find(1));
             //persistance d'un user en base de données
             $entityManager->persist($user);
@@ -109,11 +104,8 @@ class RegistrationController extends AbstractController
      * Fonction de vérification de l'adresse e-mail de l'utilisateur
      * 
      * @param Request $request
-     * 
      * @param TranslatorInterface $translator
-     * 
      * @return inscription redirection vers 'inscription'
-     * 
      */
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {

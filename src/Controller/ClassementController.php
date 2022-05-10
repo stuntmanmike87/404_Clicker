@@ -15,9 +15,7 @@ class ClassementController extends AbstractController
      * Fonction qui permet l'affichage du classement des joueurs
      * 
      * @param $UserRepository $repository
-     * 
      * @return classement/index.html.twig page du classement des joueurs
-     * 
      */
     public function index(UserRepository $repository): Response
     {

@@ -17,11 +17,8 @@ class AxiosController extends AbstractController
      * Fonction qui permet la sauvegarde des points du joueur
      * 
      * @param Request $request
-     * 
      * @param $UserRepository $userRepository
-     * 
      * @return JsonResponse
-     * 
      */
     public function save(Request $request, UserRepository $userRepository): Response
     {

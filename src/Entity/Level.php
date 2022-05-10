@@ -39,11 +39,20 @@ class Level
      */
     private $idUser;
 
+    /**
+     * Constructeur (méthode magique) qui définit une collection d'utilisateurs 
+     * selon un tableau d'entiers idUser (identifiants)
+     */
     public function __construct()
     {
         $this->idUser = new ArrayCollection();
     }
 
+    /**
+     * Fonction qui permet de récupérer l'identifiant d'un niveau
+     *
+     * @return integer|null
+     */
     public function getId(): ?int
     {
         return $this->id;
@@ -62,9 +71,7 @@ class Level
      * Fonction qui permet de définir le score maximal d'un joueur
      *
      * @param float $maxPoints
-     * 
      * @return self
-     * 
      */
     public function setMaxPoints(float $maxPoints): self
     {
@@ -77,7 +84,6 @@ class Level
      * Fonction qui permet de récupérer le chemin de l'image associée à un niveau
      *
      * @return string|null
-     * 
      */
     public function getPathImg(): ?string
     {
@@ -88,9 +94,7 @@ class Level
      * Fonction qui permet de définir le chemin de l'image associée à un niveau
      *
      * @param string $pathImg
-     * 
      * @return self
-     * 
      */
     public function setPathImg(string $pathImg): self
     {
@@ -103,7 +107,6 @@ class Level
      * Fonction qui permet de récupérer le nom d'un niveau
      *
      * @return string|null
-     * 
      */
     public function getNomLevel(): ?string
     {
@@ -114,9 +117,7 @@ class Level
      * Fonction qui permet de définir le nom d'un niveau
      *
      * @param string $nomLevel
-     * 
      * @return self
-     * 
      */
     public function setNomLevel(string $nomLevel): self
     {
@@ -126,6 +127,8 @@ class Level
     }
 
     /**
+     * Fonction qui donne accès à une collection d'utilisateurs
+     * 
      * @return Collection<int, User>
      */
     public function getIdUser(): Collection
@@ -133,6 +136,12 @@ class Level
         return $this->idUser;
     }
 
+    /**
+     * Fonction qui permet l'ajout de l'identifiant d'un utilisateur
+     *
+     * @param User $idUser
+     * @return self
+     */
     public function addIdUser(User $idUser): self
     {
         if (!$this->idUser->contains($idUser)) {
@@ -143,6 +152,12 @@ class Level
         return $this;
     }
 
+    /**
+     * Fonction qui permet la suppression de l'identifiant d'un utilisateur
+     *
+     * @param User $idUser
+     * @return self
+     */
     public function removeIdUser(User $idUser): self
     {
         if ($this->idUser->removeElement($idUser)) {

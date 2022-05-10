@@ -9,8 +9,6 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\UserRepository;
-use App\DataFixtures\AppFixtures;
 
 class ContactController extends AbstractController
 {
@@ -41,7 +39,7 @@ class ContactController extends AbstractController
 
             $this->addFlash('success', 'Votre message a été envoyé');
 
-            return $this->redirectToRoute('home');/* 'contact' */
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('contact/index.html.twig', [

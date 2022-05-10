@@ -50,13 +50,9 @@ class ResetPasswordController extends AbstractController
      * Fonction qui traite la demande de réinitialisation du mot de passe
      * 
      * @param Request $request
-     * 
      * @param MailerInterface $mailer
-     * 
      * @param TranslatorInterface $translator
-     * 
      * @return reset_password/request.html.twig page de demande de réinitialisation du mot de passe
-     * 
      */
     public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
@@ -86,7 +82,6 @@ class ResetPasswordController extends AbstractController
      * Fonction qui traite la récupération de l'adresse e-mail de l'utilisateur, afin de traiter sa demande de réinitialisation du mot de passe
      * 
      * @return reset_password/check_email.html.twig page de récupération de l'adresse e-mail de l'utilisateur
-     * 
      */
     public function checkEmail(): Response
     {
@@ -111,15 +106,10 @@ class ResetPasswordController extends AbstractController
      * Fonction qui traite la réinitialisation du mot de passe
      * 
      * @param Request $request
-     * 
      * @param UserPasswordHasherInterface $userPasswordHasher
-     * 
      * @param TranslatorInterface $translator
-     * 
      * @param string $token = null
-     * 
      * @return reset_password/reset.html.twig page de réinitialisation du mot de passe
-     * 
      */
     public function reset(Request $request, UserPasswordHasherInterface $userPasswordHasher, TranslatorInterface $translator, string $token = null): Response
     {

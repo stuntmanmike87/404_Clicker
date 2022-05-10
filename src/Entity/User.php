@@ -91,6 +91,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isExpired;
 
+    /**
+     * Méthode de récupération de l'identifiant d'un utilisateur
+     *
+     * @return integer|null
+     */
     public function getId(): ?int
     {
         return $this->id;

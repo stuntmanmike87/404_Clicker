@@ -16,11 +16,8 @@ class ContactType extends AbstractType
      * Fonction qui élabore le formulaire de contact
      *
      * @param FormBuilderInterface $builder
-     * 
      * @param array $options
-     * 
      * @return void
-     * 
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
