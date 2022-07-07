@@ -1,43 +1,52 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\ORM\ORMException;
-use App\Repository\LevelRepository;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+//use App\Repository\LevelRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-//use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method array<User> findAll()
+ * @method array<User> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+final class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var LevelRepository $levelRepository
+     */
     private $levelRepository;
 
     /**
      * Fonction qui est le constructeur de la classe UserRepository
-     * 
-     * Cette fonction permet de contruire l'objet UserRepository en reprenant les fonctions de sa classe parent qui est ServiceEntityRepository
      *
-     * @param ManagerRegistry $registry
-     * @param LevelRepository $levelRepository
+     * Cette fonction permet de contruire l'objet UserRepository en reprenant
+     * les fonctions de sa classe parent qui est ServiceEntityRepository
      */
-    public function __construct(ManagerRegistry$registry, LevelRepository $levelRepository)
+    public function __construct(
+        ManagerRegistry $registry,
+        LevelRepository $levelRepository
+    )
     {
         parent::__construct($registry, User::class);
         $this->levelRepository = $levelRepository;
     }
 
     /**
+     * function add(User $entity, bool $flush = true)
+     *
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -50,6 +59,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
+     * function remove(User $entity, bool $flush = true)
+     *
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -64,10 +75,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
-    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    public function upgradePassword(
+        PasswordAuthenticatedUserInterface $user,
+        string $newHashedPassword
+    ): void
     {
-        if (!$user instanceof User) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+        if (! $user instanceof User) {
+            throw new UnsupportedUserException(
+                sprintf(
+                    'Instances of "%s" are not supported.',
+                    $user::class//\get_class($user)
+                )
+            );
         }
 
         $user->setPassword($newHashedPassword);
@@ -76,24 +95,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * Insert points into points's field
-     *
-     * @param [type] $points
-     * @return void
+     * Insert points into field: points
      */
-    public function insertPoints($points , $user) {
-        
+    public function insertPoints(float $points, User $user): void
+    {
         $user->setPoints($points);
 
         $this->_em->persist($user);
         $this->_em->flush();
     }
-    /* Get user by DESC number of points
-     *
-     * @param integer $limit
-     * @return User[] Returns an array of User objects
-     */
-    public function findByPointsDesc($limit=3)
+
+    /**
+     * Get user by DESC number of points
+     * return User[] : Returns an array of User objects
+     *///array<User>
+    public function findByPointsDesc(int $limit=3): mixed
     {
         return $this->createQueryBuilder('u')
             ->orderBy('u.points', 'DESC')
@@ -101,16 +117,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getResult();
     }
+
     /**
-     * Fonction qui permet de définir pour un joueur, le score à atteindre pour passer au niveau suivant
-     *
-     * @param [type] $points
-     * @param [type] $user
-     * @return void
+     * Fonction qui permet de définir pour un joueur,
+     * le score à atteindre pour passer au niveau suivant
      */
-    public function setLevelByNumberOfPoints($points, $user)
+    public function checkLevelByMaxPoints(float $points, User $user): void
     {
-        if ($points < 20) {
+        $tabPoints = [20, 50, 100, 200, 500, 1000];
+
+        foreach ($tabPoints as $value) {
+            if ($points < $value) {
+                $level = $this->levelRepository->find((int) key($tabPoints) + 1);
+                $user->setLevel($level);
+            }
+        }
+        /* if ($points < 20) {
             $level = $this->levelRepository->find(1);
             $user->setLevel($level);
         }
@@ -133,63 +155,56 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         if ($points >= 500) {
             $level = $this->levelRepository->find(6);
             $user->setLevel($level);
-        }
+        } */
 
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
     /**
      * Fonction qui gère le changement de niveau selon le score du joueur
-     *
-     * @param [type] $user
-     * @return void
      */
-    public function ChangeLevel($user)
+    public function changeLevel(User $user): float
     {
-        //$changeLevelScore = 0;
+        $changeLevelScore = 0;
 
-        if (isset($user)) {
-            if ($user->getPoints() < 20) {
-                return 20;
-            }
-            if ($user->getPoints() >= 20 && $user->getPoints() < 50) {
-                return 50;
-            }
-            if ($user->getPoints() >= 50 && $user->getPoints() < 100) {
-                return 100;
-            }
-            if ($user->getPoints() >= 100 && $user->getPoints() < 200) {
-                return 200;
-            }
-            if ($user->getPoints() >= 200 && $user->getPoints() < 500) {
-                return 500;
-            }
+        $tabPoints = [20, 50, 100, 200, 500, 1000];
 
-            //return $changeLevelScore;
+        //if ($user) {}//If condition is always true.
+        foreach ($tabPoints as $value) {
+            if ($user->getPoints() < $value) {
+                return $value;
+            }
         }
+        /* if ($user->getPoints() < 20) {return 20;}
+        if ($user->getPoints() >= 20 && $user->getPoints() < 50) {return 50;}
+        if ($user->getPoints() >= 50 && $user->getPoints() < 100) {return 100;}
+        if ($user->getPoints() >= 100 && $user->getPoints() < 200) {return 200;}
+        if ($user->getPoints() >= 200 && $user->getPoints() < 500) {return 500;} */
 
+        return $changeLevelScore;
     }
 
-    /**
-     * Fonction that is a custom user provider
-     * Remove the property key 'email' from the user provider in security.yaml
-     *
-     * @param string $usernameOrEmail
-     * @return User|null
-     */
+    ///**
+    //* Fonction that is a custom user provider
+    //* Remove the property key 'email' from the user provider in security.yaml
+    //*/
     /* public function loadUserByIdentifier(string $usernameOrEmail): ?User
     {
         $entityManager = $this->getEntityManager();
 
         return $entityManager
-            ->createQuery('SELECT u FROM App\Entity\User u WHERE u.username = :query OR u.email = :query')
+            ->createQuery(
+                'SELECT u FROM App\Entity\User u
+                WHERE u.username = :query OR u.email = :query'
+            )
             ->setParameter('query', $usernameOrEmail)
             ->getOneOrNullResult();
     } */
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
+    ///**
+    //* @return User[] Returns an array of User objects
+    //*/
     /*
     public function findByExampleField($value)
     {

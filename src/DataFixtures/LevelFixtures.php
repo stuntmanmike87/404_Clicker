@@ -1,67 +1,95 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DataFixtures;
 
+use App\Entity\Level;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use App\Entity\Level;
 
 /**
- * Classe qui gère les fixtures d'un objet Level qui représente le niveau d'un joueur
+ * Classe qui gère les fixtures d'un objet Level
+ * qui représente le niveau d'un joueur
  */
-class LevelFixtures extends Fixture
+final class LevelFixtures extends Fixture
 {
     /**
-     * Fonction qui permet de charger les fixtures: enregistrement des niveaux en base de données
-     *
-     * @param ObjectManager $manager
-     * @return void
+     * Fonction qui permet de charger les fixtures:
+     * enregistrement des niveaux en base de données
      */
     public function load(ObjectManager $manager): void
     {
-        for($i = 0; $i<6; $i++){
+        $this->loadLevels($manager);
+
+        $manager->flush();
+    }
+
+    /**
+     * loadLevels function
+     */
+    private function loadLevels(ObjectManager $manager): void
+    {
+        foreach (
+            $this->getLevelData() as [
+                $maxPoints,
+                $pathImg,
+                $nomLevel,
+                //$ref,
+            ]
+        ) {
             $level = new Level();
-            switch($i){
-                case 0:
-                    $level->setMaxPoints(0);
-                    $level->setPathImg('/assets/images/level1_concept.png'); 
-                    $level->setNomLevel('conception');
-                    $this->addReference('conception', $level);
-                    break;
-                case 1:
-                    $level->setMaxPoints(20);
-                    $level->setPathImg('/assets/images/level2_dev.png'); 
-                    $level->setNomLevel('developpement');
-                    $this->addReference('developpement', $level);
-                    break;
-                case 2:
-                    $level->setMaxPoints(50);
-                    $level->setPathImg('/assets/images/level3_prod.png'); 
-                    $level->setNomLevel('production');
-                    $this->addReference('production', $level);
-                    break;
-                case 3:
-                    $level->setMaxPoints(100);
-                    $level->setPathImg('/assets/images/404.png'); 
-                    $level->setNomLevel('404');
-                    $this->addReference('404', $level);
-                    break;
-                case 4:
-                    $level->setMaxPoints(200);
-                    $level->setPathImg('/assets/images/500.webp'); 
-                    $level->setNomLevel('500');
-                    $this->addReference('500', $level);
-                    break;
-                case 5:
-                    $level->setMaxPoints(500);
-                    $level->setPathImg('/assets/images/403.png'); 
-                    $level->setNomLevel('403');
-                    $this->addReference('403', $level);
-                    break;
-            }
+
+            $level->setMaxPoints(floatval($maxPoints));
+            $level->setPathImg($pathImg);
+            $level->setNomLevel(strval($nomLevel));
+            //$ref = ...
+            $this->addReference($nomLevel, $level);
+
             $manager->persist($level);
         }
 
-        $manager->flush();
+        //$manager->flush();
+    }
+
+    /**
+     * getLevelData function
+     *
+     * @return array<array<string>>
+     */
+    private function getLevelData(): array
+    {
+        return [//$levelData = [];
+            [
+                '0',
+                '/assets/images/level1_concept.png',
+                'conception',
+            ],
+            [
+                '20',
+                '/assets/images/level2_dev.png',
+                'developpement',
+            ],
+            [
+                '50',
+                '/assets/images/level3_prod.png',
+                'production',
+            ],
+            [
+                '100',
+                '/assets/images/404.png',
+                '404',
+            ],
+            [
+                '200',
+                '/assets/images/500.webp',
+                '500',
+            ],
+            [
+                '500',
+                '/assets/images/403.png',
+                '403',
+            ],
+        ];
     }
 }

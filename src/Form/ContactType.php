@@ -1,31 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Gregwar\CaptchaBundle\Type\CaptchaType;
 
-class ContactType extends AbstractType
+final class ContactType extends AbstractType
 {
     /**
      * Fonction qui élabore le formulaire de contact
      *
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @return void
+     * @param array<string> $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void
+    {//Unused parameter $options.
         $builder
-            ->add('nom',TextType::class, [
+            ->add('nom', TextType::class, [
                 //'label' => 'Nom',
             ])
-            ->add('email',EmailType::class, [
+            ->add('email', EmailType::class, [
                 //'label' => 'Adresse e-mail',
             ])
             /* ->add('sujet',TextType::class, [
@@ -35,13 +38,12 @@ class ContactType extends AbstractType
                 'attr' => ['rows' => 6],
                 //'label' => 'Votre message',
             ])
-            ->add('captcha', CaptchaType::class);
+            ->add('captcha', CaptchaType::class)
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-        ]);
+        $resolver->setDefaults([]);
     }
 }

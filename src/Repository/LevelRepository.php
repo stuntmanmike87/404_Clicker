@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Level;
@@ -11,17 +13,17 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Level|null find($id, $lockMode = null, $lockVersion = null)
  * @method Level|null findOneBy(array $criteria, array $orderBy = null)
- * @method Level[]    findAll()
- * @method Level[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method array<Level> findAll()
+ * @method array<Level> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LevelRepository extends ServiceEntityRepository
+final class LevelRepository extends ServiceEntityRepository
 {
     /**
      * Fonction qui est le constructeur de la classe LevelRepository
-     * 
-     * Cette fonction permet de contruire l'objet LevelRepository en reprenant les fonctions de sa classe parent qui est ServiceEntityRepository
      *
-     * @param ManagerRegistry $registry
+     * Cette fonction permet de contruire l'objet LevelRepository
+     * en reprenant les fonctions de sa classe parent
+     * qui est ServiceEntityRepository
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -52,9 +54,9 @@ class LevelRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Level[] Returns an array of Level objects
-    //  */
+    ///**
+    //* @return Level[] Returns an array of Level objects
+    //*/
     /*
     public function findByExampleField($value)
     {

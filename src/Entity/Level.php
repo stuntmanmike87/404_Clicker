@@ -1,46 +1,78 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\LevelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=LevelRepository::class)
  */
 class Level
-{
+{//Entity class App\Entity\Level is final which can cause problems with proxies
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var int $id
      */
     private $id;
 
     /**
      * @ORM\Column(type="float")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var float $maxPoints
      */
     private $maxPoints;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * //@Assert\Url(message="Le fichier est introuvable à l'emplacement spécifié")
+     *
+     * //@Assert\Url(message="Le chemin spécifié est invalide")
+     *
+     * @Assert\File(notFoundMessage="Le fichier est introuvable à l'emplacement spécifié")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string $pathImg
      */
     private $pathImg;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string $nomLevel
      */
     private $nomLevel;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="level")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var ArrayCollection<User> $idUser
      */
     private $idUser;
 
     /**
-     * Constructeur (méthode magique) qui définit une collection d'utilisateurs 
+     * Constructeur (méthode magique) qui définit
+     * une collection d'utilisateurs
      * selon un tableau d'entiers idUser (identifiants)
      */
     public function __construct()
@@ -50,8 +82,6 @@ class Level
 
     /**
      * Fonction qui permet de récupérer l'identifiant d'un niveau
-     *
-     * @return integer|null
      */
     public function getId(): ?int
     {
@@ -60,7 +90,6 @@ class Level
 
     /**
      * Fonction qui permet de récupérer le score maximal d'un joueur
-     * 
      */
     public function getMaxPoints(): ?float
     {
@@ -69,9 +98,6 @@ class Level
 
     /**
      * Fonction qui permet de définir le score maximal d'un joueur
-     *
-     * @param float $maxPoints
-     * @return self
      */
     public function setMaxPoints(float $maxPoints): self
     {
@@ -81,9 +107,8 @@ class Level
     }
 
     /**
-     * Fonction qui permet de récupérer le chemin de l'image associée à un niveau
-     *
-     * @return string|null
+     * Fonction qui permet de récupérer
+     * le chemin de l'image associée à un niveau
      */
     public function getPathImg(): ?string
     {
@@ -91,10 +116,8 @@ class Level
     }
 
     /**
-     * Fonction qui permet de définir le chemin de l'image associée à un niveau
-     *
-     * @param string $pathImg
-     * @return self
+     * Fonction qui permet de définir
+     * le chemin de l'image associée à un niveau
      */
     public function setPathImg(string $pathImg): self
     {
@@ -105,8 +128,6 @@ class Level
 
     /**
      * Fonction qui permet de récupérer le nom d'un niveau
-     *
-     * @return string|null
      */
     public function getNomLevel(): ?string
     {
@@ -115,9 +136,6 @@ class Level
 
     /**
      * Fonction qui permet de définir le nom d'un niveau
-     *
-     * @param string $nomLevel
-     * @return self
      */
     public function setNomLevel(string $nomLevel): self
     {
@@ -128,8 +146,6 @@ class Level
 
     /**
      * Fonction qui donne accès à une collection d'utilisateurs
-     * 
-     * @return Collection<int, User>
      */
     public function getIdUser(): Collection
     {
@@ -138,13 +154,10 @@ class Level
 
     /**
      * Fonction qui permet l'ajout de l'identifiant d'un utilisateur
-     *
-     * @param User $idUser
-     * @return self
      */
     public function addIdUser(User $idUser): self
     {
-        if (!$this->idUser->contains($idUser)) {
+        if (! $this->idUser->contains($idUser)) {
             $this->idUser[] = $idUser;
             $idUser->setLevel($this);
         }
@@ -153,15 +166,13 @@ class Level
     }
 
     /**
-     * Fonction qui permet la suppression de l'identifiant d'un utilisateur
-     *
-     * @param User $idUser
-     * @return self
+     * Fonction qui permet la suppression
+     * de l'identifiant d'un utilisateur
      */
     public function removeIdUser(User $idUser): self
     {
         if ($this->idUser->removeElement($idUser)) {
-            // set the owning side to null (unless already changed)
+            //set the owning side to null (unless already changed)
             if ($idUser->getLevel() === $this) {
                 $idUser->setLevel(null);
             }

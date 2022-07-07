@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\ResetPasswordRequest;
@@ -14,10 +16,10 @@ use SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepository
 /**
  * @method ResetPasswordRequest|null find($id, $lockMode = null, $lockVersion = null)
  * @method ResetPasswordRequest|null findOneBy(array $criteria, array $orderBy = null)
- * @method ResetPasswordRequest[]    findAll()
- * @method ResetPasswordRequest[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method array<ResetPasswordRequest> findAll()
+ * @method array<ResetPasswordRequest> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ResetPasswordRequestRepository extends ServiceEntityRepository implements ResetPasswordRequestRepositoryInterface
+final class ResetPasswordRequestRepository extends ServiceEntityRepository implements ResetPasswordRequestRepositoryInterface
 {
     use ResetPasswordRequestRepositoryTrait;
 
@@ -30,7 +32,10 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository implements 
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(ResetPasswordRequest $entity, bool $flush = true): void
+    public function add(
+        ResetPasswordRequest $entity,
+        bool $flush = true
+    ): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -42,7 +47,10 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository implements 
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(ResetPasswordRequest $entity, bool $flush = true): void
+    public function remove(
+        ResetPasswordRequest $entity,
+        bool $flush = true
+    ): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -50,8 +58,18 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository implements 
         }
     }
 
-    public function createResetPasswordRequest(object $user, \DateTimeInterface $expiresAt, string $selector, string $hashedToken): ResetPasswordRequestInterface
+    public function createResetPasswordRequest(
+        object $user,
+        \DateTimeInterface $expiresAt,
+        string $selector,
+        string $hashedToken
+    ): ResetPasswordRequestInterface
     {
-        return new ResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
+        return new ResetPasswordRequest(
+            $user,
+            $expiresAt,
+            $selector,
+            $hashedToken
+        );
     }
 }

@@ -1,17 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DataFixtures;
 
+use App\Entity\Level;
 use App\Entity\User;
-use Doctrine\Persistence\ObjectManager;
+//use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Classe héritée de Fixture, qui gère les fixtures d'un objet de fixture
  */
-class AppFixtures extends Fixture implements DependentFixtureInterface
+final class AppFixtures extends Fixture implements DependentFixtureInterface
 {
     private UserPasswordHasherInterface $hasher;
 
@@ -21,66 +25,98 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
     }
 
     /**
-     * Fonction qui permet de charger des fixtures en persistant des objets [user (utilisateur)] en base de données
-     *
-     * @param ObjectManager $manager
-     * @return void
+     * Fonction qui permet de charger des fixtures
+     * en persistant des objets [user (utilisateur)] en base de données
      */
     public function load(ObjectManager $manager): void
     {
-        $user1 = new User();// Create an user
-        $password = 'password';// Set a password
+        //UserFactory::new()->create();
+        //UserFactory::new()->createMany(10);
 
-        $user1->setUsername('apprenti');
-        $user1->setEmail('apprenti@apprenti.com');
-        $user1->setPassword($this->hasher->hashPassword($user1, $password));
-        $user1->setRoles(['ROLE_USER']);
-        $user1->setPoints(10);
-        $user1->setFullName('Théo Apprend');
-
-        $user1->setLevel($this->getReference('conception'));//get a reference to a LevelFixture
-
-        $manager->persist($user1);
-
-
-        $user2 = new User();
-        $password = 'password';
-
-        $user2->setUsername('junior');
-        $user2->setEmail('junior@junior.com');
-        $user2->setPassword($this->hasher->hashPassword($user2, $password));
-        $user2->setRoles(['ROLE_USER']);
-        $user2->setPoints(20);
-        $user2->setFullName('Luc Junior');
-
-        $user2->setLevel($this->getReference('developpement'));
-
-        $manager->persist($user2);
-
-
-        $user3 = new User();
-        $password = 'password';
-
-        $user3->setUsername('senior');
-        $user3->setEmail('senior@senior.com');
-        $user3->setPassword($this->hasher->hashPassword($user3, $password));
-        $user3->setRoles(['ROLE_USER']);
-        $user3->setPoints(50);
-        $user3->setFullName('Lucas Senior');
-
-        $user3->setLevel($this->getReference('production'));
-
-        $manager->persist($user3);
-
+        $this->loadUsers($manager);
 
         $manager->flush();
     }
 
-    public function getDependencies()
+    /**
+     * loadUsers function
+     */
+    private function loadUsers(ObjectManager $manager): void
     {
-        return [
-            LevelFixtures::class  
+        foreach (
+            $this->getUserData() as [
+                $email,
+                $roles,
+                $password,
+                $username,
+                $points,
+                $fullName,
+            ]
+        ) {
+            $user = new User();
+
+            $user->setEmail(strval($email));
+            $user->setRoles([strval($roles)]);
+            $user->setPassword(
+                $this->hasher->hashPassword($user, strval($password))
+            );
+            $user->setUsername(strval($username));
+            $user->setPoints((float) floatval($points));
+            $user->setFullName(strval($fullName));
+
+            $manager->persist($user);
+
+            /** @var Level $level */
+            $level = $this->getReference('conception');
+            //get a reference to a LevelFixture
+            $user->setLevel($level);
+        }
+    }
+
+    /**
+     * getUserData function
+     *
+     * @return array<int, array<int, array<int, string>|string>>
+     */
+    private function getUserData(): array
+    {
+        return [//$userData = [];
+            [
+                'theo@myemail.com',
+                ['ROLE_USER'],
+                'password',
+                'apprenti',
+                '10',
+                'Théo Apprend',
+            ],
+            [
+                'junior@lolgamers.com',
+                ['ROLE_USER'],
+                'password',
+                'junior',
+                '20',
+                'Luc Junior',
+            ],
+            [
+                'lucas@lolgamers.com',
+                ['ROLE_USER'],
+                'password',
+                'senior',
+                '50',
+                'Lucas Senior',
+            ],
         ];
     }
 
+    /**
+     * Fonction de liaison de dépendances avec une autre fixture
+     *
+     * @return array<string>
+     */
+    public function getDependencies(): array
+    {
+        return [
+            LevelFixtures::class,
+        ];
+    }
 }

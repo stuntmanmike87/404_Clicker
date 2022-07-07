@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Security;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -16,9 +18,10 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 /**
- * Classe qui traite l'authentification d'un utilisateur par le biais d'un formulaire
+ * Classe qui traite l'authentification d'un utilisateur
+ * par le biais d'un formulaire
  */
-class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+final class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
@@ -27,9 +30,8 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     private UrlGeneratorInterface $urlGenerator;
 
     /**
-     * Constructeur de la classe LoginFormAuthenticator qui hérite de AbstractLoginFormAuthenticator
-     *
-     * @param UrlGeneratorInterface $urlGenerator
+     * Constructeur de la classe LoginFormAuthenticator
+     * qui hérite de AbstractLoginFormAuthenticator
      */
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
@@ -38,9 +40,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     /**
      * Fonction qui gère la requête d'authentification
-     *
-     * @param Request $request
-     * @return Passport
      */
     public function authenticate(Request $request): Passport
     {
@@ -48,42 +47,50 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
+        /** @param string UserBadge(strval($email)) */
         return new Passport(
-            new UserBadge($email),
-            new PasswordCredentials($request->request->get('password', '')),
+            new UserBadge(strval($email)),
+            new PasswordCredentials(
+                strval($request->request->get('password', ''))
+            ),
             [
-                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
+                new CsrfTokenBadge(
+                    'authenticate',
+                    strval($request->request->get('_csrf_token'))
+                ),
             ]
         );
     }
 
     /**
      * Fonction qui traite la réponse d'une authentification qui a réussi
-     *
-     * @param Request $request
-     * @param TokenInterface $token
-     * @param string $firewallName
-     * @return Response|null
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
-    {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+    public function onAuthenticationSuccess(
+        Request $request,
+        TokenInterface $token,
+        string $firewallName
+    ): ?Response
+    {//Unused parameter $token
+        //$user = $token->getUser();
+        $targetPath = $this->getTargetPath(
+            $request->getSession(),
+            $firewallName
+        );
+        if ($targetPath) {
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
+        //For example:
         return new RedirectResponse($this->urlGenerator->generate('home'));
-        // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        //throw new \Exception('Fournir ici une redirection valide '.__FILE__);
+        //to_do_task : provide a valid redirect inside
     }
 
     /**
      * Fonction qui récupère l'URL de connexion
-     *
-     * @param Request $request
-     * @return string
      */
     protected function getLoginUrl(Request $request): string
-    {
+    {//Unused parameter $request.
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
 }

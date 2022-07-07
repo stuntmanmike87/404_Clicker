@@ -1,100 +1,179 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+//use Doctrine\ORM\Mapping\Table;
+//use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ *
  * @ORM\HasLifecycleCallbacks
- */
+ *
+ * //@Table(name="users")
+ *
+ * //@UniqueEntity(fields={"email"},message="Impossible de créer un compte utilisateur avec cet e-mail.")
+ *///Normal classes are forbidden. Classes must be final or abstract
 class User implements UserInterface, PasswordAuthenticatedUserInterface
-{
+{//Entity class App\Entity\User is final which can cause problems with proxies
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var int $id
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *
+     * @Assert\NotBlank(message="Veuillez saisir une valeur.")
+     *
+     * @Assert\Email(message="L'e-mail {{value}} n'est pas valide.")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string $email
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string> $roles
      */
     private $roles = [];
 
     /**
-     * @var string The hashed password
+     * @Assert\NotBlank(message="Veuillez saisir une valeur.")
+     *
+     * @Assert\NotCompromisedPassword(message="Ce mot de passe a été divulgué lors d'une fuite de données, veuillez utiliser un autre mot de passe pour votre sécurité.")
+     *
+     * @Assert\Regex(pattern="/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*[0-9])(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/", message="Le mot de passe doit être composé de 12 caractères dont au minimum : 1 lettre minuscule, 1 lettre majuscule, 1 chiffre, 1 caractère spécial (dans un ordre aléatoire).")
+     *
      * @ORM\Column(type="string")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string $password : The hashed password
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string $username
      */
     private $username;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var float|null $points
      */
     private $points;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var \DateTimeImmutable $createdAt
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var \DateTimeImmutable $updatedAt
      */
     private $updatedAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string|null $token
      */
     private $token;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var \DateTimeInterface|null $tokenDateValid
      */
     private $tokenDateValid;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified = false;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="idUser")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var Level|null $level
      */
     private $level;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string $fullName
      */
     private $fullName;
 
     /**
      * @ORM\Column(type="boolean")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var bool $isVerified
      */
-    private $isDeleted;
+    private $isVerified = false;
 
     /**
      * @ORM\Column(type="boolean")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var bool $isDeleted
      */
-    private $isExpired;
+    private $isDeleted = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var bool $isExpired
+     */
+    private $isExpired = false;
 
     /**
      * Méthode de récupération de l'identifiant d'un utilisateur
-     *
-     * @return integer|null
      */
     public function getId(): ?int
     {
@@ -103,8 +182,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Fonction qui permet de récupérer l'adresse e-mail de l'utilisateur
-     *
-     * @return string|null
      */
     public function getEmail(): ?string
     {
@@ -113,9 +190,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Fonction qui permet de définir l'adresse e-mail de l'utilisateur
-     *
-     * @param string $email
-     * @return self
      */
     public function setEmail(string $email): self
     {
@@ -144,11 +218,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return array<string>
      */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        //guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -157,8 +233,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Fonction qui permet de définir le rôle de l'utilisateur
      *
-     * @param array $roles
-     * @return self
+     * @param array<string> $roles
      */
     public function setRoles(array $roles): self
     {
@@ -177,9 +252,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Fonction qui permet de définir le mot de passe de l'utilisateur
-     *
-     * @param string $password
-     * @return self
      */
     public function setPassword(string $password): self
     {
@@ -200,19 +272,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * Fonction pour effacer des données sensibles ou temporaires
+     * sur l'utilisateur, i.e. un mot de passe en clair
+     *
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        //If you store any temporary, sensitive data
+        //on the user, clear it here
+        //$this->plainPassword = null;
     }
 
     /**
      * Fonction qui permet de définir le pseudo de l'utilisateur
-     *
-     * @param string $username
-     * @return self
      */
     public function setUsername(string $username): self
     {
@@ -223,8 +296,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Fonction qui permet de récupérer le score de l'utilisateur
-     *
-     * @return float|null
      */
     public function getPoints(): ?float
     {
@@ -233,9 +304,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Fonction qui permet de définir le score de l'utilisateur
-     *
-     * @param float|null $points
-     * @return self
      */
     public function setPoints(?float $points): self
     {
@@ -245,9 +313,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de récupérer la date d'enregistrement de l'utilisateur
-     *
-     * @return \DateTimeImmutable|null
+     * Fonction qui permet de récupérer
+     * la date d'enregistrement de l'utilisateur
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -259,15 +326,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setCreatedAt(): self
     {
-        $this->createdAt = new \DateTimeImmutable;
+        $this->createdAt = new \DateTimeImmutable();
 
         return $this;
     }
 
     /**
-     * Fonction qui permet de récupérer la date de mise à jour de l'utilisateur
-     *
-     * @return \DateTimeImmutable|null
+     * Fonction qui permet de récupérer
+     * la date de mise à jour de l'utilisateur
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
@@ -276,19 +342,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\PrePersist
+     *
      * @ORM\PreUpdate
      */
     public function setUpdatedAt(): self
     {
-        $this->updatedAt = new \DateTimeImmutable;
+        $this->updatedAt = new \DateTimeImmutable();
 
         return $this;
     }
 
     /**
      * Fonction de récupération du jeton de sécurité (token)
-     *
-     * @return string|null
      */
     public function getToken(): ?string
     {
@@ -297,9 +362,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Fonction pour définir le jeton de sécurité (token)
-     *
-     * @param string|null $token
-     * @return self
      */
     public function setToken(?string $token): self
     {
@@ -309,10 +371,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction de récupération la date de validité 
+     * Fonction de récupération la date de validité
      * du jeton de sécurité (token)
-     *
-     * @return \DateTimeInterface|null
      */
     public function getTokenDateValid(): ?\DateTimeInterface
     {
@@ -320,11 +380,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction pour définir la date de validité 
+     * Fonction pour définir la date de validité
      * du jeton de sécurité (token)
-     *
-     * @param \DateTimeInterface|null $tokenDateValid
-     * @return self
      */
     public function setTokenDateValid(?\DateTimeInterface $tokenDateValid): self
     {
@@ -335,8 +392,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Fonction qui permet de récupérer le niveau atteint par l'utilisateur
-     *
-     * @return Level|null
      */
     public function getLevel(): ?Level
     {
@@ -345,9 +400,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Fonction qui permet de définir le niveau auquel se situe l'utilisateur
-     *
-     * @param Level|null $level
-     * @return self
      */
     public function setLevel(?Level $level): self
     {
@@ -357,33 +409,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction de test qui indique si l'adresse e-mail 
-     * de l'utilisateur est vérifiée ou non
-     *
-     * @return boolean
-     */
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    /**
-     * Fonction qui permet de connaître le statut de vérification 
+     * Fonction qui permet de connaître le statut de vérification
      * de l'adresse e-mail de l'utilisateur
-     *
-     * @return boolean|null
      */
     public function getIsVerified(): ?bool
     {
         return $this->isVerified;
     }
-    
+
     /**
-     * Fonction qui permet de définir le statut de vérification 
+     * Fonction qui permet de définir le statut de vérification
      * de l'adresse e-mail de l'utilisateur
-     *
-     * @param boolean $isVerified
-     * @return self
      */
     public function setIsVerified(bool $isVerified): self
     {
@@ -394,8 +430,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Fonction qui permet de récupérer le nom complet de l'utilisateur
-     *
-     * @return string|null     * 
      */
     public function getFullName(): ?string
     {
@@ -404,9 +438,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Fonction qui permet de définir le nom complet de l'utilisateur
-     *
-     * @param string $fullName     * 
-     * @return self     * 
      */
     public function setFullName(string $fullName): self
     {
@@ -416,10 +447,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction: méthode getter du user checker: 
+     * Fonction: méthode getter du user checker:
      * statut de l'utilisateur: supprimé/non supprimé
-     *
-     * @return boolean|null
      */
     public function getIsDeleted(): ?bool
     {
@@ -427,24 +456,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction: méthode setter du user checker: 
+     * Fonction: méthode setter du user checker:
      * statut de l'utilisateur: supprimé/non supprimé
-     *
-     * @param boolean $isDeleted
-     * @return self
      */
     public function setIsDeleted(bool $isDeleted): self
     {
+
         $this->isDeleted = $isDeleted;
 
         return $this;
     }
 
     /**
-     * Fonction: méthode getter du user checker: 
+     * Fonction: méthode getter du user checker:
      * statut de l'utilisateur: expiré/non expiré
-     *
-     * @return boolean|null
      */
     public function getIsExpired(): ?bool
     {
@@ -452,14 +477,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction: méthode setter du user checker: 
+     * Fonction: méthode setter du user checker:
      * statut de l'utilisateur: expiré/non expiré
-     *
-     * @param boolean $isExpired
-     * @return self
      */
     public function setIsExpired(bool $isExpired): self
     {
+
         $this->isExpired = $isExpired;
 
         return $this;

@@ -1,35 +1,46 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-class JouerController extends AbstractController
+/**
+ * Classe/contrôleur qui traite la fonctionnalité du jeu
+ * exécuté par un utilisateur authentifié
+ *
+ * @method User|null getUser()
+ */
+final class JouerController extends AbstractController
 {
     /**
      * @IsGranted("ROLE_USER")
-     * 
+     *
      * @Route("/jouer", name="jouer")
-     * 
+     *
      * Fonction qui gère la page "jouer"
-     * 
-     * @param UserRepository $userRepository
-     * @return jouer/index.html.twig page du jeu
+     *
+     * jouer/index.html.twig : page du jeu
      */
     public function index(UserRepository $userRepository): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
         // dd($user);
 
-        if (!$user) {
-            // dd('Not user connected');
-            $this->redirectToRoute('app_login');
-        }
+        ///** @var User $user */
+        //if (! $user) {
+        //dd('Not user connected');
+        //$this->redirectToRoute('app_login');
+        //}
 
+        ///** @var User $user */
         $changeLevelScore = $userRepository->changeLevel($user);
 
         return $this->render('jouer/index.html.twig', [

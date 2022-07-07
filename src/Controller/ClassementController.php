@@ -1,21 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class ClassementController extends AbstractController
+final class ClassementController extends AbstractController
 {
     /**
      * @Route("/classement", name="classement")
-     * 
+     *
      * Fonction qui permet l'affichage du classement des joueurs
-     * 
-     * @param $UserRepository $repository
-     * @return classement/index.html.twig page du classement des joueurs
+     *
+     * classement/index.html.twig : page du classement des joueurs
      */
     public function index(UserRepository $repository): Response
     {
