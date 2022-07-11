@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class ClassementController extends AbstractController
+final class PoolController extends AbstractController
 {
     /**
      * @Route("/classement", name="classement")

@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @method User|null getUser()
  */
-final class JouerController extends AbstractController
+final class GameController extends AbstractController
 {
     /**
      * @IsGranted("ROLE_USER")
