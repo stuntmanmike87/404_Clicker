@@ -13,7 +13,7 @@ use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestTrait;
  * @ORM\Entity(repositoryClass=ResetPasswordRequestRepository::class)
  */
 class ResetPasswordRequest implements ResetPasswordRequestInterface
-{//Entity class App\Entity\ResetPasswordRequest is final which can cause problems with proxies
+{//Entity class ... is final which can cause problems with proxies
     use ResetPasswordRequestTrait;
 
     /**
@@ -22,37 +22,29 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
      * @ORM\GeneratedValue
      *
      * @ORM\Column(type="integer")
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var int $id
      */
-    private $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     *
-     * @ORM\JoinColumn(nullable=false)
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var User $user
-     */
-    private $user;
+    private int $id;
 
     /**
      * Constructeur (méthode magique)
      * de la classe ResetPasswordRequest déclarée
+     *
+     * @param User $user
      */
     public function __construct(
-        object $user,
+        /**
+         * @ORM\ManyToOne(targetEntity=User::class)
+         *
+         * @ORM\JoinColumn(nullable=false)
+         *
+         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+         */
+        private object $user,
         \DateTimeInterface $expiresAt,
         string $selector,
         string $hashedToken
     )
     {
-        /** @var User $user */
-        $this->user = $user;
         $this->initialize($expiresAt, $selector, $hashedToken);
     }
 

@@ -33,31 +33,21 @@ final class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
 
-    /**
-     * Reset password helper
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var ResetPasswordHelperInterface $resetPasswordHelper
-     */
-    private $resetPasswordHelper;
-
-    /**
-     * Entity manager
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var EntityManagerInterface $entityManager
-     */
-    private $entityManager;
-
     public function __construct(
-        ResetPasswordHelperInterface $resetPasswordHelper,
-        EntityManagerInterface $entityManager
+        /**
+         * Reset password helper
+         *
+         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+         */
+        private ResetPasswordHelperInterface $resetPasswordHelper,
+        /**
+         * Entity manager
+         *
+         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+         */
+        private EntityManagerInterface $entityManager
     )
     {
-        $this->resetPasswordHelper = $resetPasswordHelper;
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -84,8 +74,7 @@ final class ResetPasswordController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->processSendingPasswordResetEmail(
                 strval($form->get('email')->getData()),
-                $mailer,
-                $translator
+                $mailer
             );
         }
 
@@ -115,7 +104,7 @@ final class ResetPasswordController extends AbstractController
         //This prevents exposing whether or not a user
         //was found with the given email address or not
         $resetToken = $this->getTokenObjectFromSession();
-        if ($resetToken === null) {
+        if (! $resetToken instanceof \SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken) {
             $resetToken = $this
                 ->resetPasswordHelper->generateFakeResetToken();
         }
@@ -166,7 +155,7 @@ final class ResetPasswordController extends AbstractController
             $user = $this
                 ->resetPasswordHelper
                 ->validateTokenAndFetchUser($token);
-        } catch (ResetPasswordExceptionInterface $e) {
+        } catch (ResetPasswordExceptionInterface $resetPasswordException) {
             $this->addFlash(
                 'reset_password_error',
                 sprintf(
@@ -178,7 +167,7 @@ final class ResetPasswordController extends AbstractController
                         'ResetPasswordBundle'
                     ),
                     $translator->trans(
-                        $e->getReason(),
+                        $resetPasswordException->getReason(),
                         [],
                         'ResetPasswordBundle'
                     )
@@ -197,13 +186,14 @@ final class ResetPasswordController extends AbstractController
             $this->resetPasswordHelper->removeResetRequest($token);
 
             //Encode(hash) the plain password, and set it.
-            /** @var User $user */
+            /** @var User $user *////** @param User $user */
             $encodedPassword = $userPasswordHasher->hashPassword(
+                ///** @var User $user */
                 $user,
                 strval($form->get('plainPassword')->getData())
             );
 
-            /** @var User $user */
+            ///** @var User $user */
             $user->setPassword($encodedPassword);
             $this->entityManager->flush();
 
@@ -224,8 +214,7 @@ final class ResetPasswordController extends AbstractController
      */
     private function processSendingPasswordResetEmail(
         string $emailFormData,
-        MailerInterface $mailer,
-        TranslatorInterface $translator
+        MailerInterface $mailer
     ): RedirectResponse
     {
         //$user = $this->entityManager->getRepository(User::class)
@@ -247,7 +236,7 @@ final class ResetPasswordController extends AbstractController
             $resetToken = $this
                 ->resetPasswordHelper
                 ->generateResetToken($user);
-        } catch (ResetPasswordExceptionInterface $e) {
+        } catch (ResetPasswordExceptionInterface) {
             //If you want to tell the user why a reset email was not sent,
             //uncomment the lines below and change the redirect to
             //'app_forgot_password_request'.

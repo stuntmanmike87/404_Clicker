@@ -32,7 +32,11 @@ final class AxiosController extends AbstractController
     {
         //Récupère la donnée envoyée par le front-end
         /** @var array<string> $data */
-        $data = json_decode((string) $request->getContent(), true);
+        $data = json_decode(
+            (string) $request->getContent(),
+            true,
+            512, JSON_THROW_ON_ERROR
+        );
         //var_dump($data["points"]);exit;
 
         //Vérifie si la clé "points" existe
@@ -44,6 +48,7 @@ final class AxiosController extends AbstractController
             $userRepository->insertPoints($points, $user);
             $userRepository->checkLevelByMaxPoints($points, $user);
         }
+
         return new JsonResponse(
             ["message" => "ajout des points dans la BDD"],
             200

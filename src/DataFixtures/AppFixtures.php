@@ -17,11 +17,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 final class AppFixtures extends Fixture implements DependentFixtureInterface
 {
-    private UserPasswordHasherInterface $hasher;
-
-    public function __construct(UserPasswordHasherInterface $hasher)
+    public function __construct(private UserPasswordHasherInterface $hasher)
     {
-        $this->hasher = $hasher;
     }
 
     /**
@@ -61,7 +58,7 @@ final class AppFixtures extends Fixture implements DependentFixtureInterface
                 $this->hasher->hashPassword($user, strval($password))
             );
             $user->setUsername(strval($username));
-            $user->setPoints((float) floatval($points));
+            $user->setPoints(floatval($points));
             $user->setFullName(strval($fullName));
 
             $manager->persist($user);

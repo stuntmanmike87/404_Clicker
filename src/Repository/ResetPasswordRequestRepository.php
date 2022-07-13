@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\ResetPasswordRequest;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -58,6 +59,7 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
         }
     }
 
+    /** @param User $user */
     public function createResetPasswordRequest(
         object $user,
         \DateTimeInterface $expiresAt,

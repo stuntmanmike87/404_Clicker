@@ -42,7 +42,7 @@ final class CustomValidatorForCommand
         }
 
         $passwordRegex =
-            '/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*[0-9])(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/';
+            '/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*\d)(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/';
 
         if (! preg_match($passwordRegex, $plainPassword)) {
             throw new InvalidArgumentException(

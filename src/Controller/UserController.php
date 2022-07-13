@@ -22,18 +22,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class UserController extends AbstractController
 {
-    /**
-     * Entity manager
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var EntityManagerInterface $entityManager
-     */
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(
+        /**
+         * Entity manager
+         *
+         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+         */
+        private EntityManagerInterface $entityManager
+    )
     {
-        $this->entityManager = $entityManager;
     }
 
     /**

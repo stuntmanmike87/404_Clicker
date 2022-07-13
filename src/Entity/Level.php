@@ -21,21 +21,13 @@ class Level
      * @ORM\GeneratedValue
      *
      * @ORM\Column(type="integer")
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var int $id
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="float")
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var float $maxPoints
      */
-    private $maxPoints;
+    private float $maxPoints;//private ?float $maxPoints = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -45,21 +37,13 @@ class Level
      * //@Assert\Url(message="Le chemin spécifié est invalide")
      *
      * @Assert\File(notFoundMessage="Le fichier est introuvable à l'emplacement spécifié")
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var string $pathImg
      */
-    private $pathImg;
+    private string $pathImg;//private ?string $pathImg = null;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var string $nomLevel
      */
-    private $nomLevel;
+    private string $nomLevel;//private ?string $nomLevel = null;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="level")
@@ -171,11 +155,9 @@ class Level
      */
     public function removeIdUser(User $idUser): self
     {
-        if ($this->idUser->removeElement($idUser)) {
-            //set the owning side to null (unless already changed)
-            if ($idUser->getLevel() === $this) {
-                $idUser->setLevel(null);
-            }
+        //set the owning side to null (unless already changed)
+        if ($this->idUser->removeElement($idUser) && $idUser->getLevel() === $this) {
+            $idUser->setLevel(null);
         }
 
         return $this;
