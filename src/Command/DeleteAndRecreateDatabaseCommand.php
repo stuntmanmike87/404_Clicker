@@ -64,7 +64,7 @@ final class DeleteAndRecreateDatabaseCommand extends Command
     {
         $application = $this->getApplication();
 
-        if (! $application) {
+        if (!$application instanceof \Symfony\Component\Console\Application) {
             throw new \LogicException('No application :(');
         }
 

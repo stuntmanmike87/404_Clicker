@@ -25,17 +25,17 @@ final class UserAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
+    /**
+     * @var string
+     */
     public const LOGIN_ROUTE = 'app_login';
-
-    private UrlGeneratorInterface $urlGenerator;
 
     /**
      * Constructeur de la classe LoginFormAuthenticator
      * qui hérite de AbstractLoginFormAuthenticator
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**

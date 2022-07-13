@@ -26,11 +26,8 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
  */
 final class RegistrationController extends AbstractController
 {
-    private EmailVerifier $emailVerifier;
-
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(private EmailVerifier $emailVerifier)
     {
-        $this->emailVerifier = $emailVerifier;
     }
 
     /**
@@ -48,7 +45,7 @@ final class RegistrationController extends AbstractController
         LevelRepository $levelRepository
     ): Response
     {
-        if ($this->getUser()) {
+        if ($this->getUser() !== null) {
             return $this->render('home/index.html.twig');
         }
 
@@ -134,11 +131,11 @@ final class RegistrationController extends AbstractController
             /** @var User $user */
             $user=$this->getUser();
             $this->emailVerifier->handleEmailConfirmation($request, $user);
-        } catch (VerifyEmailExceptionInterface $exception) {
+        } catch (VerifyEmailExceptionInterface $verifyEmailException) {
             $this->addFlash(
                 'verify_email_error',
                 $translator->trans(
-                    $exception->getReason(),
+                    $verifyEmailException->getReason(),
                     [],
                     'VerifyEmailBundle'
                 )

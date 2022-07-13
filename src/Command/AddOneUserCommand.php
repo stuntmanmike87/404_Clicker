@@ -28,43 +28,40 @@ final class AddOneUserCommand extends Command
      */
     protected static $defaultName = 'app:add-one-user';
 
-    //protected static $defaultDescription =
-    //'Crée un utilisateur en base de données.';
-
-    private CustomValidatorForCommand $validator;
-
-    private EntityManagerInterface $entityManager;
-
-    private UserPasswordHasherInterface $encoder;
-
-    private UserRepository $userRepository;
-
     private SymfonyStyle $io;
 
     public function __construct(
-        CustomValidatorForCommand $validator,
-        EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $encoder,
-        UserRepository $userRepository
+        private CustomValidatorForCommand $validator,
+        private EntityManagerInterface $entityManager,
+        private UserPasswordHasherInterface $encoder,
+        private UserRepository $userRepository
     )
     {
         parent::__construct();
-        $this->validator = $validator;
-        $this->encoder = $encoder;
-        $this->entityManager = $entityManager;
-        $this->userRepository = $userRepository;
     }
 
     //EMAIL_ARGUMENT_DESCRIPTION
+    /**
+     * @var string
+     */
     private const EMAIL_ARG = "L'e-mail de l'utilisateur";
 
     //PASSWORD_ARGUMENT_DESCRIPTION
+    /**
+     * @var string
+     */
     private const PW_ARG = "Le mot de passe en clair de l'utilisateur";
 
     //ROLE_ARGUMENT_DESCRIPTION
+    /**
+     * @var string
+     */
     private const ROLE_ARG = "Le rôle de l'utilisateur";
 
     //ISVERIFIED_ARGUMENT_DESCRIPTION
+    /**
+     * @var string
+     */
     private const ISV_ARG = "Le statut du compte l'utilisateur (actif)";
 
     protected function configure(): void
@@ -131,7 +128,7 @@ final class AddOneUserCommand extends Command
 
         /** @var bool $isVerified */
         $isVerified = $input
-            ->getArgument('isVerified') === 'INACTIF' ? false : true;
+            ->getArgument('isVerified') !== 'INACTIF';
 
         $user = new User();
 
@@ -175,7 +172,7 @@ final class AddOneUserCommand extends Command
         /** @var string $email */
         $email = $helper->ask($input, $output, $emailQuestion);
 
-        if ($this->isUserAlreadyExists($email)) {
+        if ($this->isUserAlreadyExists($email) !== null) {
             throw new RuntimeException(
                 sprintf(
                     "UTILISATEUR DEJA PRESENT EN BASE DE DONNEES 
@@ -251,7 +248,7 @@ final class AddOneUserCommand extends Command
         $role = $helper->ask($input, $output, $roleQuestion);
 
         $output->writeln(
-            "<info>ROLE UTILISATEUR PRIS EN COMPTE : {$role}</info>"
+            sprintf('<info>ROLE UTILISATEUR PRIS EN COMPTE : %s</info>', $role)
         );
 
         $input->setArgument('role', $role);

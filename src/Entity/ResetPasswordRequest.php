@@ -24,35 +24,27 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
      * @ORM\Column(type="integer")
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var int $id
      */
-    private $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     *
-     * @ORM\JoinColumn(nullable=false)
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var User $user
-     */
-    private $user;
+    private int $id;
 
     /**
      * Constructeur (méthode magique)
      * de la classe ResetPasswordRequest déclarée
      */
     public function __construct(
-        object $user,
+        /**
+         * @ORM\ManyToOne(targetEntity=User::class)
+         *
+         * @ORM\JoinColumn(nullable=false)
+         *
+         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+         */
+        private object $user,
         \DateTimeInterface $expiresAt,
         string $selector,
         string $hashedToken
     )
     {
-        /** @var User $user */
-        $this->user = $user;
         $this->initialize($expiresAt, $selector, $hashedToken);
     }
 

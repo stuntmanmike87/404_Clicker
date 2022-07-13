@@ -23,13 +23,6 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 final class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var LevelRepository $levelRepository
-     */
-    private $levelRepository;
-
-    /**
      * Fonction qui est le constructeur de la classe UserRepository
      *
      * Cette fonction permet de contruire l'objet UserRepository en reprenant
@@ -37,11 +30,13 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
      */
     public function __construct(
         ManagerRegistry $registry,
-        LevelRepository $levelRepository
+        /**
+         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+         */
+        private LevelRepository $levelRepository
     )
     {
         parent::__construct($registry, User::class);
-        $this->levelRepository = $levelRepository;
     }
 
     /**
@@ -132,6 +127,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
                 $user->setLevel($level);
             }
         }
+
         /* if ($points < 20) {
             $level = $this->levelRepository->find(1);
             $user->setLevel($level);
@@ -176,6 +172,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
                 return $value;
             }
         }
+
         /* if ($user->getPoints() < 20) {return 20;}
         if ($user->getPoints() >= 20 && $user->getPoints() < 50) {return 50;}
         if ($user->getPoints() >= 50 && $user->getPoints() < 100) {return 100;}

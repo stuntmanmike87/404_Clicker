@@ -18,37 +18,25 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 final class EmailVerifier
 {
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var VerifyEmailHelperInterface $verifyEmailHelper
-     */
-    private $verifyEmailHelper;
-    /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var MailerInterface $mailer
-     */
-    private $mailer;
-    /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var EntityManagerInterface $entityManager
-     */
-    private $entityManager;
-
-    /**
      * Constructeur de la classe EmailVerifier
      */
     public function __construct(
-        VerifyEmailHelperInterface $helper,
-        MailerInterface $mailer,
-        EntityManagerInterface $manager
+        /**
+         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+         */
+        private VerifyEmailHelperInterface $verifyEmailHelper,
+        /**
+         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+         */
+        private MailerInterface $mailer,
+        /**
+         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+         */
+        private EntityManagerInterface $entityManager
     )
     {
-        $this->verifyEmailHelper = $helper;
-        $this->mailer = $mailer;
-        $this->entityManager = $manager;
     }
+
     /**
      * Fonction qui traite l'envoi d'une adresse e-mail de confirmation
      */

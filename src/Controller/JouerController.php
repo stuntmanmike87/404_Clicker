@@ -30,17 +30,8 @@ final class JouerController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
-        /** @var User $user */
+        // dd($user);///** @var User $user *///if (! $user) {//dd('Not user connected');//$this->redirectToRoute('app_login');//}///** @var User $user */
         $user = $this->getUser();
-        // dd($user);
-
-        ///** @var User $user */
-        //if (! $user) {
-        //dd('Not user connected');
-        //$this->redirectToRoute('app_login');
-        //}
-
-        ///** @var User $user */
         $changeLevelScore = $userRepository->changeLevel($user);
 
         return $this->render('jouer/index.html.twig', [

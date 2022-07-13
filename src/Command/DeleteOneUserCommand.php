@@ -33,24 +33,15 @@ final class DeleteOneUserCommand extends Command
     protected static $defaultDescription =
         'Supprime un utilisateur en base de données';
 
-    private CustomValidatorForCommand $validator;
-
-    private EntityManagerInterface $entityManager;
-
-    private UserRepository $userRepository;
-
     private SymfonyStyle $io;
 
     public function __construct(
-        CustomValidatorForCommand $validator,
-        EntityManagerInterface $entityManager,
-        UserRepository $userRepository
+        private CustomValidatorForCommand $validator,
+        private EntityManagerInterface $entityManager,
+        private UserRepository $userRepository
     )
     {
         parent::__construct();
-        $this->validator = $validator;
-        $this->entityManager = $entityManager;
-        $this->userRepository = $userRepository;
     }
 
     protected function configure(): void
@@ -77,7 +68,7 @@ final class DeleteOneUserCommand extends Command
     /**
      * execute function
      */
-    public function execute(
+    protected function execute(
         InputInterface $input,
         OutputInterface $output
     ): int
@@ -91,7 +82,7 @@ final class DeleteOneUserCommand extends Command
             'email' => $email,
         ]);
 
-        if (! $user) {
+        if (!$user instanceof \App\Entity\User) {
             throw new RuntimeException(
                 "AUCUN UTILISATEUR N'EST PRESENT
                 EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : {$email}"

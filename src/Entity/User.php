@@ -31,10 +31,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="integer")
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var int $id
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -44,10 +42,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\Email(message="L'e-mail {{value}} n'est pas valide.")
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var string $email
      */
-    private $email;
+    private ?string $email = null;
 
     /**
      * @ORM\Column(type="json")
@@ -56,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @var array<string> $roles
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @Assert\NotBlank(message="Veuillez saisir une valeur.")
@@ -71,106 +67,84 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @var string $password : The hashed password
      */
-    private $password;
+    private ?string $password = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var string $username
      */
-    private $username;
+    private ?string $username = null;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var float|null $points
      */
-    private $points;
+    private ?float $points = null;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var \DateTimeImmutable $createdAt
      */
-    private $createdAt;
+    private ?\DateTimeImmutable $createdAt = null;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var \DateTimeImmutable $updatedAt
      */
-    private $updatedAt;
+    private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var string|null $token
      */
-    private $token;
+    private ?string $token = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var \DateTimeInterface|null $tokenDateValid
      */
-    private $tokenDateValid;
+    private ?\DateTimeInterface $tokenDateValid = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="idUser")
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var Level|null $level
      */
-    private $level;
+    private ?\App\Entity\Level $level = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var string $fullName
      */
-    private $fullName;
+    private ?string $fullName = null;
 
     /**
      * @ORM\Column(type="boolean")
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var bool $isVerified
      */
-    private $isVerified = false;
+    private bool $isVerified = false;
 
     /**
      * @ORM\Column(type="boolean")
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var bool $isDeleted
      */
-    private $isDeleted = false;
+    private bool $isDeleted = false;
 
     /**
      * @ORM\Column(type="boolean")
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var bool $isExpired
      */
-    private $isExpired = false;
+    private bool $isExpired = false;
 
     /**
      * Méthode de récupération de l'identifiant d'un utilisateur
