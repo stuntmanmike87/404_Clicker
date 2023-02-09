@@ -34,7 +34,6 @@ final class GameController extends AbstractController
         //}
         /** @var User $user */
         $user = $this->getUser();
-
         $changeLevelScore = $userRepository->changeLevel($user);
 
         return $this->render('jouer/index.html.twig', [

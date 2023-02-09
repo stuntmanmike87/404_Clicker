@@ -30,10 +30,6 @@ Encore
     // optionally enable forked type script for faster builds
     // https://www.npmjs.com/package/fork-ts-checker-webpack-plugin
     // requires that you have a tsconfig.json file that is setup correctly.
-    //.enableForkedTypeScriptTypesChecking()
-
-    .enableTypeScriptLoader()
-
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

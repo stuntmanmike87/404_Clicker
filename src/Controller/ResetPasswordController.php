@@ -96,7 +96,6 @@ final class ResetPasswordController extends AbstractController
         //This prevents exposing whether or not a user
         //was found with the given email address or not
         $resetToken = $this->getTokenObjectFromSession();
-
         if (! $resetToken instanceof \SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken) {
             $resetToken = $this
                 ->resetPasswordHelper->generateFakeResetToken();
@@ -134,7 +133,6 @@ final class ResetPasswordController extends AbstractController
         }
 
         $token = $this->getTokenFromSession();
-
         if ($token === null) {
             throw $this->createNotFoundException(
                 'No reset password token found in the URL or in the session.'

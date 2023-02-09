@@ -110,7 +110,6 @@ final class RegistrationController extends AbstractController
                 'Vous êtes bien inscrit, merci de bien regarder
                 vos mails pour faire la vérification.'
             );
-
             return $this->redirectToRoute('home');
         }
 
