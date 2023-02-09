@@ -1,0 +1,41 @@
+<header class="header-section">
+	<div class="container">
+		<!-- logo -->
+		<a class="site-logo" href="{{ path('home') }}">
+			<img src="{{ asset('build/images/logo.png') }}" alt="">
+		</a>
+		<div class="button">
+			{% if app.user is null  %}
+				<div class="user-panel">
+					<a href="{{ path('app_login')}}">Connexion</a>
+				</div>
+        		<div class="user-panel">
+            		<a href="{{ path('inscription')}}">Inscription</a>{# 'app_register' #}
+        		</div>
+			{% else %}
+				<div class="user-panel">
+					<a href="{{ path('app_logout')}}">Déconnexion</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	<!-- site menu -->
+	<nav class="main-menu">
+		{% if app.user is null  %}
+			<ul>
+				<li><a href="{{path('presentation')}}">Présentation</a></li>
+				<li><a href="{{path('classement')}}">Classement</a></li>
+				<li><a href="{{path('contact')}}">Contact</a></li>{# app_contact #}
+			</ul>
+		{% else %}
+			<ul>
+				<li><a href="{{path('jouer')}}">Jouer</a></li>
+				<li><a href="{{ path('app_user_show', {'id': app.user.id} ) }}">Profil</a></li>
+				<li><a href="{{path('presentation')}}">Présentation</a></li>
+				<li><a href="{{path('classement')}}">Classement</a></li>
+				<li><a href="{{path('contact')}}">Contact</a></li>
+			</ul>
+		{% endif %}
+	</nav>
+</header>

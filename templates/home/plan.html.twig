@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plan du site{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper-plan">
+    <h1>Plan du site</h1>
+
+    <div class="none_connected">
+        <p>Non Connecté :</p>
+        <ul>
+            <li><a href="{{ path('home') }}">Accueil</a></li>
+            <li><a href="{{ path('presentation') }}">Présentation</a></li>
+            <li><a href="{{ path('classement') }}">Classement</a></li>
+            <li><a href="{{path('contact')}}">Contact</a></li>
+            <li><a href="{{ path('inscription') }}">Inscription</a></li>
+            <li><a href="{{ path('app_login') }}">Connexion</a></li>
+        </ul>
+    </div>
+
+    <div class="connected">
+        <p>Connecté :</p>
+        <ul>
+            <li><a href="{{ path('home') }}">Accueil</a></li>
+            <li><a href="{{ path('presentation') }}">Présentation</a></li>
+            <li><a href="{{ path('classement') }}">Classement</a></li>
+            <li><a href="{{path('contact')}}">Contact</a></li>
+            {% if app.user is null  %}
+                <li><a href="{{ path('app_login') }}">Jouer</a></li>
+                <li><a href="{{ path('app_login') }}">Profil</a></li>
+            {% else %}
+                <li><a href="{{ path('jouer') }}">Jouer</a></li>
+                <li><a href="{{ path('app_user_show', {'id': app.user.id} ) }}">Profil</a></li>
+            {% endif %}
+        </ul> 
+    </div>   
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+/*----------------------
+   Register Section
+ ------------------------*/
+
+.register-wrapper{
+    height: 80vh;
+    width: 100%;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    
+    p{font-size:1.0rem;}
+
+    .form-content{
+        padding: 2rem;
+        width: 100%;
+
+        .form-field {
+            margin-top: 0.5rem;
+            width: calc(100% - 2rem);
+
+            label {
+                font-family: 'EB Garamond';
+                font-weight: 400;
+                font-size: 1.2rem;
+            }
+        }
+    }
+
+    button {
+        background-color: $color1;
+        color: $color2;
+        font-family: "EB Garamond", serif;
+        font-weight: 400;
+        max-width: 150px;
+        margin-left: 90px;
+
+        &:hover {
+            color: $color3;
+            background-color: $color4;
+        }
+    }
+
+}

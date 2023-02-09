@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter{% endblock %}
+
+{% block body %}
+
+<div class="contact-wrapper">{# <div class="bg-white p-5 contact-form"> #}
+
+    {{ form_start(contactForm) }}
+
+        {# {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">
+                {{ flash_error }}
+            </div>
+        {% endfor %} #}
+
+        {% for flash_error in app.flashes('error') %}
+            <div class="alert alert-danger alert-test">
+                {{ flash_error }}
+            </div>
+        {% endfor %}
+
+        <div class="form-content">
+            <h1 class="h3 mb-3 font-weight-normal">Contactez-nous</h1>
+        </div>
+    
+        <div class="form-content">
+
+            {# <div class="form-group"> #}
+                {{ form_row(contactForm.nom, {'attr': {'class': 'form-control'}}) }}
+
+                {{ form_row(contactForm.email, {'attr': {'class': 'form-control'}}) }}
+
+                {# {{ form_row(contactForm.sujet, {'attr': {'class': 'form-control'}}) }} #}
+
+                {{ form_row(contactForm.message, {'attr': {'class': 'form-control'}}) }}
+
+                {{ form_row(contactForm.captcha, {'attr': {'class': 'form-control'}}) }}
+            {# </div> #}
+                <button type="submit" class="btn btn-lg">Envoyer</button>{# <input type="submit" value="Envoyer" class="btn btn-primary py-3 px-5"> #}
+            {# </div> #}
+
+        </div>
+
+    {{ form_end(contactForm) }}
+
+</div>
+
+{% endblock %}

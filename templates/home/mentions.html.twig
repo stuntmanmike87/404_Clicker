@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Mentions légales
+{% endblock %}
+
+{% block body %}
+	<section class="example-wrapper-mentions">
+		<div class="mentions-content">
+			<h1>Mentions légales</h1>
+			<div class="mentions-text">
+				<p>
+					Nous vous remercions de prendre connaissance des conditions d’utilisation du site Web
+					{# <a href="https://mrc-sess-1-gr3.aliptic.fr">https://mrc-sess-1-gr3.aliptic.fr/</a> #}
+					préalablement à toute navigation. En vous connectant à ce site, vous reconnaissez d'accepter l’intégralité de ces
+					modalités.
+					Les présentes conditions sont susceptibles d’être modifiées ou complétées à tout moment.
+					Les utilisateurs du site sont donc invités à les consulter régulièrement.
+					En vertu de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique,
+					les responsables du site internet sont :
+				</p>
+				
+				{# <div class="text-center mt-5 ">
+					<img src="{{asset('images/libelle.png')}}" alt="" class="libelleDesktop" />
+				</div>
+				<div class="text-center mt-3">
+					<img src="{{asset('images/logo.png')}}" alt="" class="logoDesktop" />
+				</div> #}
+				
+				<p>
+					Forme juridique : SARL au capital social de 1 €
+					<br>
+					RCS LIMOGES - Siret : 529 019 127 00024
+				</p>
+				
+				<p>
+					Siège social : {# {{ adresse }} #} 1 avenue d'Ester, 87069 Limoges cedex
+					<br>
+					Email : {# <a href="mailto:{{ email }}">{{ email }}</a> #}<a
+						href="mailto:contact@aliptic.net">contact@aliptic.net</a>
+					<br>
+					Téléphone : {# {{ telephone }} #} 05 55 71 39 70<br>
+					Responsable de publication : Baptiste SAINT PIERRE
+				</p>
+				
+				<h2>Conception du site Web</h2>
+				
+				<p>
+					Le site Web {# <a href="https://mrc-sess-1-gr3.aliptic.fr">https://mrc-sess-1-gr3.aliptic.fr/</a> #}
+					a été conçu par La Team LAG (Les Apprentis Gamers) (lag.bbb)
+				</p>
+				
+				<h2>Hébergeur du site</h2>
+				
+				<p>
+					Le site Web {# <a href="https://mrc-sess-1-gr3.aliptic.fr">https://mrc-sess-1-gr3.aliptic.fr</a> #}
+					est hébergé par ALIPTIC, 1 Avenue d’Ester, 87000 - FRANCE. <br>
+					Pour contacter cet hébergeur, rendez-vous à l'adresse <a href="https://www.aliptic.net/"
+						target="_blank">https://www.aliptic.net</a>
+				</p>
+				
+				<h2>Contenus protégés et propriété intellectuelle</h2>
+				
+				<p>
+					L'architecture générale, la charte graphique, les données, informations, logos, de ce site Web sont la propriété
+					intellectuelle de La Team LAG.
+				</p>
+				<p>
+					La reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments de ce site
+					Web, quel que soit le moyen ou le procédé utilisé, est interdite sans l'autorisation écrite préalable de l'éditeur.
+					Tout autre élément contenu sur ce site Web n'appartenant pas à l'éditeur est la propriété de leurs détenteurs
+					respectifs.
+				</p>
+				<p>
+					Crédits Photo –<a href="istockphoto.com" target="_blank">istockphoto.com</a>
+				</p>
+				<p>
+					Les auteurs des différentes photographies du site sont : ronstik - Mikola249 - Bondariev
+				</p>
+				<p>
+					Toute exploitation non autorisée de ce site Web ou de l'un des éléments qu'il contient sera considérée comme
+					constitutive d'une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code
+					de Propriété Intellectuelle.
+				</p>
+				
+				<h2>Protection des données personnelles et vie privée</h2>
+				
+				<p>
+					Conformément à la loi n° 78-17 du 6 janvier 1978, relative à l'Informatique, aux Fichiers et aux Libertés,
+					l'utilisateur dispose d'un droit d'accès, de rectification, de suppression ou d'opposition aux informations
+					fournies, en écrivant à La Team LAG par courrier à l'adresse
+					{# {{ adresse }} #} 1 avenue d'Ester, 87069 Limoges cedex
+					- France ou par e-mail à
+					{# <a href"mailto:{{ email }}">{{ email }}</a> #}<a href"mailto:contact@aliptic.net">contact@aliptic.net</a>
+				</p>
+				<p>
+					Conformément au Règlement Européen 2016/679, une politique de confidentialité est mise à disposition de
+					l'utilisateur et consultable à
+					{# <a href="{{ path(" politique_conf") }}"> #} <a href="https://www.aliptic.net/mentions-legales/">l'adresse
+							suivante</a>.
+				</p>
+				
+				<h2>Informations publiées, responsabilités et garanties</h2>
+				
+				<p>
+					L'éditeur ne peut être tenu pour responsable de l'exactitude et de l'exhaustivité des informations. Ainsi, dans les
+					limites permises par la loi, l'éditeur exclut toute forme de garantie et se réserve le droit de modifier à tout
+					moment les informations figurant sur ce site Web, sans que sa responsabilité ne puisse être engagée.
+				</p>
+				<p>
+					L'éditeur ne peut être tenu pour responsable en cas d'interruption du service lié à des opérations de maintenance du
+					site Web ou d'impossibilité momentanée d'accès au site Web ou encore de dommages directs ou indirects causés à
+					l'utilisateur et résultant du contenu ou de l'utilisation du service ou en cas d'utilisation anormale du site Web.
+				</p>
+				
+				{# <h2>Droit applicable</h2>
+				
+				<p>
+					L'ensemble du site Web
+					<a href="https://mrc-sess-1-gr3.aliptic.fr/" target="_blank">https://mrc-sess-1-gr3.aliptic.fr</a> est soumis au
+					droit français.
+				</p> #}
+			</div>			
+		</div>		
+	</section>{# </div> #}
+	
+{% endblock %}

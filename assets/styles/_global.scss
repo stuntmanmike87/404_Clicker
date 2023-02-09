@@ -1,0 +1,57 @@
+/* =================================
+------------------------------------
+  Game Warrior Template
+  Version: 1.0
+ ------------------------------------ 
+ ====================================*/
+
+
+/*----------------------------------------*/
+/* Template default CSS
+ /*----------------------------------------*/
+$color1: #d473d4;
+$color2: #303030;
+$color3: #F5F5F5;
+$color4: #77b5fe;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+body {
+    min-height: 100%;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-image: url("../images/background_404.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    position: relative;
+    width: 100%;
+
+    h1 {
+        font-family: 'Press Start 2P', cursive;
+    }
+
+    p {
+        font-family: 'EB Garamond', serif;
+    }
+
+    a {
+        text-decoration: none;
+    }
+    .alert-test {
+        background-color: $color2;
+        color: $color3;
+        text-align: center;
+        border: none;
+        width: 90%;
+        margin: 0 auto;
+    }
+}

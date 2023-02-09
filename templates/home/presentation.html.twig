@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Présentation de la team LAG{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper-presentation">
+    <div class="presentation-content">
+        <h1>La team LAG(Les Apprentis Gamers)</h1>
+        <div class="imagespresentation">
+            <img src="{{ asset('build/images/Alex.png') }}" alt="" ;>
+            <img src="{{ asset('build/images/Mickaël.png') }}" alt="" ;>
+            <img src="{{ asset('build/images/Miriam.png') }}" alt="" ;>
+            <img src="{{ asset('build/images/Michaël.png') }}" alt="" ;>
+        </div>
+        
+        <p>
+            Apprentis gamers et programmeurs nous avons eu marre de ne voir que des cookies à cliquer, nous allons révolutionner
+            les cliqueurs avec notre nouveau modèle qui est l'ERREUR 404.
+            Nous nous sommes réunis sur cette idée car chaque personne du groupe à une vision commune de ce projet, avec
+            différentes capacités pour le mettre à bien.
+            Nous nous sommes donc mis chacun dans nos rôles et avancer main dans la main.
+        </p>
+        <p>
+            Notre groupe ce compose de 4 membres :
+        <p>
+        <ul>
+            <li> Alexandre qui est le gestionnaire de projet,</li>
+            <li> Mickaël qui est le référent devops,</li>
+            <li> Miriam qui est la référente backend,</li>
+            <li> Michaël qui est le référent frontend.</li>
+        </ul>
+    </div>    
+</div>
+{% endblock %}
