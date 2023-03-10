@@ -1,24 +1,6 @@
 {
-    "behat/gherkin": {
-        "version": "v4.9.0"
-    },
-    "codeception/codeception": {
-        "version": "4.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "2.3",
-            "ref": "30798e46831f4fc641fca83c0423918518901cd7"
-        }
-    },
-    "codeception/lib-asserts": {
-        "version": "2.0.0"
-    },
     "codeception/phpunit-wrapper": {
         "version": "9.0.9"
-    },
-    "codeception/stub": {
-        "version": "4.0.2"
     },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.2"
@@ -127,18 +109,6 @@
     },
     "fakerphp/faker": {
         "version": "v1.19.0"
-    },
-    "friendsofphp/php-cs-fixer": {
-        "version": "3.9",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "3.0",
-            "ref": "be2103eb4a20942e28a6dd87736669b757132435"
-        },
-        "files": [
-            ".php-cs-fixer.dist.php"
-        ]
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
@@ -303,15 +273,6 @@
     },
     "sebastian/version": {
         "version": "3.0.2"
-    },
-    "squizlabs/php_codesniffer": {
-        "version": "3.7",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "3.6",
-            "ref": "1019e5c08d4821cb9b77f4891f8e9c31ff20ac6f"
-        }
     },
     "symfony/amqp-messenger": {
         "version": "v5.4.5"
