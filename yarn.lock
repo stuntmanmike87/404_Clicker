@@ -2362,10 +2362,10 @@ core-js-compat@^3.25.1:
   dependencies:
     browserslist "^4.21.4"
 
-core-js@^3.30.0:
-  version "3.30.0"
-  resolved "https://registry.npmjs.org/core-js/-/core-js-3.30.0.tgz"
-  integrity sha512-hQotSSARoNh1mYPi9O2YaWeiq/cEB95kOrFb4NCrO4RIFt1qqNpKsaE+vy/L3oiqvND5cThqXzUU3r9F7Efztg==
+core-js@^3.30.1:
+  version "3.30.1"
+  resolved "https://registry.npmjs.org/core-js/-/core-js-3.30.1.tgz"
+  integrity sha512-ZNS5nbiSwDTq4hFosEDqm65izl2CWmLz0hARJMyNQBgkUZMIF51cQiMvIQKA6hvuaeWxQDP3hEedM1JZIgTldQ==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -4440,10 +4440,10 @@ npm-bundled@^3.0.0:
   dependencies:
     npm-normalize-package-bin "^3.0.0"
 
-npm-check-updates@^16.10.7:
-  version "16.10.7"
-  resolved "https://registry.npmjs.org/npm-check-updates/-/npm-check-updates-16.10.7.tgz"
-  integrity sha512-hVJCULf8AoVob9FDvoC7hrkQGuWhWctE9k3sNmR+M6hxZJnlb+03Ph4G1w/pHmI5BGHoo+ZPJtVEXkJsA+JwPQ==
+npm-check-updates@^16.10.8:
+  version "16.10.8"
+  resolved "https://registry.npmjs.org/npm-check-updates/-/npm-check-updates-16.10.8.tgz"
+  integrity sha512-e+p3rUCvaU0iKOvi+/Xiyx+mLe9/aRTu9Zrc7+TR6H2q+uFgmXEwqbXYN9Ngqsta8gdTjpn751UD5MEOogO5cA==
   dependencies:
     chalk "^5.2.0"
     cli-table3 "^0.6.3"
@@ -5490,10 +5490,10 @@ sass-loader@^13.0.0, sass-loader@^13.2.2:
     klona "^2.0.6"
     neo-async "^2.6.2"
 
-sass@^1.17.0, sass@^1.3.0, sass@^1.61.0:
-  version "1.61.0"
-  resolved "https://registry.npmjs.org/sass/-/sass-1.61.0.tgz"
-  integrity sha512-PDsN7BrVkNZK2+dj/dpKQAWZavbAQ87IXqVvw2+oEYI+GwlTWkvbQtL7F2cCNbMqJEYKPh1EcjSxsnqIb/kyaQ==
+sass@^1.17.0, sass@^1.3.0, sass@^1.62.0:
+  version "1.62.0"
+  resolved "https://registry.npmjs.org/sass/-/sass-1.62.0.tgz"
+  integrity sha512-Q4USplo4pLYgCi+XlipZCWUQz5pkg/ruSSgJ0WRDSb/+3z9tXUOkQ7QPYn4XrhZKYAK4HlpaQecRwKLJX6+DBg==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"

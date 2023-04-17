@@ -73,7 +73,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         PasswordAuthenticatedUserInterface $user,
         string $newHashedPassword
     ): void {
-        if (! $user instanceof User) {
+        if (! $user instanceof \App\Entity\User) {
             throw new UnsupportedUserException(
                 sprintf(
                     'Instances of "%s" are not supported.',
@@ -82,6 +82,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
             );
         }
 
+        /** @var User $user */
         $user->setPassword($newHashedPassword);
         $this->_em->persist($user);
         $this->_em->flush();

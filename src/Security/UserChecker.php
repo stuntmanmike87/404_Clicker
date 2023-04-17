@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security;
 
-use App\Entity\User as AppUser;
+//use App\Entity\User as AppUser;
 use Symfony\Component\Security\Core\Exception\AccountExpiredException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
@@ -18,7 +18,7 @@ final class UserChecker implements UserCheckerInterface
      */
     public function checkPreAuth(UserInterface $user): void
     {
-        if (! $user instanceof AppUser) {
+        if (! $user instanceof \App\Entity\User) {
             return;
         }
 
@@ -37,7 +37,7 @@ final class UserChecker implements UserCheckerInterface
      */
     public function checkPostAuth(UserInterface $user): void
     {
-        if (! $user instanceof AppUser) {
+        if (! $user instanceof \App\Entity\User) {
             return;
         }
 
