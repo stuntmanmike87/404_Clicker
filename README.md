@@ -15,9 +15,9 @@
 Informations sur l'environnement du site
 
 
-_php_ : 8.1.11
+_php_ : 8.2.5
 
-_symfony_ : 5.4 / 6.1
+_symfony_ : 6.2
 
 _mysql_ : 8.0.30
 
@@ -34,7 +34,7 @@ _maildev_ : 1.1.0
 ***
 Explication sur l'installation des containers de Docker par la récupération du .zip
 
-Docker sf5 projet github : https://github.com/nicolasvauche/docker_sf5
+(...)<!-- Docker sf5 projet github : https://github.com/nicolasvauche/docker_sf5 -->
 
 Récupérez le et initialisez le en suivant le read.me
 
@@ -46,7 +46,7 @@ $ cd app
 
 Pour l'installation de git et du clonage du site :
 ```
-$ git clone https://github.com/mick-us/404_Clicker .
+$ git clone https://github.com/stuntmanmike87/404_Clicker .
 ```
 
 Faire une copie du .env dans le dossier du site qui s'appellera env.local et modifier le fichier pour la base de données et utilisez bien l'adresse du mailer:
@@ -62,23 +62,9 @@ DATABASE_URL="mysql://nomduuser:motdepasseduuser@docker_sf5_mysql:3306/nomdevotr
 ###< doctrine/doctrine-bundle ###
 
 
-Installer les dépendances sur le projet composer et node dans votre docker :
-```
-$ composer install
-$ curl -sL https://deb.nodesource.com/setup_16.x | bash -
-$ apt update && apt-get install -y nodejs
-```
-
 Pour voir la version de votre node :
 ```
 $ node -v
-```
-
-Installation de yarn dans le projet pour l'utilisation de webpack encore :
-```
-$ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-$ echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-$ apt install yarn
 ```
 
 Pour voir la version de votre yarn :

@@ -26,7 +26,7 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
  */
 final class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
+    public function __construct(private readonly EmailVerifier $emailVerifier)
     {
     }
 
@@ -42,7 +42,7 @@ final class RegistrationController extends AbstractController
         EntityManagerInterface $entityManager,
         LevelRepository $levelRepository
     ): Response {
-        if ($this->getUser() !== null) {
+        if ($this->getUser() instanceof \App\Entity\User) {//if ($this->getUser() !== null) {
             return $this->render('home/index.html.twig');
         }
 
@@ -64,12 +64,13 @@ final class RegistrationController extends AbstractController
             } */
 
             $plainPassword = $form->get('plainPassword');
+            /** @var string $plainPassword */
             $plainPassword = $form->getData();
             //encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    strval($plainPassword)
+                    /* (string)  */$plainPassword
                 )
             );
             //initialisation des propriétés (champs)
@@ -91,7 +92,7 @@ final class RegistrationController extends AbstractController
                     'Email Bot'
                 )
             );
-            $email = (new TemplatedEmail())->to(strval($user->getEmail()));
+            $email = (new TemplatedEmail())->to((string) ($user->getEmail()));
             $email = (new TemplatedEmail())->subject(
                 'Veuillez confirmer votre adresse email'
             );
@@ -114,7 +115,7 @@ final class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'registrationForm' => $form,//->createView(),
         ]);
     }
 

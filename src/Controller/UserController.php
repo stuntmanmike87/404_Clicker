@@ -27,7 +27,7 @@ final class UserController extends AbstractController
          *
          * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
          */
-        private EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager
     ) {
     }
 
@@ -57,13 +57,14 @@ final class UserController extends AbstractController
         $form->handleRequest($request);
 
         $plainPassword = $form->get('plainPassword');
+        /** @var string $plainPassword */
         $plainPassword = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Encode(hash) the plain password, and set it.
             $encodedPassword = $userPasswordHasher->hashPassword(
                 $user,
-                strval($plainPassword)
+                /* (string)  */$plainPassword
             );
 
             $user->setPassword($encodedPassword);
@@ -76,7 +77,7 @@ final class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        return $this->renderForm('user/edit.html.twig', [
+        return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
@@ -95,7 +96,7 @@ final class UserController extends AbstractController
         if (
             $this->isCsrfTokenValid(
                 'delete'.$user->getId(),
-                strval($request->request->get('_token'))
+                (string) $request->request->get('_token')
             )
         ) {
             $userRepository->remove($user);

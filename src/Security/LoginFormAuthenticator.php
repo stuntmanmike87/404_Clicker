@@ -32,7 +32,7 @@ final class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
      * Constructeur de la classe LoginFormAuthenticator
      * qui hérite de AbstractLoginFormAuthenticator
      */
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
     }
 
@@ -44,18 +44,18 @@ final class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         $email = $request->request->get('email', '');
 
         $iSession = $request->getSession();
-        $iSession->set(Security::LAST_USERNAME, $email);
+        $iSession->set(\Symfony\Component\Security\Http\SecurityRequestAttributes::LAST_USERNAME, $email);//$iSession->set(Security::LAST_USERNAME, $email);
 
         /** @param string UserBadge(strval($email)) */
         return new Passport(
-            new UserBadge(strval($email)),
+            new UserBadge((string) $email),
             new PasswordCredentials(
-                strval($request->request->get('password', ''))
+                (string) $request->request->get('password', '')
             ),
             [
                 new CsrfTokenBadge(
                     'authenticate',
-                    strval($request->request->get('_csrf_token'))
+                    (string) $request->request->get('_csrf_token')
                 ),
             ]
         );

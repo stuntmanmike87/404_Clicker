@@ -54,7 +54,9 @@ class Level
      *
      * @var ArrayCollection<User> $idUser
      */
-    private $idUser;
+    //private $idUser;
+    //private \Doctrine\Common\Collections\ArrayCollection|array $idUser;
+    private \Doctrine\Common\Collections\ArrayCollection $idUser;
 
     /**
      * Constructeur (méthode magique) qui définit

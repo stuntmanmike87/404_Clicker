@@ -47,10 +47,10 @@ final class AddOneUserCommand extends Command
     private SymfonyStyle $io;
 
     public function __construct(
-        private CustomValidatorForCommand $validator,
-        private EntityManagerInterface $entityManager,
-        private UserPasswordHasherInterface $encoder,
-        private UserRepository $userRepository
+        private readonly CustomValidatorForCommand $validator,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserPasswordHasherInterface $encoder,
+        private readonly UserRepository $userRepository
     ) {
         parent::__construct();
     }
@@ -155,7 +155,7 @@ final class AddOneUserCommand extends Command
         /** @var string $email */
         $email = $helper->ask($input, $output, $emailQuestion);
 
-        if ($this->isUserAlreadyExists($email) !== null) {
+        if ($this->isUserAlreadyExists($email) instanceof \App\Entity\User) {//if ($this->isUserAlreadyExists($email) !== null) {
             throw new RuntimeException(
                 sprintf(
                     "UTILISATEUR DEJA PRESENT EN BASE DE DONNEES 

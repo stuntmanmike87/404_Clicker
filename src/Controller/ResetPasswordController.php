@@ -37,13 +37,13 @@ final class ResetPasswordController extends AbstractController
          *
          * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
          */
-        private ResetPasswordHelperInterface $resetPasswordHelper,
+        private readonly ResetPasswordHelperInterface $resetPasswordHelper,
         /**
          * Entity manager
          *
          * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
          */
-        private EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager
     ) {
     }
 
@@ -64,17 +64,18 @@ final class ResetPasswordController extends AbstractController
         $form->handleRequest($request);
 
         $emailFormData = $form->get('email');
+        /** @var string $emailFormData */
         $emailFormData = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->processSendingPasswordResetEmail(
-                strval($emailFormData),
+                /* (string)  */$emailFormData,
                 $mailer
             );
         }
 
         return $this->render('reset_password/request.html.twig', [
-            'requestForm' => $form->createView(),
+            'requestForm' => $form,//->createView(),
         ]);
     }
 
@@ -173,13 +174,14 @@ final class ResetPasswordController extends AbstractController
             $this->resetPasswordHelper->removeResetRequest($token);
 
             $plainPassword = $form->get('plainPassword');
+            /** @var string $plainPassword */
             $plainPassword = $form->getData();
             //Encode(hash) the plain password, and set it.
             /** @var User $user *////** @param User $user */
             $encodedPassword = $userPasswordHasher->hashPassword(
                 ///** @var User $user */
                 $user,
-                strval($plainPassword)
+                /* (string)  */$plainPassword
             );
 
             ///** @var User $user */
@@ -193,7 +195,7 @@ final class ResetPasswordController extends AbstractController
         }
 
         return $this->render('reset_password/reset.html.twig', [
-            'resetForm' => $form->createView(),
+            'resetForm' => $form,//->createView(),
         ]);
     }
 
@@ -246,7 +248,7 @@ final class ResetPasswordController extends AbstractController
                 'Email Bot'
             )
         );
-        $email = (new TemplatedEmail())->to(strval($user->getEmail()));
+        $email = (new TemplatedEmail())->to((string) $user->getEmail());
         $email = (new TemplatedEmail())->subject(
             'Votre demande de réinitialisation de mot de passe'
         );

@@ -17,7 +17,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 final class AppFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function __construct(private UserPasswordHasherInterface $hasher)
+    public function __construct(private readonly UserPasswordHasherInterface $hasher)
     {
         //AppFixtures constructor for entity User
     }
@@ -64,14 +64,20 @@ final class AppFixtures extends Fixture implements DependentFixtureInterface
         ) {
             $user = new User();
 
-            $user->setEmail(strval($email));
-            $user->setRoles([strval($roles)]);
+            /** @var string $email */
+            /** @var array<string> $roles *////** @var string $roles */
+            /** @var string $password */
+            /** @var string $username */
+            /** @var float $points */
+            /** @var string $fullName */
+            $user->setEmail($email);
+            $user->setRoles($roles);//$user->setRoles([$roles]);
             $user->setPassword(
-                $this->hasher->hashPassword($user, strval($password))
+                $this->hasher->hashPassword($user, $password)
             );
-            $user->setUsername(strval($username));
-            $user->setPoints(floatval($points));
-            $user->setFullName(strval($fullName));
+            $user->setUsername($username);
+            $user->setPoints($points);
+            $user->setFullName($fullName);
 
             $manager->persist($user);
 

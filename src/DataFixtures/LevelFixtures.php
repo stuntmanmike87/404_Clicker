@@ -40,9 +40,9 @@ final class LevelFixtures extends Fixture
         ) {
             $level = new Level();
 
-            $level->setMaxPoints(floatval($maxPoints));
+            $level->setMaxPoints((float) $maxPoints);
             $level->setPathImg($pathImg);
-            $level->setNomLevel(strval($nomLevel));
+            $level->setNomLevel((string) $nomLevel);
             //$ref = ...
             $this->addReference($nomLevel, $level);
 

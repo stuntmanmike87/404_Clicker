@@ -15,7 +15,7 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 /**
  * Classe qui traite la vérification des adresses e-mail
  */
-final class EmailVerifier
+final readonly class EmailVerifier
 {
     /**
      * Constructeur de la classe EmailVerifier
@@ -47,8 +47,8 @@ final class EmailVerifier
     ): void {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
             $verifyEmailRouteName,
-            strval($user->getId()),
-            strval($user->getEmail()),
+            (string) ($user->getId()),
+            (string) ($user->getEmail()),
             //['id' => $user->getId()]
         );
 
@@ -77,8 +77,8 @@ final class EmailVerifier
     ): void {
         $this->verifyEmailHelper->validateEmailConfirmation(
             $request->getUri(),
-            strval($user->getId()),
-            strval($user->getEmail())
+            (string) ($user->getId()),
+            (string) ($user->getEmail())
         );
 
         $user->setIsVerified(true);

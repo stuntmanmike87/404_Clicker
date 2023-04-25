@@ -33,7 +33,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         /**
          * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
          */
-        private LevelRepository $levelRepository
+        private readonly LevelRepository $levelRepository
     ) {
         parent::__construct($registry, User::class);
     }
@@ -161,8 +161,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
      */
     public function changeLevel(User $user): float
     {
-        $changeLevelScore = 0;
-
+        //$changeLevelScore = 0;
         $tabPoints = [20, 50, 100, 200, 500, 1000];
 
         //if ($user) {}//If condition is always true.
@@ -178,7 +177,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         if ($user->getPoints() >= 100 && $user->getPoints() < 200) {return 200;}
         if ($user->getPoints() >= 200 && $user->getPoints() < 500) {return 500;} */
 
-        return $changeLevelScore;
+        return 0;//$changeLevelScore;
     }
 
     ///**

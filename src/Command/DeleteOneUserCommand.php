@@ -37,9 +37,9 @@ final class DeleteOneUserCommand extends Command
     private SymfonyStyle $io;
 
     public function __construct(
-        private CustomValidatorForCommand $validator,
-        private EntityManagerInterface $entityManager,
-        private UserRepository $userRepository
+        private readonly CustomValidatorForCommand $validator,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserRepository $userRepository
     ) {
         parent::__construct();
     }

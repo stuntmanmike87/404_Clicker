@@ -26,7 +26,7 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/var/cache/dev/App_KernelDevDebugContainer.xml'
     );
 
-    $rectorConfig->import(SymfonySetList::SYMFONY_62);
+    $rectorConfig->import(SymfonySetList::SYMFONY_62);//SYMFONY_63);
 
     $parameters = $rectorConfig->parameters();
     
@@ -41,16 +41,16 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         //SetList::DEAD_CODE,
-        SetList::PHP_81,
+        SetList::PHP_82,
     ]);
 
     $rectorConfig->sets([
-        LevelSetList::UP_TO_PHP_81
+        LevelSetList::UP_TO_PHP_82
     ]);
 
     $rectorConfig->sets([
         SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-        SymfonySetList::SYMFONY_62,
+        SymfonySetList::SYMFONY_62,//SYMFONY_63,
         SymfonySetList::SYMFONY_CODE_QUALITY,
         SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
         //SymfonySetList::SYMFONY_STRICT,
