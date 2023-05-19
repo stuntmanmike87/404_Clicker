@@ -20,15 +20,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class DeleteOneUserCommand extends Command
 {
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      * @var string|null $defaultName
      */
     protected static $defaultName = 'app:delete-one-user';
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      * @var string|null $defaultDescription
      */
     protected static $defaultDescription =

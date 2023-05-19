@@ -21,17 +21,8 @@ final readonly class EmailVerifier
      * Constructeur de la classe EmailVerifier
      */
     public function __construct(
-        /**
-         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-         */
         private VerifyEmailHelperInterface $verifyEmailHelper,
-        /**
-         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-         */
         private MailerInterface $mailer,
-        /**
-         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-         */
         private EntityManagerInterface $entityManager
     ) {
         //Constructor for [email verifier methods]

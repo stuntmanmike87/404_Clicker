@@ -50,8 +50,6 @@ class Level
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="level")
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      * @var ArrayCollection<User> $idUser
      */
     //private $idUser;

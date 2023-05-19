@@ -14,6 +14,15 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
+enum Suit: int {
+    case TWENTY = 20;
+    case FIFTY = 50;
+    case ONE_HUNDRED = 100;
+    case TWO_HUNDREDS = 200;
+    case FIVE_HUNDREDS = 500;
+    case ONE_THOUSAND = 1000;
+}
+
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
@@ -30,9 +39,6 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
      */
     public function __construct(
         ManagerRegistry $registry,
-        /**
-         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-         */
         private readonly LevelRepository $levelRepository
     ) {
         parent::__construct($registry, User::class);
@@ -118,39 +124,57 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
      */
     public function checkLevelByMaxPoints(float $points, User $user): void
     {
-        $tabPoints = [20, 50, 100, 200, 500, 1000];
+        /* $id = match ($points) {
+            20 => 1,
+            50 => 2,
+            100 => 3,
+            200 => 4,
+            500 => 5,
+            1000 => 6,
+            default => 'not exists/out of range',
+        };
+
+        $level = $this->levelRepository->find($id);
+        $user->setLevel($level); */
+
+        /* $tabPoints = [20, 50, 100, 200, 500, 1000];
 
         foreach ($tabPoints as $value) {
             if ($points < $value) {
-                $level = $this->levelRepository->find(/* (int)  */key($tabPoints) + 1);
+                $level = $this->levelRepository->find(key($tabPoints) + 1);
                 $user->setLevel($level);
             }
-        }
+        } */
 
-        /* if ($points < 20) {
+        if ($points < 20) {
             $level = $this->levelRepository->find(1);
             $user->setLevel($level);
         }
+
         if ($points >= 20) {
             $level = $this->levelRepository->find(2);
             $user->setLevel($level);
         }
+
         if ($points >= 50) {
             $level = $this->levelRepository->find(3);
             $user->setLevel($level);
         }
+
         if ($points >= 100) {
             $level = $this->levelRepository->find(4);
             $user->setLevel($level);
         }
+
         if ($points >= 200) {
             $level = $this->levelRepository->find(5);
             $user->setLevel($level);
         }
+
         if ($points >= 500) {
             $level = $this->levelRepository->find(6);
             $user->setLevel($level);
-        } */
+        }
 
         $this->_em->persist($user);
         $this->_em->flush();
@@ -161,21 +185,24 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
      */
     public function changeLevel(User $user): float
     {
-        //$changeLevelScore = 0;
-        $tabPoints = [20, 50, 100, 200, 500, 1000];
+        /* $tabPoints = [20, 50, 100, 200, 500, 1000];
 
-        //if ($user) {}//If condition is always true.
+        //if ($user !== null) {}
         foreach ($tabPoints as $value) {
             if ($user->getPoints() < $value) {
                 return $value;
             }
-        }
+        } */
 
-        /* if ($user->getPoints() < 20) {return 20;}
+        if ($user->getPoints() < 20) {return 20;}
+
         if ($user->getPoints() >= 20 && $user->getPoints() < 50) {return 50;}
+
         if ($user->getPoints() >= 50 && $user->getPoints() < 100) {return 100;}
+
         if ($user->getPoints() >= 100 && $user->getPoints() < 200) {return 200;}
-        if ($user->getPoints() >= 200 && $user->getPoints() < 500) {return 500;} */
+
+        if ($user->getPoints() >= 200 && $user->getPoints() < 500) {return 500;}
 
         return 0;//$changeLevelScore;
     }

@@ -38,8 +38,6 @@ final class AddOneUserCommand extends Command
     private const ISV_ARG = "Le statut du compte l'utilisateur (actif)";
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      * @var string|null $defaultName
      */
     protected static $defaultName = 'app:add-one-user';

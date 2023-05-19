@@ -36,8 +36,6 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
          * @ORM\ManyToOne(targetEntity=User::class)
          *
          * @ORM\JoinColumn(nullable=false)
-         *
-         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
          */
         private object $user,
         \DateTimeInterface $expiresAt,

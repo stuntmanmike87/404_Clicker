@@ -34,14 +34,10 @@ final class ResetPasswordController extends AbstractController
     public function __construct(
         /**
          * Reset password helper
-         *
-         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
          */
         private readonly ResetPasswordHelperInterface $resetPasswordHelper,
         /**
          * Entity manager
-         *
-         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
          */
         private readonly EntityManagerInterface $entityManager
     ) {

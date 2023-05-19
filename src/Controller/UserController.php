@@ -24,8 +24,6 @@ final class UserController extends AbstractController
     public function __construct(
         /**
          * Entity manager
-         *
-         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
          */
         private readonly EntityManagerInterface $entityManager
     ) {

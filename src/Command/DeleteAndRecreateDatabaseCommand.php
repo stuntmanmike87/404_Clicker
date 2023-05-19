@@ -13,15 +13,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class DeleteAndRecreateDatabaseCommand extends Command
 {//DeleteAndRecreateDatabaseWithStructureAndDataCommand
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      * @var string|null $defaultName
      */
     protected static $defaultName = 'app:clean-db';
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      * @var string|null $defaultDescription
      */
     protected static $defaultDescription = 'Supprime et recrée 
