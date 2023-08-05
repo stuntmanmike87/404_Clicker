@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\ResetPasswordRequest;
 use App\Entity\User;
+use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -33,10 +34,8 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(
-        ResetPasswordRequest $entity,
-        bool $flush = true
-    ): void {
+    public function add(ResetPasswordRequest $entity,  bool $flush = true): void
+    {
         $this->_em->persist($entity);
         if ($flush) {
             $this->_em->flush();
@@ -47,10 +46,8 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(
-        ResetPasswordRequest $entity,
-        bool $flush = true
-    ): void {
+    public function remove(ResetPasswordRequest $entity, bool $flush = true): void
+    {
         $this->_em->remove($entity);
         if ($flush) {
             $this->_em->flush();
@@ -60,7 +57,7 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
     ///** @param User $user */
     public function createResetPasswordRequest(
         object $user,
-        \DateTimeInterface $expiresAt,
+        DateTimeInterface $expiresAt,
         string $selector,
         string $hashedToken
     ): ResetPasswordRequestInterface {

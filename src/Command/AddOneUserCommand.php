@@ -62,8 +62,7 @@ final class AddOneUserCommand extends Command
     }
 
     /**
-     * Executed after configure() to initialize properties
-     * based on the input arguments and options.
+     * Executed after configure() to initialize properties based on the input arguments and options.
      */
     protected function initialize(
         InputInterface $input,
@@ -74,13 +73,10 @@ final class AddOneUserCommand extends Command
 
     /**
      * Executed after initialize() and before execute().
-     * Checks if some of the options/arguments
-     * are missing and ask the user for those values.
+     * Checks if some of the options/arguments are missing and ask the user for those values.
      */
-    protected function interact(
-        InputInterface $input,
-        OutputInterface $output
-    ): void {
+    protected function interact(InputInterface $input, OutputInterface $output): void
+    {
         $this->io->section("AJOUT D'UN UTILISATEUR EN BASE DE DONNEES");
 
         $this->enterEmail($input, $output);
@@ -95,10 +91,8 @@ final class AddOneUserCommand extends Command
     /**
      * execute function
      */
-    protected function execute(
-        InputInterface $input,
-        OutputInterface $output
-    ): int {
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
         /** @var string $email */
         $email = $input->getArgument('email');
 
@@ -111,15 +105,12 @@ final class AddOneUserCommand extends Command
         $role = [$input->getArgument('role')];
 
         /** @var bool $isVerified */
-        $isVerified = $input
-            ->getArgument('isVerified') !== 'INACTIF';
+        $isVerified = $input->getArgument('isVerified') !== 'INACTIF';
 
         $user = new User();
 
         $user->setEmail($email);
-        $user->setPassword(
-            $this->encoder->hashPassword($user, $plainPassword)
-        );
+        $user->setPassword($this->encoder->hashPassword($user, $plainPassword));
         $user->setIsVerified($isVerified);
         $user->setRoles($role);
 
@@ -127,8 +118,7 @@ final class AddOneUserCommand extends Command
 
         $this->entityManager->flush();
 
-        /* $this->io */$io->success('UN NOUVEL UTILISATEUR 
-            EST PRESENT EN BASE DE DONNEES !');
+        /* $this->io */$io->success('UN NOUVEL UTILISATEUR EST PRESENT EN BASE DE DONNEES !');
 
         return Command::SUCCESS;
     }
@@ -136,10 +126,8 @@ final class AddOneUserCommand extends Command
     /**
      * Sets the user email.
      */
-    private function enterEmail(
-        InputInterface $input,
-        OutputInterface $output
-    ): void {
+    private function enterEmail(InputInterface $input, OutputInterface $output): void
+    {
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
 
@@ -153,11 +141,10 @@ final class AddOneUserCommand extends Command
         /** @var string $email */
         $email = $helper->ask($input, $output, $emailQuestion);
 
-        if ($this->isUserAlreadyExists($email) instanceof \App\Entity\User) {//if ($this->isUserAlreadyExists($email) !== null) {
+        if ($this->isUserAlreadyExists($email) instanceof User) {//if ($this->isUserAlreadyExists($email) !== null) {
             throw new RuntimeException(
                 sprintf(
-                    "UTILISATEUR DEJA PRESENT EN BASE DE DONNEES 
-                    AVEC L'E-MAIL SUIVANT : %s",
+                    "UTILISATEUR DEJA PRESENT EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : %s",
                     $email
                 )
             );
@@ -167,8 +154,7 @@ final class AddOneUserCommand extends Command
     }
 
     /**
-     * Checks if an user already exists in database
-     * with the email entered by the user in the CLI.
+     * Checks if an user already exists in database with the email entered by the user in the CLI.
      */
     private function isUserAlreadyExists(string $email): ?User
     {
@@ -180,16 +166,13 @@ final class AddOneUserCommand extends Command
     /**
      * Sets the password entered in $input variable if it's valid.
      */
-    private function enterPassword(
-        InputInterface $input,
-        OutputInterface $output
-    ): void {
+    private function enterPassword(InputInterface $input, OutputInterface $output): void
+    {
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
 
         $passwordQuestion = new Question(
-            "MOT DE PASSE EN CLAIR DE L'UTILISATEUR 
-            (ALGORITHME DE HASHAGE ARGON2ID) :"
+            "MOT DE PASSE EN CLAIR DE L'UTILISATEUR (ALGORITHME DE HASHAGE ARGON2ID) :"
         );
 
         /** @var callable|null $valid */
@@ -209,10 +192,8 @@ final class AddOneUserCommand extends Command
     /**
      * Sets the role choice in $input variable if it's valid.
      */
-    private function enterRole(
-        InputInterface $input,
-        OutputInterface $output
-    ): void {
+    private function enterRole(InputInterface $input, OutputInterface $output): void
+    {
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
 
@@ -237,10 +218,8 @@ final class AddOneUserCommand extends Command
     /**
      * Sets the isVerified choice in $input variable if it's valid.
      */
-    private function enterIsVerified(
-        InputInterface $input,
-        OutputInterface $output
-    ): void {
+    private function enterIsVerified(InputInterface $input, OutputInterface $output): void
+    {
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
 
@@ -258,8 +237,7 @@ final class AddOneUserCommand extends Command
         $isVerified = $helper->ask($input, $output, $isVerifiedQuestion);
 
         $output->writeln(
-            "<info>STATUT D'ACTIVATION 
-            DU COMPTE UTILISATEUR PRIS EN COMPTE : {$isVerified}</info>"
+            "<info>STATUT D'ACTIVATION DU COMPTE UTILISATEUR PRIS EN COMPTE : {$isVerified}</info>"
         );
 
         $input->setArgument('isVerified', $isVerified);

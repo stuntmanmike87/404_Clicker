@@ -29,15 +29,15 @@ parameters:
             - src/Repository/UserRepository.php
             - src/Security/UserChecker.php
 
-  doctrine:
-    # ormRepositoryClass: MyApp\Doctrine\BetterDocumentRepository
-    # odmRepositoryClass: MyApp\Doctrine\BetterDocumentRepository
-    # ormRepositoryClass: app\Repository\UserRepository
-    ormRepositoryClass: app\Doctrine\ServiceEntityRepository
-    odmRepositoryClass: app\Doctrine\ServiceEntityRepository
-    objectManagerLoader: tests/object-manager.php
-    # objectManagerLoader: build/phpstan/doctrine-orm-bootstrap.php
+  # doctrine:
+    ## ormRepositoryClass: MyApp\Doctrine\BetterDocumentRepository
+    ## odmRepositoryClass: MyApp\Doctrine\BetterDocumentRepository
+    ## ormRepositoryClass: app\Repository\UserRepository
+    # ormRepositoryClass: app\Doctrine\ServiceEntityRepository
+    # odmRepositoryClass: app\Doctrine\ServiceEntityRepository
+    # objectManagerLoader: tests/object-manager.php
+    ## objectManagerLoader: build/phpstan/doctrine-orm-bootstrap.php
   
-  treatPhpDocTypesAsCertain: false
+  # treatPhpDocTypesAsCertain: false
 
   checkGenericClassInNonGenericObjectType: false

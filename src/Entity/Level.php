@@ -4,61 +4,50 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-//use App\Repository\LevelRepository;
+use App\Repository\LevelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=LevelRepository::class)
+ * @see \App\Tests\Entity\LevelTest
  */
+/** @final */
+#[ORM\Entity(repositoryClass: LevelRepository::class)]
 class Level
 {//Entity class App\Entity\Level is final which can cause problems with proxies
-    /**
-     * @ORM\Id
-     *
-     * @ORM\GeneratedValue
-     *
-     * @ORM\Column(type="integer")
-     */
-    private int $id;
-
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private readonly int $id;
+//Class App\Entity\Level has an uninitialized readonly property $id. Assign it in the constructor
+    #[ORM\Column(type: 'float')]
     private float $maxPoints;
 
     //private ?float $maxPoints = null;
     /**
-     * @ORM\Column(type="string", length=255)
-     *
      * //@Assert\Url(message="Le chemin spécifié est invalide")
      */
     #[Assert\File(notFoundMessage: "Le fichier est introuvable à l'emplacement spécifié")]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $pathImg;
 
     //private ?string $pathImg = null;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private string $nomLevel;
 
     //private ?string $nomLevel = null;
-
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="level")
-     *
      * @var ArrayCollection<User> $idUser
      */
     //private $idUser;
     //private \Doctrine\Common\Collections\ArrayCollection|array $idUser;
-    private \Doctrine\Common\Collections\ArrayCollection $idUser;
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'level')]
+    private ArrayCollection $idUser;
 
     /**
-     * Constructeur (méthode magique) qui définit
-     * une collection d'utilisateurs
+     * Constructeur (méthode magique) qui définit une collection d'utilisateurs
      * selon un tableau d'entiers idUser (identifiants)
      */
     public function __construct()
@@ -93,8 +82,7 @@ class Level
     }
 
     /**
-     * Fonction qui permet de récupérer
-     * le chemin de l'image associée à un niveau
+     * Fonction qui permet de récupérer le chemin de l'image associée à un niveau
      */
     public function getPathImg(): ?string
     {
@@ -102,8 +90,7 @@ class Level
     }
 
     /**
-     * Fonction qui permet de définir
-     * le chemin de l'image associée à un niveau
+     * Fonction qui permet de définir le chemin de l'image associée à un niveau
      */
     public function setPathImg(string $pathImg): self
     {
@@ -152,8 +139,7 @@ class Level
     }
 
     /**
-     * Fonction qui permet la suppression
-     * de l'identifiant d'un utilisateur
+     * Fonction qui permet la suppression de l'identifiant d'un utilisateur
      */
     public function removeIdUser(User $idUser): self
     {

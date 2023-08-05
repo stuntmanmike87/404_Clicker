@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use LogicException;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,21 +22,17 @@ final class DeleteAndRecreateDatabaseCommand extends Command
     /**
      * @var string|null $defaultDescription
      */
-    protected static $defaultDescription = 'Supprime et recrée 
-        la base de données avec sa structure et ses jeux de fausses données';
+    protected static $defaultDescription = 'Supprime et recrée la base de données avec sa structure et ses jeux de fausses données';
 
     /**
      * execute
      */
-    protected function execute(
-        InputInterface $input,
-        OutputInterface $output
-    ): int {
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
         $io = new SymfonyStyle($input, $output);
 
         $io->section(
-            "Suppression de la base de donnée puis création
-            d'une nouvelle avec structure et données pré-remplies"
+            "Suppression de la base de donnée puis création d'une nouvelle avec structure et données pré-remplies"
         );
 
         $this->runSymfonyCommand($input, $output, 'doctrine:database:drop', true);
@@ -58,16 +56,14 @@ final class DeleteAndRecreateDatabaseCommand extends Command
     ): void {
         $application = $this->getApplication();
 
-        if (! $application instanceof \Symfony\Component\Console\Application) {
-            throw new \LogicException('No application :(');
+        if (! $application instanceof Application) {
+            throw new LogicException('No application :(');
         }
 
         $command = $application->find($command);
 
         if ($forceOption) {
-            $input = new ArrayInput([
-                '--force' => true,
-            ]);
+            $input = new ArrayInput(['--force' => true,]);
         }
 
         $input->setInteractive(false);

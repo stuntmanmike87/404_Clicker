@@ -28,6 +28,7 @@ enum Suit: int {
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method array<User> findAll()
  * @method array<User> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @see \App\Tests\Repository\UserRepositoryTest
  */
 final class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
@@ -37,10 +38,8 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
      * Cette fonction permet de contruire l'objet UserRepository en reprenant
      * les fonctions de sa classe parent qui est ServiceEntityRepository
      */
-    public function __construct(
-        ManagerRegistry $registry,
-        private readonly LevelRepository $levelRepository
-    ) {
+    public function __construct(ManagerRegistry $registry, private readonly LevelRepository $levelRepository)
+    {
         parent::__construct($registry, User::class);
     }
 
@@ -75,11 +74,9 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
-    public function upgradePassword(
-        PasswordAuthenticatedUserInterface $user,
-        string $newHashedPassword
-    ): void {
-        if (! $user instanceof \App\Entity\User) {
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    {
+        if (! $user instanceof User) {
             throw new UnsupportedUserException(
                 sprintf(
                     'Instances of "%s" are not supported.',
@@ -119,8 +116,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
     }
 
     /**
-     * Fonction qui permet de définir pour un joueur,
-     * le score à atteindre pour passer au niveau suivant
+     * Fonction qui permet de définir pour un joueur, le score à atteindre pour passer au niveau suivant
      */
     public function checkLevelByMaxPoints(float $points, User $user): void
     {

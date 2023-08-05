@@ -42,7 +42,7 @@ final class RegistrationController extends AbstractController
         EntityManagerInterface $entityManager,
         LevelRepository $levelRepository
     ): Response {
-        if ($this->getUser() instanceof \App\Entity\User) {//if ($this->getUser() !== null) {
+        if ($this->getUser() instanceof User) {//if ($this->getUser() !== null) {
             return $this->render('home/index.html.twig');
         }
 
@@ -68,13 +68,9 @@ final class RegistrationController extends AbstractController
             $plainPassword = $form->getData();
             //encode the plain password
             $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    /* (string)  */$plainPassword
-                )
+                $userPasswordHasher->hashPassword($user, /* (string)  */$plainPassword)
             );
-            //initialisation des propriétés (champs)
-            //d'un user à l'enregistrement
+            //initialisation des propriétés (champs) d'un user à l'enregistrement
             $user->setRoles(['ROLE_USER']);
             $user->setPoints(0);
             $user->setIsVerified(false);
@@ -125,13 +121,10 @@ final class RegistrationController extends AbstractController
      * redirection vers la page d'inscription
      */
     #[Route(path: '/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(
-        Request $request,
-        TranslatorInterface $translator
-    ): Response {
+    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
+    {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        //validate email confirmation link,
-        //sets User::isVerified=true and persists
+        //validate email confirmation link, sets User::isVerified=true and persists
         try {
             /** @var User $user */
             $user = $this->getUser();
@@ -149,8 +142,7 @@ final class RegistrationController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        //to_do_task: Change the redirect on success
-        //and handle or remove the flash message in your templates
+        //to_do_task: Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash(
             'success',
             "Votre adresse email vient d'être vérifiée avec succès."

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-//use App\Repository\UserRepository;
+use App\Repository\UserRepository;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 //use Doctrine\ORM\Mapping\Table;
 //use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -12,115 +14,79 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/** @final */
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- *
- * @ORM\HasLifecycleCallbacks
- *
  * //@Table(name="users")
  *
  * //@UniqueEntity(fields={"email"},message="Impossible de créer un compte utilisateur avec cet e-mail.")
- *///Normal classes are forbidden. Classes must be final or abstract
+ */
+//Normal classes are forbidden. Classes must be final or abstract
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {//Entity class App\Entity\User is final which can cause problems with proxies
-    /**
-     * @ORM\Id
-     *
-     * @ORM\GeneratedValue
-     *
-     * @ORM\Column(type="integer")
-     */
-    private int $id;
-
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private readonly int $id;
+//Class App\Entity\User has an uninitialized readonly property $id. Assign it in the constructor.
     #[Assert\NotBlank(message: 'Veuillez saisir une valeur.')]
     #[Assert\Email(message: "L'e-mail {{value}} n'est pas valide.")]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private string $email;
 
     //private ?string $email = null;
-
     /**
-     * @ORM\Column(type="json")
-     *
      * @var array<string> $roles
      */
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
     /**
-     * @ORM\Column(type="string")
-     *
      * @var string $password : The hashed password
      */
     #[Assert\NotBlank(message: 'Veuillez saisir une valeur.')]
     #[Assert\NotCompromisedPassword(message: "Ce mot de passe a été divulgué lors d'une fuite de données, veuillez utiliser un autre mot de passe pour votre sécurité.")]
-    #[Assert\Regex(pattern: '/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*[0-9])(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/', message: 'Le mot de passe doit être composé de 12 caractères dont au minimum : 1 lettre minuscule, 1 lettre majuscule, 1 chiffre, 1 caractère spécial (dans un ordre aléatoire).')]
+    #[Assert\Regex(pattern: '/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*\d)(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/', message: 'Le mot de passe doit être composé de 12 caractères dont au minimum : 1 lettre minuscule, 1 lettre majuscule, 1 chiffre, 1 caractère spécial (dans un ordre aléatoire).')]
+    #[ORM\Column(type: 'string')]
     private string $password;
 
     //private ?string $password = null;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private string $username;
 
     //private ?string $username = null;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
+    #[ORM\Column(type: 'float', nullable: true)]
     private ?float $points = null;
 
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private \DateTimeImmutable $createdAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private DateTimeImmutable $createdAt;
 
     //private ?\DateTimeImmutable $createdAt = null;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private \DateTimeImmutable $updatedAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private DateTimeImmutable $updatedAt;
 
     //private ?\DateTimeImmutable $updatedAt = null;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $token = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private ?\DateTimeInterface $tokenDateValid = null;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?DateTimeInterface $tokenDateValid = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="idUser")
-     */
-    private ?\App\Entity\Level $level = null;
+    #[ORM\ManyToOne(targetEntity: Level::class, inversedBy: 'idUser')]
+    private ?Level $level = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private string $fullName;
 
     //private ?string $fullName = null;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private bool $isDeleted = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private bool $isExpired = false;
 
     /**
@@ -223,8 +189,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction pour effacer des données sensibles ou temporaires
-     * sur l'utilisateur, i.e. un mot de passe en clair
+     * Fonction pour effacer des données sensibles ou temporaires sur l'utilisateur, 
+     * i.e. un mot de passe en clair
      *
      * @see UserInterface
      */
@@ -264,20 +230,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de récupérer
-     * la date d'enregistrement de l'utilisateur
+     * Fonction qui permet de récupérer la date d'enregistrement de l'utilisateur
      */
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    /**
-     * @ORM\PrePersist
-     */
+    #[ORM\PrePersist]
     public function setCreatedAt(): self
     {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
 
         return $this;
     }
@@ -286,19 +249,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Fonction qui permet de récupérer
      * la date de mise à jour de l'utilisateur
      */
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @ORM\PrePersist
-     *
-     * @ORM\PreUpdate
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function setUpdatedAt(): self
     {
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new DateTimeImmutable();
 
         return $this;
     }
@@ -322,19 +282,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction de récupération la date de validité
-     * du jeton de sécurité (token)
+     * Fonction de récupération la date de validité du jeton de sécurité (token)
      */
-    public function getTokenDateValid(): ?\DateTimeInterface
+    public function getTokenDateValid(): ?DateTimeInterface
     {
         return $this->tokenDateValid;
     }
 
     /**
-     * Fonction pour définir la date de validité
-     * du jeton de sécurité (token)
+     * Fonction pour définir la date de validité du jeton de sécurité (token)
      */
-    public function setTokenDateValid(?\DateTimeInterface $tokenDateValid): self
+    public function setTokenDateValid(?DateTimeInterface $tokenDateValid): self
     {
         $this->tokenDateValid = $tokenDateValid;
 
@@ -360,8 +318,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de connaître le statut de vérification
-     * de l'adresse e-mail de l'utilisateur
+     * Fonction qui permet de connaître le statut de vérification de l'adresse e-mail de l'utilisateur
      */
     public function getIsVerified(): ?bool
     {
@@ -369,8 +326,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de définir le statut de vérification
-     * de l'adresse e-mail de l'utilisateur
+     * Fonction qui permet de définir le statut de vérification de l'adresse e-mail de l'utilisateur
      */
     public function setIsVerified(bool $isVerified): self
     {
@@ -398,8 +354,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction: méthode getter du user checker:
-     * statut de l'utilisateur: supprimé/non supprimé
+     * Fonction: méthode getter du user checker: statut de l'utilisateur: supprimé/non supprimé
      */
     public function getIsDeleted(): ?bool
     {
@@ -407,8 +362,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction: méthode setter du user checker:
-     * statut de l'utilisateur: supprimé/non supprimé
+     * Fonction: méthode setter du user checker: statut de l'utilisateur: supprimé/non supprimé
      */
     public function setIsDeleted(bool $isDeleted): self
     {
@@ -418,8 +372,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction: méthode getter du user checker:
-     * statut de l'utilisateur: expiré/non expiré
+     * Fonction: méthode getter du user checker: statut de l'utilisateur: expiré/non expiré
      */
     public function getIsExpired(): ?bool
     {
@@ -427,8 +380,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction: méthode setter du user checker:
-     * statut de l'utilisateur: expiré/non expiré
+     * Fonction: méthode setter du user checker: statut de l'utilisateur: expiré/non expiré
      */
     public function setIsExpired(bool $isExpired): self
     {

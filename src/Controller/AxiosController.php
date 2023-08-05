@@ -13,8 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Classe/contrôleur qui traite l'enregistrement des points
- * d'un utilisateur dans la base de données
+ * Classe/contrôleur qui traite l'enregistrement des points d'un utilisateur dans la base de données
  *
  * @method User|null getUser()
  */
@@ -24,10 +23,8 @@ final class AxiosController extends AbstractController
      * Fonction qui permet la sauvegarde des points du joueur
      */
     #[Route(path: '/save_axios', name: 'app_save_axios')]
-    public function save(
-        Request $request,
-        UserRepository $userRepository
-    ): Response {
+    public function save(Request $request, UserRepository $userRepository): Response
+    {
         //Récupère la donnée envoyée par le front-end
         /** @var array<string> $data */
         $data = json_decode(
@@ -51,7 +48,7 @@ final class AxiosController extends AbstractController
 
         return new JsonResponse(
             ['message' => 'ajout des points dans la BDD'],
-            \Symfony\Component\HttpFoundation\Response::HTTP_OK
+            Response::HTTP_OK
         );
     }
 }

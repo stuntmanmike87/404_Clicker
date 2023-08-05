@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-//use App\Entity\User;
+use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\CustomValidatorForCommand;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,8 +27,7 @@ final class DeleteOneUserCommand extends Command
     /**
      * @var string|null $defaultDescription
      */
-    protected static $defaultDescription =
-        'Supprime un utilisateur en base de données';
+    protected static $defaultDescription = 'Supprime un utilisateur en base de données';
 
     private SymfonyStyle $io;
 
@@ -42,31 +41,22 @@ final class DeleteOneUserCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument(
-            'email',
-            InputArgument::REQUIRED,
-            "L'e-mail de l'utilisateur"
-        );
+        $this->addArgument('email', InputArgument::REQUIRED, "L'e-mail de l'utilisateur");
     }
 
     /**
-     * Executed after configure() to initialize
-     * properties based on the input arguments and options.
+     * Executed after configure() to initialize properties based on the input arguments and options.
      */
-    protected function initialize(
-        InputInterface $input,
-        OutputInterface $output
-    ): void {
+    protected function initialize(InputInterface $input, OutputInterface $output): void
+    {
         $this->io = new SymfonyStyle($input, $output);
     }
 
     /**
      * execute function
      */
-    protected function execute(
-        InputInterface $input,
-        OutputInterface $output
-    ): int {
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
         $io = new SymfonyStyle($input, $output);
 
         /** @var string $email */
@@ -76,7 +66,7 @@ final class DeleteOneUserCommand extends Command
             'email' => $email,
         ]);
 
-        if (! $user instanceof \App\Entity\User) {
+        if (! $user instanceof User) {
             throw new RuntimeException(
                 "AUCUN UTILISATEUR N'EST PRESENT
                 EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : {$email}"
@@ -100,13 +90,10 @@ final class DeleteOneUserCommand extends Command
 
     /**
      * Executed after initialize() and before execute().
-     * Checks if some of the options/arguments
-     * are missing and ask the user for those values.
+     * Checks if some of the options/arguments are missing and ask the user for those values.
      */
-    protected function interact(
-        InputInterface $input,
-        OutputInterface $output
-    ): void {
+    protected function interact(InputInterface $input, OutputInterface $output): void
+    {
         $this->io->section("SUPPRESSION D'UN UTILISATEUR EN BASE DE DONNEES");
 
         $this->enterEmail($input, $output);
@@ -115,10 +102,8 @@ final class DeleteOneUserCommand extends Command
     /**
      * Sets the user email.
      */
-    private function enterEmail(
-        InputInterface $input,
-        OutputInterface $output
-    ): void {
+    private function enterEmail(InputInterface $input, OutputInterface $output): void
+    {
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
 
