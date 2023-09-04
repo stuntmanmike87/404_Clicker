@@ -24,7 +24,6 @@ final class UserAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    ///**  @var string */
     public const LOGIN_ROUTE = 'app_login';
 
     /**
@@ -69,10 +68,7 @@ final class UserAuthenticator extends AbstractLoginFormAuthenticator
         string $firewallName
     ): ?Response {//Unused parameter $token
         //$user = $token->getUser();
-        $targetPath = $this->getTargetPath(
-            $request->getSession(),
-            $firewallName
-        );
+        $targetPath = $this->getTargetPath($request->getSession(), $firewallName);
         if ($targetPath !== '') {
             return new RedirectResponse((string) $targetPath);
         }

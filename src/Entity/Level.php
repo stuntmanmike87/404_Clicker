@@ -4,45 +4,36 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use App\Repository\LevelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @see \App\Tests\Entity\LevelTest
- */
-/** @final */
+/** @final
+ * @see \App\Tests\Entity\LevelTest */
 #[ORM\Entity(repositoryClass: LevelRepository::class)]
 class Level
-{//Entity class App\Entity\Level is final which can cause problems with proxies
+{
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private readonly int $id;
-//Class App\Entity\Level has an uninitialized readonly property $id. Assign it in the constructor
-    #[ORM\Column(type: 'float')]
-    private float $maxPoints;
 
-    //private ?float $maxPoints = null;
-    /**
-     * //@Assert\Url(message="Le chemin spécifié est invalide")
-     */
+    #[ORM\Column(type: Types::FLOAT)]
+    private float $maxPoints;//private ?float $maxPoints = null;
+
     #[Assert\File(notFoundMessage: "Le fichier est introuvable à l'emplacement spécifié")]
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $pathImg;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private string $pathImg;//private ?string $pathImg = null;
 
-    //private ?string $pathImg = null;
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $nomLevel;
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private string $nomLevel;//private ?string $nomLevel = null;
 
-    //private ?string $nomLevel = null;
     /**
      * @var ArrayCollection<User> $idUser
      */
-    //private $idUser;
-    //private \Doctrine\Common\Collections\ArrayCollection|array $idUser;
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'level')]
     private ArrayCollection $idUser;
 

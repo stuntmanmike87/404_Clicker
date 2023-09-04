@@ -22,11 +22,9 @@ use Symfony\Component\Routing\Annotation\Route;
 final class UserController extends AbstractController
 {
     public function __construct(
-        /**
-         * Entity manager
-         */
         private readonly EntityManagerInterface $entityManager
-    ) {
+    )
+    {
     }
 
     /**
@@ -60,10 +58,7 @@ final class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Encode(hash) the plain password, and set it.
-            $encodedPassword = $userPasswordHasher->hashPassword(
-                $user,
-                /* (string)  */$plainPassword
-            );
+            $encodedPassword = $userPasswordHasher->hashPassword($user, $plainPassword);
 
             $user->setPassword($encodedPassword);
 

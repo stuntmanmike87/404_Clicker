@@ -59,10 +59,8 @@ final class HomeController extends AbstractController
     }
 
     /**
-     * Fonction qui permet l'affichage de la page
-     * de la politique de confidentialité
-     * home/privacyPolicy.html.twig :
-     * page de la police de confidentialité du site
+     * Fonction qui permet l'affichage de la page de la politique de confidentialité
+     * home/privacyPolicy.html.twig : page de la police de confidentialité du site
      */
     #[Route(path: '/privacy', name: 'privacyPolicy', methods: ['GET'])]
     public function privacyPolicy(): Response

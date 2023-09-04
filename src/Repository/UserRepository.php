@@ -10,18 +10,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+//use App\Enum;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-
-enum Suit: int {
-    case TWENTY = 20;
-    case FIFTY = 50;
-    case ONE_HUNDRED = 100;
-    case TWO_HUNDREDS = 200;
-    case FIVE_HUNDREDS = 500;
-    case ONE_THOUSAND = 1000;
-}
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -120,28 +112,6 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
      */
     public function checkLevelByMaxPoints(float $points, User $user): void
     {
-        /* $id = match ($points) {
-            20 => 1,
-            50 => 2,
-            100 => 3,
-            200 => 4,
-            500 => 5,
-            1000 => 6,
-            default => 'not exists/out of range',
-        };
-
-        $level = $this->levelRepository->find($id);
-        $user->setLevel($level); */
-
-        /* $tabPoints = [20, 50, 100, 200, 500, 1000];
-
-        foreach ($tabPoints as $value) {
-            if ($points < $value) {
-                $level = $this->levelRepository->find(key($tabPoints) + 1);
-                $user->setLevel($level);
-            }
-        } */
-
         if ($points < 20) {
             $level = $this->levelRepository->find(1);
             $user->setLevel($level);
@@ -181,24 +151,15 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
      */
     public function changeLevel(User $user): float
     {
-        /* $tabPoints = [20, 50, 100, 200, 500, 1000];
+        if ($user->getPoints() < 20) {return 20;}//LevelsEnum:ONE
 
-        //if ($user !== null) {}
-        foreach ($tabPoints as $value) {
-            if ($user->getPoints() < $value) {
-                return $value;
-            }
-        } */
+        if ($user->getPoints() >= 20 && $user->getPoints() < 50) {return 50;}//LevelsEnum:TWO
 
-        if ($user->getPoints() < 20) {return 20;}
+        if ($user->getPoints() >= 50 && $user->getPoints() < 100) {return 100;}//LevelsEnum:THREE
 
-        if ($user->getPoints() >= 20 && $user->getPoints() < 50) {return 50;}
+        if ($user->getPoints() >= 100 && $user->getPoints() < 200) {return 200;}//LevelsEnum:FOUR
 
-        if ($user->getPoints() >= 50 && $user->getPoints() < 100) {return 100;}
-
-        if ($user->getPoints() >= 100 && $user->getPoints() < 200) {return 200;}
-
-        if ($user->getPoints() >= 200 && $user->getPoints() < 500) {return 500;}
+        if ($user->getPoints() >= 200 && $user->getPoints() < 500) {return 500;}//LevelsEnum:FIVE
 
         return 0;//$changeLevelScore;
     }

@@ -22,19 +22,15 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 final class AddOneUserCommand extends Command
 {
     //EMAIL_ARGUMENT_DESCRIPTION
-    ///** @var string */
     private const EMAIL_ARG = "L'e-mail de l'utilisateur";
 
     //PASSWORD_ARGUMENT_DESCRIPTION
-    ///** @var string */
     private const PW_ARG = "Le mot de passe en clair de l'utilisateur";
 
     //ROLE_ARGUMENT_DESCRIPTION
-    ///** @var string */
     private const ROLE_ARG = "Le rôle de l'utilisateur";
 
     //ISVERIFIED_ARGUMENT_DESCRIPTION
-    ///** @var string */
     private const ISV_ARG = "Le statut du compte l'utilisateur (actif)";
 
     /**
@@ -237,7 +233,7 @@ final class AddOneUserCommand extends Command
         $isVerified = $helper->ask($input, $output, $isVerifiedQuestion);
 
         $output->writeln(
-            "<info>STATUT D'ACTIVATION DU COMPTE UTILISATEUR PRIS EN COMPTE : {$isVerified}</info>"
+            sprintf('<info>STATUT D\'ACTIVATION DU COMPTE UTILISATEUR PRIS EN COMPTE : %s</info>', $isVerified)
         );
 
         $input->setArgument('isVerified', $isVerified);

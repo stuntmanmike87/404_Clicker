@@ -4,42 +4,37 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use App\Repository\UserRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-//use Doctrine\ORM\Mapping\Table;
 //use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /** @final */
-/**
- * //@Table(name="users")
- *
- * //@UniqueEntity(fields={"email"},message="Impossible de créer un compte utilisateur avec cet e-mail.")
- */
-//Normal classes are forbidden. Classes must be final or abstract
+//@UniqueEntity(fields={"email"},message="Impossible de créer un compte utilisateur avec cet e-mail.")
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
-{//Entity class App\Entity\User is final which can cause problems with proxies
+{
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private readonly int $id;
-//Class App\Entity\User has an uninitialized readonly property $id. Assign it in the constructor.
+
     #[Assert\NotBlank(message: 'Veuillez saisir une valeur.')]
     #[Assert\Email(message: "L'e-mail {{value}} n'est pas valide.")]
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     private string $email;
 
     //private ?string $email = null;
     /**
      * @var array<string> $roles
      */
-    #[ORM\Column(type: 'json')]
+    #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
     /**
@@ -48,45 +43,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: 'Veuillez saisir une valeur.')]
     #[Assert\NotCompromisedPassword(message: "Ce mot de passe a été divulgué lors d'une fuite de données, veuillez utiliser un autre mot de passe pour votre sécurité.")]
     #[Assert\Regex(pattern: '/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*\d)(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/', message: 'Le mot de passe doit être composé de 12 caractères dont au minimum : 1 lettre minuscule, 1 lettre majuscule, 1 chiffre, 1 caractère spécial (dans un ordre aléatoire).')]
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: Types::STRING)]
     private string $password;
 
     //private ?string $password = null;
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $username;
 
     //private ?string $username = null;
-    #[ORM\Column(type: 'float', nullable: true)]
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
     private ?float $points = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $createdAt;
 
     //private ?\DateTimeImmutable $createdAt = null;
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $updatedAt;
 
     //private ?\DateTimeImmutable $updatedAt = null;
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $token = null;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTimeInterface $tokenDateValid = null;
 
     #[ORM\ManyToOne(targetEntity: Level::class, inversedBy: 'idUser')]
     private ?Level $level = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $fullName;
 
     //private ?string $fullName = null;
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isVerified = false;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isDeleted = false;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isExpired = false;
 
     /**
