@@ -31,9 +31,6 @@ yarn-error.log
 docs
 ###< PHPDOCUMENTOR ###
 
-###< PHPStan ###
-phpstan.neon
-###< PHPStan ###
 ###> PHPMetrics HTML report ###
 /myreport/
 ###< PHPMetrics HTML report ###

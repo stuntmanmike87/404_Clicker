@@ -2,24 +2,18 @@
 
 declare(strict_types=1);
 
-use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\Config\RectorConfig;
-//use Rector\Core\Configuration\Option;
 use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
-//use Rector\Symfony\Rector\Class_\ChangeFileLoaderInExtensionAndKernelRector;
 use Rector\Symfony\Set\SymfonySetList;
 
 /**
  * @see \Rector\Config\RectorConfig::symfonyContainerXml()
  */
 return static function (RectorConfig $rectorConfig): void {
-    // $rectorConfig->sets([
-    //     SetList::RECTOR_CONFIG
-    // ]);
 
     $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
 
@@ -65,7 +59,6 @@ return static function (RectorConfig $rectorConfig): void {
     ); */
 
     $rectorConfig->sets([
-        //SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
         SymfonySetList::SYMFONY_63,
         SymfonySetList::SYMFONY_CODE_QUALITY,
         SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
@@ -79,19 +72,9 @@ return static function (RectorConfig $rectorConfig): void {
     
         // phpunit rules
         $rectorConfig->sets([
-            //PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
             PHPUnitSetList::PHPUNIT_100,
             PHPUnitSetList::PHPUNIT_CODE_QUALITY,
             PHPUnitLevelSetList::UP_TO_PHPUNIT_100,
         ]);
-
-    $rectorConfig->skip([
-        VarConstantCommentRector::class,
-    ]);
-
-    /* $rectorConfig->ruleWithConfiguration(ChangeFileLoaderInExtensionAndKernelRector::class, [
-        ChangeFileLoaderInExtensionAndKernelRector::FROM => 'yaml',
-        ChangeFileLoaderInExtensionAndKernelRector::TO => 'php',
-    ]); */
 
 };
