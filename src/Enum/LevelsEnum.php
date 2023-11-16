@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enum;
 
-enum Levels: int {
+enum LevelsEnum: int {
     case ONE = 20;
     case TWO = 50;
     case THREE = 100;
