@@ -65,5 +65,5 @@
 
 {% block javascripts %}
     {# Appel au fichier assets/js/fichier.js #}
-    {{ encore_entry_script_tags('jouer') }}
+    {% block importmap %}{{ importmap('jouer') }}{% endblock %}
 {% endblock %}

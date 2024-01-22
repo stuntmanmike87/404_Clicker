@@ -1,5 +1,6 @@
 /* Import bootstrap */
-@import '~bootstrap';
+// @import '~bootstrap';
+@import "../../vendor/twbs/bootstrap/scss/bootstrap.scss";
 
 @import '_global';
 @import 'libs/_header';
