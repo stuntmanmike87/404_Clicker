@@ -12,7 +12,6 @@ final class ProfileControllerTest extends WebTestCase
 {
     //https://symfony.com/doc/5.4/testing.html#submitting-forms
     //https://symfony.com/doc/5.4/testing.html#testing-the-response-assertions
-
     /**
      * Fonction de test de connexion d'utilisateurs
      */

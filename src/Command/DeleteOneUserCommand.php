@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use Override;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\CustomValidatorForCommand;
@@ -39,6 +40,7 @@ final class DeleteOneUserCommand extends Command
         parent::__construct();
     }
 
+    #[Override]
     protected function configure(): void
     {
         $this->addArgument('email', InputArgument::REQUIRED, "L'e-mail de l'utilisateur");
@@ -47,6 +49,7 @@ final class DeleteOneUserCommand extends Command
     /**
      * Executed after configure() to initialize properties based on the input arguments and options.
      */
+    #[Override]
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
@@ -55,6 +58,7 @@ final class DeleteOneUserCommand extends Command
     /**
      * execute function
      */
+    #[Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -68,8 +72,8 @@ final class DeleteOneUserCommand extends Command
 
         if (! $user instanceof User) {
             throw new RuntimeException(
-                "AUCUN UTILISATEUR N'EST PRESENT
-                EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : {$email}"
+                'AUCUN UTILISATEUR N\'EST PRESENT
+                EN BASE DE DONNEES AVEC L\'E-MAIL SUIVANT : ' . $email
             );
         }
 
@@ -92,6 +96,7 @@ final class DeleteOneUserCommand extends Command
      * Executed after initialize() and before execute().
      * Checks if some of the options/arguments are missing and ask the user for those values.
      */
+    #[Override]
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
         $this->io->section("SUPPRESSION D'UN UTILISATEUR EN BASE DE DONNEES");

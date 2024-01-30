@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity;
 
+use Override;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Iterator;
 use App\Entity\User;
 use Error;
 //use PHPUnit\Framework\TestCase;
@@ -14,17 +17,17 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class UserEntityTest extends KernelTestCase
 {//final class UserEntityTest extends TestCase
-    private const EMAIL_CONSTRAINT_MESSAGE = 'L\'e-mail {{value}} n\'est pas valide.';
+    private const string EMAIL_CONSTRAINT_MESSAGE = "L'e-mail {{value}} n'est pas valide.";
 
-    private const NOT_BLANK_CONSTRAINT_MESSAGE = 'Veuillez saisir une valeur.';
+    private const string NOT_BLANK_CONSTRAINT_MESSAGE = 'Veuillez saisir une valeur.';
 
-    private const INVALID_EMAIL_VALUE = 'user01@test';
+    private const string INVALID_EMAIL_VALUE = 'user01@test';
 
-    private const PASSWORD_REGEX_CONSTRAINT_MESSAGE = 'Le mot de passe doit être composé de 12 caractères dont au minimum : 1 lettre minuscule, 1 lettre majuscule, 1 chiffre, 1 caractère spécial (dans un ordre aléatoire).';
+    private const string PASSWORD_REGEX_CONSTRAINT_MESSAGE = 'Le mot de passe doit être composé de 12 caractères dont au minimum : 1 lettre minuscule, 1 lettre majuscule, 1 chiffre, 1 caractère spécial (dans un ordre aléatoire).';
 
-    private const VALID_EMAIL_VALUE = 'user01@test.com';
+    private const string VALID_EMAIL_VALUE = 'user01@test.com';
 
-    private const VALID_PASSWORD_VALUE = 'User-nbr-001';
+    private const string VALID_PASSWORD_VALUE = 'User-nbr-001';
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -36,6 +39,7 @@ final class UserEntityTest extends KernelTestCase
     /**
      * Fonction d'initialisation du validateur de l'entité
      */
+    #[Override]
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
@@ -85,7 +89,7 @@ final class UserEntityTest extends KernelTestCase
         /** @var string $error0 */
         $error0 = $error_0->getMessage();
 
-        $this->assertEquals(self::NOT_BLANK_CONSTRAINT_MESSAGE, $error0);
+        $this->assertSame(self::NOT_BLANK_CONSTRAINT_MESSAGE, $error0);
     }
 
     /**
@@ -106,7 +110,7 @@ final class UserEntityTest extends KernelTestCase
         /** @var string $error0 */
         $error0 = $error_0->getMessage();
 
-        $this->assertEquals(self::NOT_BLANK_CONSTRAINT_MESSAGE, $error0);
+        $this->assertSame(self::NOT_BLANK_CONSTRAINT_MESSAGE, $error0);
     }
 
     /**
@@ -128,15 +132,14 @@ final class UserEntityTest extends KernelTestCase
         /** @var string $error0 */
         $error0 = $error_0->getMessage();
 
-        $this->assertEquals(self::EMAIL_CONSTRAINT_MESSAGE, $error0);
+        $this->assertSame(self::EMAIL_CONSTRAINT_MESSAGE, $error0);
     }
 
     /**
      * Fonction qui teste la validité d'un utilisateur
      * par la saisie d'un mot de passe respectant ses contraintes
-     *
-     * @dataProvider provideInvalidPasswords
      */
+    #[DataProvider('provideInvalidPasswords')]
     public function testUserEntityIsInvalidBecauseOfInvalidPasswordEntered(
         string $invalidPassword
     ): void {
@@ -153,24 +156,24 @@ final class UserEntityTest extends KernelTestCase
         /** @var string $error0 */
         $error0 = $error_0->getMessage();
 
-        $this->assertEquals(self::PASSWORD_REGEX_CONSTRAINT_MESSAGE, $error0);
+        $this->assertSame(self::PASSWORD_REGEX_CONSTRAINT_MESSAGE, $error0);
     }
 
     /**
      * Fonction qui retourne un tableau de mots de passe
      * ne respectant pas une ou plusieurs contraintes
-     *
-     * @return array<array<string>>
      */
-    public function provideInvalidPasswords(): array
+    public static function provideInvalidPasswords(): Iterator
     {
-        return [
-            ['Monemaildu974'],//no special character
-            ['Monemail-le-clown'],//no numbers
-            ['Monemail-97'],//not 12 characters
-            ['monemail-du-974'],//no uppercase
-            ['MONEMAIL-DU-974'],//no lowercase
-        ];
+        yield ['Monemaildu974'];
+        //no special character
+        yield ['Monemail-le-clown'];
+        //no numbers
+        yield ['Monemail-97'];
+        //not 12 characters
+        yield ['monemail-du-974'];
+        //no uppercase
+        yield ['MONEMAIL-DU-974'];
     }
 
     /**
@@ -188,6 +191,7 @@ final class UserEntityTest extends KernelTestCase
         return $errors;
     }
 }
+
 //Deprecation notices :
 //15x: Since symfony/framework-bundle 5.2:
 //Accessing the "validator" service directly from the container is deprecated,

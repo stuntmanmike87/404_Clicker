@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Override;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -22,6 +23,7 @@ final class UserType extends AbstractType
      * $options : tableau qui permet de lister les champs du formulaire
      */
     //@param array<string> $options
+    #[Override]
     public function buildForm(
         FormBuilderInterface $builder,
         array $options
@@ -46,6 +48,7 @@ final class UserType extends AbstractType
         ;
     }
 
+    #[Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

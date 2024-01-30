@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use Override;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\CustomValidatorForCommand;
@@ -22,16 +23,16 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 final class AddOneUserCommand extends Command
 {
     //EMAIL_ARGUMENT_DESCRIPTION
-    private const EMAIL_ARG = "L'e-mail de l'utilisateur";
+    private const string EMAIL_ARG = "L'e-mail de l'utilisateur";
 
     //PASSWORD_ARGUMENT_DESCRIPTION
-    private const PW_ARG = "Le mot de passe en clair de l'utilisateur";
+    private const string PW_ARG = "Le mot de passe en clair de l'utilisateur";
 
     //ROLE_ARGUMENT_DESCRIPTION
-    private const ROLE_ARG = "Le rôle de l'utilisateur";
+    private const string ROLE_ARG = "Le rôle de l'utilisateur";
 
     //ISVERIFIED_ARGUMENT_DESCRIPTION
-    private const ISV_ARG = "Le statut du compte l'utilisateur (actif)";
+    private const string ISV_ARG = "Le statut du compte l'utilisateur (actif)";
 
     /**
      * @var string|null $defaultName
@@ -49,6 +50,7 @@ final class AddOneUserCommand extends Command
         parent::__construct();
     }
 
+    #[Override]
     protected function configure(): void
     {
         $this->addArgument('email', InputArgument::REQUIRED, self::EMAIL_ARG);
@@ -60,6 +62,7 @@ final class AddOneUserCommand extends Command
     /**
      * Executed after configure() to initialize properties based on the input arguments and options.
      */
+    #[Override]
     protected function initialize(
         InputInterface $input,
         OutputInterface $output
@@ -71,6 +74,7 @@ final class AddOneUserCommand extends Command
      * Executed after initialize() and before execute().
      * Checks if some of the options/arguments are missing and ask the user for those values.
      */
+    #[Override]
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
         $this->io->section("AJOUT D'UN UTILISATEUR EN BASE DE DONNEES");
@@ -87,6 +91,7 @@ final class AddOneUserCommand extends Command
     /**
      * execute function
      */
+    #[Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string $email */
@@ -233,7 +238,7 @@ final class AddOneUserCommand extends Command
         $isVerified = $helper->ask($input, $output, $isVerifiedQuestion);
 
         $output->writeln(
-            sprintf('<info>STATUT D\'ACTIVATION DU COMPTE UTILISATEUR PRIS EN COMPTE : %s</info>', $isVerified)
+            sprintf("<info>STATUT D'ACTIVATION DU COMPTE UTILISATEUR PRIS EN COMPTE : %s</info>", $isVerified)
         );
 
         $input->setArgument('isVerified', $isVerified);

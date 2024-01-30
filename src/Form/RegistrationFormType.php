@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Override;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 //use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -26,6 +27,7 @@ final class RegistrationFormType extends AbstractType
      * d'enregistrement d'un utilisateur
      */
     //@param array<string> $options
+    #[Override]
     public function buildForm(
         FormBuilderInterface $builder,
         array $options
@@ -51,6 +53,7 @@ final class RegistrationFormType extends AbstractType
         //$builder->add('register', SubmitType::class);
     }
 
+    #[Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Repository;
 
+use Doctrine\ORM\EntityManager;
+use Override;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -11,8 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 final class UserRepositoryTest extends KernelTestCase
 {
-    protected ?\Doctrine\ORM\EntityManager $entityManager = null;
+    protected ?EntityManager $entityManager = null;
 
+    #[Override]
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
@@ -31,6 +34,7 @@ final class UserRepositoryTest extends KernelTestCase
         $doctrine->getManager();
     }
 
+    #[Override]
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -48,8 +52,7 @@ final class UserRepositoryTest extends KernelTestCase
         //     ->getRepository(User::class)
         //     ->findOneBy(['name' => 'Nameless'])
         // ;
-
-        /** @var \Doctrine\ORM\EntityManager $entityManager */
+        /** @var EntityManager $entityManager */
         $entityManager = $this->entityManager;
 
         /** @var UserRepository $repository */

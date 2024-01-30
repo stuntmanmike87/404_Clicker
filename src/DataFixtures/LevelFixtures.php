@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use Override;
 use App\Entity\Level;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -18,6 +19,7 @@ final class LevelFixtures extends Fixture
      * Fonction qui permet de charger les fixtures:
      * enregistrement des niveaux en base de données
      */
+    #[Override]
     public function load(ObjectManager $manager): void
     {
         $this->loadLevels($manager);

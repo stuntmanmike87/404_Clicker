@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Override;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,6 +18,7 @@ final class ResetPasswordRequestFormType extends AbstractType
      * de réinitialisation du mot de passe d'un utilisateur
      */
     //@param array<string> $options
+    #[Override]
     public function buildForm(
         FormBuilderInterface $builder,
         array $options
@@ -38,6 +40,7 @@ final class ResetPasswordRequestFormType extends AbstractType
         ;
     }
 
+    #[Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([]);

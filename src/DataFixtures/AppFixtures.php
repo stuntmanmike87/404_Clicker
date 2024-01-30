@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use Override;
 use App\Entity\Level;
 use App\Entity\User;
 //use App\Factory\UserFactory;
@@ -26,6 +27,7 @@ final class AppFixtures extends Fixture implements DependentFixtureInterface
      * Fonction qui permet de charger des fixtures
      * en persistant des objets [user (utilisateur)] en base de données
      */
+    #[Override]
     public function load(ObjectManager $manager): void
     {
         //UserFactory::new()->create();

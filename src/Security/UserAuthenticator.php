@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security;
 
+use Override;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +25,7 @@ final class UserAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_login';
+    public const string LOGIN_ROUTE = 'app_login';
 
     /**
      * Constructeur de la classe LoginFormAuthenticator
@@ -37,6 +38,7 @@ final class UserAuthenticator extends AbstractLoginFormAuthenticator
     /**
      * Fonction qui gère la requête d'authentification
      */
+    #[Override]
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email', '');
@@ -62,6 +64,7 @@ final class UserAuthenticator extends AbstractLoginFormAuthenticator
     /**
      * Fonction qui traite la réponse d'une authentification qui a réussi
      */
+    #[Override]
     public function onAuthenticationSuccess(
         Request $request,
         TokenInterface $token,
@@ -82,6 +85,7 @@ final class UserAuthenticator extends AbstractLoginFormAuthenticator
     /**
      * Fonction qui récupère l'URL de connexion
      */
+    #[Override]
     protected function getLoginUrl(Request $request): string
     {//Unused parameter $request.
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);

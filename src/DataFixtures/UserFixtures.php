@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use Override;
 use App\Entity\Level;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -21,6 +22,7 @@ final class UserFixtures extends Fixture implements DependentFixtureInterface
     /**
      * Fonction de chargement des fixtures en base de données
      */
+    #[Override]
     public function load(ObjectManager $manager): void
     {
         $this->generateUsers(10, $manager);

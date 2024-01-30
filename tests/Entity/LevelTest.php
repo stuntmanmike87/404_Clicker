@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity;
 
+use Override;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Iterator;
 use App\Entity\Level;
 //use App\Entity\User;
 use Error;
@@ -46,9 +49,9 @@ final class LevelTest extends KernelTestCase
         '403.png'
     ]; */
 
-    private const VALID_PATHIMG = '/assets/images/level1_concept.png';
+    private const string VALID_PATHIMG = '/assets/images/level1_concept.png';
 
-    private const PATH_CONSTRAINT_MESSAGE = 'Le fichier est introuvable à l\'emplacement spécifié';
+    private const string PATH_CONSTRAINT_MESSAGE = 'Le fichier est introuvable à l\'emplacement spécifié';
 
     //private const INVALID_DIRECTORY_PATH_MESSAGE = 'Le chemin spécifié est invalide';
 
@@ -62,6 +65,7 @@ final class LevelTest extends KernelTestCase
     /**
      * Fonction d'initialisation du validateur de l'entité
      */
+    #[Override]
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
@@ -97,9 +101,8 @@ final class LevelTest extends KernelTestCase
     /**
      * Fonction qui teste la validité d'un niveau selon
      * le chemin de l'image qui lui est associée
-     *
-     * @dataProvider provideInvalidPaths
      */
+    #[DataProvider('provideInvalidPaths')]
     public function testLevelIsInvalidBecauseInvalidPathIsDefined(
         string $invalidPath
     ): void {
@@ -116,7 +119,7 @@ final class LevelTest extends KernelTestCase
         /** @var string $error0 */
         $error0 = $error_0->getMessage();
 
-        $this->assertEquals(self::PATH_CONSTRAINT_MESSAGE, $error0);
+        $this->assertSame(self::PATH_CONSTRAINT_MESSAGE, $error0);
         //$this->assertEquals(
         //self::PATH_CONSTRAINT_MESSAGE,
         //$errors[0]->getMessage()
@@ -129,18 +132,19 @@ final class LevelTest extends KernelTestCase
 
     /**
      * Fonction qui retourne un tableau de chemins invalides
-     *
-     * @return array<array<string>>
      */
-    public function provideInvalidPaths(): array
+    public static function provideInvalidPaths(): Iterator
     {
-        return [//this file can't be found at this location
-            ['/assets/images/level1_concept'],// no file extension
-            ['/assets/images/level1_concept.txt'],// wrong file extension
-            ['/assets/images/level1.png'],// wrong file name
-            ['/assets/image/level1_concept.png'],// no such folder
-            ['/assets/images/'],// no file
-        ];
+        //this file can't be found at this location
+        yield ['/assets/images/level1_concept'];
+        // no file extension
+        yield ['/assets/images/level1_concept.txt'];
+        // wrong file extension
+        yield ['/assets/images/level1.png'];
+        // wrong file name
+        yield ['/assets/image/level1_concept.png'];
+        // no such folder
+        yield ['/assets/images/'];
     }
 
     /**
@@ -158,6 +162,7 @@ final class LevelTest extends KernelTestCase
         return $errors;
     }
 }
+
 //Deprecation notices :
 //Since symfony/framework-bundle 5.2:
 //Accessing the "validator" service directly from the container is deprecated,
