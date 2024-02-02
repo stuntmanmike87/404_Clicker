@@ -58,7 +58,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->sets([
         //SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-        SymfonySetList::SYMFONY_63,//SYMFONY_64,//SYMFONY_70,
+        SymfonySetList::SYMFONY_64,//SYMFONY_70,
         SymfonySetList::SYMFONY_CODE_QUALITY,
         SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
     ]);
