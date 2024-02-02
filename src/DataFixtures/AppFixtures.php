@@ -42,6 +42,7 @@ final class AppFixtures extends Fixture implements DependentFixtureInterface
      * Fonction de liaison de dépendances avec une autre fixture
      */
     //@return array<string>
+    #[Override]
     public function getDependencies(): array
     {
         return [

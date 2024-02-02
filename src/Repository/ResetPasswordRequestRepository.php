@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use Override;
 use App\Entity\ResetPasswordRequest;
 use App\Entity\User;
 use DateTimeInterface;
@@ -55,6 +56,7 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
     }
 
     ///** @param User $user */
+    #[Override]
     public function createResetPasswordRequest(
         object $user,
         DateTimeInterface $expiresAt,

@@ -34,6 +34,7 @@ final class UserFixtures extends Fixture implements DependentFixtureInterface
      * Fonction de liaison de dépendances entre fixtures
      */
     //@return array<string>
+    #[Override]
     public function getDependencies(): array
     {
         return [

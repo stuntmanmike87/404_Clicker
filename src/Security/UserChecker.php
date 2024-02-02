@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security;
 
+use Override;
 use App\Entity\User;// as AppUser;
 use Symfony\Component\Security\Core\Exception\AccountExpiredException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
@@ -15,6 +16,7 @@ final class UserChecker implements UserCheckerInterface
     /**
      * Fonction de vérification d'un utilisateur authentifié dont le compte a été supprimé
      */
+    #[Override]
     public function checkPreAuth(UserInterface $user): void
     {
         if (! $user instanceof User) {
@@ -33,6 +35,7 @@ final class UserChecker implements UserCheckerInterface
     /**
      * Fonction de vérification d'un utilisateur authentifié dont le compte a expiré
      */
+    #[Override]
     public function checkPostAuth(UserInterface $user): void
     {
         if (! $user instanceof User) {

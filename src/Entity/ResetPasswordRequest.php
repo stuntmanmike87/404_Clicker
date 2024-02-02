@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Override;
 use Doctrine\DBAL\Types\Types;
 use App\Repository\ResetPasswordRequestRepository;
 use DateTimeInterface;
@@ -50,6 +51,7 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
     /**
      * Méthode qui donne accès à un utilisateur: objet User
      */
+    #[Override]
     public function getUser(): object
     {
         return $this->user;
