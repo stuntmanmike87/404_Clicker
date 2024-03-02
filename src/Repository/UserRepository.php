@@ -8,8 +8,8 @@ use Override;
 use App\Entity\User;
 //use App\Repository\LevelRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
+// use Doctrine\ORM\OptimisticLockException;
+// use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 //use App\Enum;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -36,31 +36,33 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         parent::__construct($registry, User::class);
     }
 
-    /**
-     * function add(User $entity, bool $flush = true)
-     *
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
+    // /**
+    //  * function add(User $entity, bool $flush = true)
+    //  *
+    //  * @throws ORMException
+    //  * @throws OptimisticLockException
+    //  */
     public function add(User $entity, bool $flush = true): void
     {
-        $this->_em->persist($entity);
+        $em = $this->getEntityManager();
+        $em->persist($entity);//$this->_em->persist($entity);
         if ($flush) {
-            $this->_em->flush();
+            $em->flush();//$this->_em->flush();
         }
     }
 
-    /**
-     * function remove(User $entity, bool $flush = true)
-     *
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
+    // /**
+    //  * function remove(User $entity, bool $flush = true)
+    //  *
+    //  * @throws ORMException
+    //  * @throws OptimisticLockException
+    //  */
     public function remove(User $entity, bool $flush = true): void
     {
-        $this->_em->remove($entity);
+        $em = $this->getEntityManager();
+        $em->remove($entity);//$this->_em->remove($entity);
         if ($flush) {
-            $this->_em->flush();
+            $em->flush();//$this->_em->flush();
         }
     }
 
@@ -81,8 +83,10 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
 
         /** @var User $user */
         $user->setPassword($newHashedPassword);
-        $this->_em->persist($user);
-        $this->_em->flush();
+
+        $em = $this->getEntityManager();
+        $em->persist($user);//$this->_em->persist($user);
+        $em->flush();//$this->_em->flush();
     }
 
     /**
@@ -92,8 +96,9 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
     {
         $user->setPoints($points);
 
-        $this->_em->persist($user);
-        $this->_em->flush();
+        $em = $this->getEntityManager();
+        $em->persist($user);//$this->_em->persist($user);
+        $em->flush();//$this->_em->flush();
     }
 
     /**
@@ -144,8 +149,9 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
             $user->setLevel($level);
         }
 
-        $this->_em->persist($user);
-        $this->_em->flush();
+        $em = $this->getEntityManager();
+        $em->persist($user);//$this->_em->persist($user);
+        $em->flush();//$this->_em->flush();
     }
 
     /**

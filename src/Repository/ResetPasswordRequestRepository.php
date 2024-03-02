@@ -9,8 +9,8 @@ use App\Entity\ResetPasswordRequest;
 use App\Entity\User;
 use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
+// use Doctrine\ORM\OptimisticLockException;
+// use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\Repository\ResetPasswordRequestRepositoryTrait;
@@ -31,27 +31,29 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
         parent::__construct($registry, ResetPasswordRequest::class);
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
+    // /**
+    //  * @throws ORMException
+    //  * @throws OptimisticLockException
+    //  */
     public function add(ResetPasswordRequest $entity,  bool $flush = true): void
     {
-        $this->_em->persist($entity);
+        $em = $this->getEntityManager();
+        $em->persist($entity);//$this->_em->persist($entity);
         if ($flush) {
-            $this->_em->flush();
+            $em->flush();//$this->_em->flush();
         }
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
+    // /**
+    //  * @throws ORMException
+    //  * @throws OptimisticLockException
+    //  */
     public function remove(ResetPasswordRequest $entity, bool $flush = true): void
     {
-        $this->_em->remove($entity);
+        $em = $this->getEntityManager();
+        $em->remove($entity);//$this->_em->remove($entity);
         if ($flush) {
-            $this->_em->flush();
+            $em->flush();//$this->_em->flush();
         }
     }
 
@@ -64,11 +66,6 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
         string $hashedToken
     ): ResetPasswordRequestInterface {
         /** @var User $user */
-        return new ResetPasswordRequest(
-            $user,
-            $expiresAt,
-            $selector,
-            $hashedToken
-        );
+        return new ResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
     }
 }
