@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-//use Gregwar\CaptchaBundle\Type\CaptchaType;
-use Override;
+// use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -13,22 +12,19 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class ContactType extends AbstractType 
+final class ContactType extends AbstractType
 {
     /**
-     * Fonction qui élabore le formulaire de contact
+     * Fonction qui élabore le formulaire de contact.
      */
-    //@param array<string> $options
-    #[Override]
-    public function buildForm(
-        FormBuilderInterface $builder,
-        array $options
-    ): void {//Unused parameter $options.
-        $builder->add(
-            'nom',
-            TextType::class,
-            [/* 'label' => 'Nom', */]
-        );
+    // @param array<string> $options
+    #[\Override]
+    public function buildForm(FormBuilderInterface $builder, array $options): void // Unused parameter $options.
+    {$builder->add(
+        'nom',
+        TextType::class,
+        [/* 'label' => 'Nom', */]
+    );
         $builder->add(
             'email',
             EmailType::class,
@@ -43,7 +39,7 @@ final class ContactType extends AbstractType
         $builder->add('captcha'/* , CaptchaType::class */);
     }
 
-    #[Override]
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([]);

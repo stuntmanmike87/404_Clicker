@@ -63,17 +63,19 @@ return static function (RectorConfig $rectorConfig): void {
         SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
     ]);
 
-        // doctrine rules
-        $rectorConfig->sets([
-            DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
-            DoctrineSetList::DOCTRINE_CODE_QUALITY,
-        ]);
-    
-        // phpunit rules
-        $rectorConfig->sets([
-            //PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
-            PHPUnitSetList::PHPUNIT_100,
-            PHPUnitSetList::PHPUNIT_CODE_QUALITY,
-        ]);
+    // doctrine rules
+    $rectorConfig->sets([
+        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
+        DoctrineSetList::DOCTRINE_CODE_QUALITY,
+    ]);
+
+    // phpunit rules
+    $rectorConfig->sets([
+        //PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
+        PHPUnitSetList::PHPUNIT_100,
+        PHPUnitSetList::PHPUNIT_CODE_QUALITY,
+    ]);
+
+    $rectorConfig->importShortClasses(false);
 
 };

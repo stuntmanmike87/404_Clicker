@@ -11,15 +11,15 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Level|null find($id, $lockMode = null, $lockVersion = null)
- * @method Level|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Level|null   find($id, $lockMode = null, $lockVersion = null)
+ * @method Level|null   findOneBy(array $criteria, array $orderBy = null)
  * @method array<Level> findAll()
  * @method array<Level> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 final class LevelRepository extends ServiceEntityRepository
 {
     /**
-     * Fonction qui est le constructeur de la classe LevelRepository
+     * Fonction qui est le constructeur de la classe LevelRepository.
      *
      * Cette fonction permet de contruire l'objet LevelRepository
      * en reprenant les fonctions de sa classe parent
@@ -37,9 +37,9 @@ final class LevelRepository extends ServiceEntityRepository
     public function add(Level $entity, bool $flush = true): void
     {
         $em = $this->getEntityManager();
-        $em->persist($entity);//$this->_em->persist($entity);
+        $em->persist($entity); // $this->_em->persist($entity);
         if ($flush) {
-            $em->flush();//$this->_em->flush();
+            $em->flush(); // $this->_em->flush();
         }
     }
 
@@ -50,15 +50,15 @@ final class LevelRepository extends ServiceEntityRepository
     public function remove(Level $entity, bool $flush = true): void
     {
         $em = $this->getEntityManager();
-        $em->remove($entity);//$this->_em->remove($entity);
+        $em->remove($entity); // $this->_em->remove($entity);
         if ($flush) {
-            $em->flush();//$this->_em->flush();
+            $em->flush(); // $this->_em->flush();
         }
     }
 
-    ///**
-    //* @return Level[] Returns an array of Level objects
-    //*/
+    // /**
+    // * @return Level[] Returns an array of Level objects
+    // */
     /*
     public function findByExampleField($value)
     {

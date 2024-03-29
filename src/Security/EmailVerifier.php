@@ -13,34 +13,31 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 /**
- * Classe qui traite la vérification des adresses e-mail
+ * Classe qui traite la vérification des adresses e-mail.
  */
 final readonly class EmailVerifier
 {
     /**
-     * Constructeur de la classe EmailVerifier
+     * Constructeur de la classe EmailVerifier.
      */
     public function __construct(
         private VerifyEmailHelperInterface $verifyEmailHelper,
         private MailerInterface $mailer,
         private EntityManagerInterface $entityManager
     ) {
-        //Constructor for [email verifier methods]
+        // Constructor for [email verifier methods]
     }
 
     /**
-     * Fonction qui traite l'envoi d'une adresse e-mail de confirmation
+     * Fonction qui traite l'envoi d'une adresse e-mail de confirmation.
      */
-    public function sendEmailConfirmation(
-        string $verifyEmailRouteName,
-        User $user,
-        TemplatedEmail $email
-    ): void {
+    public function sendEmailConfirmation(string $verifyEmailRouteName, User $user, TemplatedEmail $email): void
+    {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
             $verifyEmailRouteName,
-            (string) ($user->getId()),
-            (string) ($user->getEmail()),
-            //['id' => $user->getId()]
+            (string) $user->getId(),
+            (string) $user->getEmail(),
+            // ['id' => $user->getId()]
         );
 
         $context = $email->getContext();
@@ -57,19 +54,16 @@ final readonly class EmailVerifier
     }
 
     /**
-     * Fonction qui traite la requête de l'envoi
-     * de l'adresse e-mail de confirmation
+     * Fonction qui traite la requête de l'envoi de l'adresse e-mail de confirmation.
      *
      * @throws VerifyEmailExceptionInterface
      */
-    public function handleEmailConfirmation(
-        Request $request,
-        User $user
-    ): void {
-        $this->verifyEmailHelper->validateEmailConfirmation(
+    public function handleEmailConfirmation(Request $request, User $user): void
+    {
+        $this->verifyEmailHelper->validateEmailConfirmationFromRequest(
             $request->getUri(),
-            (string) ($user->getId()),
-            (string) ($user->getEmail())
+            (string) $user->getId(),
+            (string) $user->getEmail()
         );
 
         $user->setIsVerified(true);

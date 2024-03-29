@@ -14,18 +14,18 @@ final class CustomValidatorForCommand
      */
     public function validateEmail(?string $emailEntered): string
     {
-        //if (empty($emailEntered)) {//Use of empty() is disallowed.
-        if ((string) $emailEntered === '') {
+        // if (empty($emailEntered)) {//Use of empty() is disallowed.
+        if ('' === (string) $emailEntered) {
             throw new InvalidArgumentException('VEUILLEZ SAISIR UN E-MAIL.');
         }
 
-        if (! (bool) filter_var($emailEntered, FILTER_VALIDATE_EMAIL)) {
+        if (!(bool) filter_var($emailEntered, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidArgumentException('E-MAIL SAISI INVALIDE.');
         }
 
         [, $domain] = explode('@', (string) $emailEntered);
 
-        if (! checkdnsrr($domain)) {
+        if (!checkdnsrr($domain)) {
             throw new InvalidArgumentException('E-MAIL SAISI INVALIDE.');
         }
 
@@ -37,25 +37,20 @@ final class CustomValidatorForCommand
      */
     public function validatePassword(?string $plainPassword): string
     {
-        //if (empty($plainPassword)) {//Use of empty() is disallowed.
-        if ((string) $plainPassword === '') {
-            throw new InvalidArgumentException(
-                'VEUILLEZ SAISIR UN MOT DE PASSE.'
-            );
+        // if (empty($plainPassword)) {//Use of empty() is disallowed.
+        if ('' === (string) $plainPassword) {
+            throw new InvalidArgumentException('VEUILLEZ SAISIR UN MOT DE PASSE.');
         }
 
         $passwordRegex =
             '/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*\d)(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/';
 
         $result = Strings::match((string) $plainPassword, $passwordRegex);
-        //if (! preg_match($passwordRegex, $plainPassword)) {
-        if ((array) $result !== []) {
-            throw new InvalidArgumentException(
-                'LE MOT DE PASSE DOIT CONTENIR 12 CARACTERES 
+        // if (! preg_match($passwordRegex, $plainPassword)) {
+        if ([] !== (array) $result) {
+            throw new InvalidArgumentException('LE MOT DE PASSE DOIT CONTENIR 12 CARACTERES 
                 AU MINIMUM DANS UN ORDRE ALEATOIRE DONT: 
-                1 LETTRE MINUSCULE? 1 LETTRE MAJUSCULE, 
-                1 CHIFFRE, ET 1 CARACTERE SPECIAL.'
-            );
+                1 LETTRE MINUSCULE? 1 LETTRE MAJUSCULE, 1 CHIFFRE, ET 1 CARACTERE SPECIAL.');
         }
 
         return (string) $plainPassword;
@@ -66,12 +61,12 @@ final class CustomValidatorForCommand
      */
     public function checkEmailForUserDelete(?string $emailEntered): string
     {
-        //if (empty($emailEntered)) {//Use of empty() is disallowed.
-        if ((string) $emailEntered === '') {
+        // if (empty($emailEntered)) {//Use of empty() is disallowed.
+        if ('' === (string) $emailEntered) {
             throw new InvalidArgumentException('VEUILLEZ SAISIR UN E-MAIL.');
         }
 
-        if (! (bool) filter_var($emailEntered, FILTER_VALIDATE_EMAIL)) {
+        if (!(bool) filter_var($emailEntered, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidArgumentException('E-MAIL SAISI INVALIDE.');
         }
 

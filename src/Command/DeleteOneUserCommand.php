@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use Override;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\CustomValidatorForCommand;
@@ -21,12 +20,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class DeleteOneUserCommand extends Command
 {
     /**
-     * @var string|null $defaultName
+     * @var string|null
      */
     protected static $defaultName = 'app:delete-one-user';
 
     /**
-     * @var string|null $defaultDescription
+     * @var string|null
      */
     protected static $defaultDescription = 'Supprime un utilisateur en base de données';
 
@@ -40,7 +39,7 @@ final class DeleteOneUserCommand extends Command
         parent::__construct();
     }
 
-    #[Override]
+    #[\Override]
     protected function configure(): void
     {
         $this->addArgument('email', InputArgument::REQUIRED, "L'e-mail de l'utilisateur");
@@ -49,16 +48,16 @@ final class DeleteOneUserCommand extends Command
     /**
      * Executed after configure() to initialize properties based on the input arguments and options.
      */
-    #[Override]
+    #[\Override]
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
     }
 
     /**
-     * execute function
+     * execute function.
      */
-    #[Override]
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -70,11 +69,9 @@ final class DeleteOneUserCommand extends Command
             'email' => $email,
         ]);
 
-        if (! $user instanceof User) {
-            throw new RuntimeException(
-                'AUCUN UTILISATEUR N\'EST PRESENT
-                EN BASE DE DONNEES AVEC L\'E-MAIL SUIVANT : ' . $email
-            );
+        if (!$user instanceof User) {
+            throw new RuntimeException('AUCUN UTILISATEUR N\'EST PRESENT
+                EN BASE DE DONNEES AVEC L\'E-MAIL SUIVANT : '.$email);
         }
 
         $userID = $user->getId();
@@ -83,12 +80,11 @@ final class DeleteOneUserCommand extends Command
 
         $this->entityManager->flush();
 
-        //$this->io
+        // $this->io
         $io->success(
-            "L'UTILISATEUR AYANT L'ID {$userID} ET L'E-MAIL {$email} 
-            N'EXISTE PLUS DANS LA BASE DE DONNEES."
+            "L'UTILISATEUR AYANT L'ID {$userID} ET L'E-MAIL {$email} N'EXISTE PLUS DANS LA BASE DE DONNEES."
         );
-        //Line exceeds 80 characters
+
         return Command::SUCCESS;
     }
 
@@ -96,7 +92,7 @@ final class DeleteOneUserCommand extends Command
      * Executed after initialize() and before execute().
      * Checks if some of the options/arguments are missing and ask the user for those values.
      */
-    #[Override]
+    #[\Override]
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
         $this->io->section("SUPPRESSION D'UN UTILISATEUR EN BASE DE DONNEES");

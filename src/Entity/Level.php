@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use App\Repository\LevelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -22,14 +22,14 @@ class Level
     private readonly int $id;
 
     #[ORM\Column(type: Types::FLOAT)]
-    private float $maxPoints;//private ?float $maxPoints = null;
+    private float $maxPoints; // private ?float $maxPoints = null;
 
     #[Assert\File(notFoundMessage: "Le fichier est introuvable à l'emplacement spécifié")]
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $pathImg;//private ?string $pathImg = null;
+    private string $pathImg; // private ?string $pathImg = null;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $nomLevel;//private ?string $nomLevel = null;
+    private string $nomLevel; // private ?string $nomLevel = null;
 
     /**
      * @var ArrayCollection<User> $idUser
@@ -39,7 +39,7 @@ class Level
 
     /**
      * Constructeur (méthode magique) qui définit une collection d'utilisateurs
-     * selon un tableau d'entiers idUser (identifiants)
+     * selon un tableau d'entiers idUser (identifiants).
      */
     public function __construct()
     {
@@ -47,7 +47,7 @@ class Level
     }
 
     /**
-     * Fonction qui permet de récupérer l'identifiant d'un niveau
+     * Fonction qui permet de récupérer l'identifiant d'un niveau.
      */
     public function getId(): ?int
     {
@@ -55,7 +55,7 @@ class Level
     }
 
     /**
-     * Fonction qui permet de récupérer le score maximal d'un joueur
+     * Fonction qui permet de récupérer le score maximal d'un joueur.
      */
     public function getMaxPoints(): ?float
     {
@@ -63,7 +63,7 @@ class Level
     }
 
     /**
-     * Fonction qui permet de définir le score maximal d'un joueur
+     * Fonction qui permet de définir le score maximal d'un joueur.
      */
     public function setMaxPoints(float $maxPoints): self
     {
@@ -73,7 +73,7 @@ class Level
     }
 
     /**
-     * Fonction qui permet de récupérer le chemin de l'image associée à un niveau
+     * Fonction qui permet de récupérer le chemin de l'image associée à un niveau.
      */
     public function getPathImg(): ?string
     {
@@ -81,7 +81,7 @@ class Level
     }
 
     /**
-     * Fonction qui permet de définir le chemin de l'image associée à un niveau
+     * Fonction qui permet de définir le chemin de l'image associée à un niveau.
      */
     public function setPathImg(string $pathImg): self
     {
@@ -91,7 +91,7 @@ class Level
     }
 
     /**
-     * Fonction qui permet de récupérer le nom d'un niveau
+     * Fonction qui permet de récupérer le nom d'un niveau.
      */
     public function getNomLevel(): ?string
     {
@@ -99,7 +99,7 @@ class Level
     }
 
     /**
-     * Fonction qui permet de définir le nom d'un niveau
+     * Fonction qui permet de définir le nom d'un niveau.
      */
     public function setNomLevel(string $nomLevel): self
     {
@@ -109,7 +109,7 @@ class Level
     }
 
     /**
-     * Fonction qui donne accès à une collection d'utilisateurs
+     * Fonction qui donne accès à une collection d'utilisateurs.
      */
     public function getIdUser(): Collection
     {
@@ -117,11 +117,11 @@ class Level
     }
 
     /**
-     * Fonction qui permet l'ajout de l'identifiant d'un utilisateur
+     * Fonction qui permet l'ajout de l'identifiant d'un utilisateur.
      */
     public function addIdUser(User $idUser): self
     {
-        if (! $this->idUser->contains($idUser)) {
+        if (!$this->idUser->contains($idUser)) {
             $this->idUser[] = $idUser;
             $idUser->setLevel($this);
         }
@@ -130,11 +130,11 @@ class Level
     }
 
     /**
-     * Fonction qui permet la suppression de l'identifiant d'un utilisateur
+     * Fonction qui permet la suppression de l'identifiant d'un utilisateur.
      */
     public function removeIdUser(User $idUser): self
     {
-        //set the owning side to null (unless already changed)
+        // set the owning side to null (unless already changed)
         if ($this->idUser->removeElement($idUser) && $idUser->getLevel() === $this) {
             $idUser->setLevel(null);
         }

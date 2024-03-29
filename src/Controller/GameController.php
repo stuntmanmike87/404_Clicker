@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Classe/contrôleur qui traite la fonctionnalité du jeu
- * exécuté par un utilisateur authentifié
+ * exécuté par un utilisateur authentifié.
  *
  * @method User|null getUser()
  */
@@ -20,17 +20,17 @@ final class GameController extends AbstractController
 {
     /**
      * Fonction qui gère la page "jouer"
-     * jouer/index.html.twig : page du jeu
+     * jouer/index.html.twig : page du jeu.
      */
     #[Route(path: '/jouer', name: 'jouer')]
     public function index(UserRepository $userRepository): Response
     {
         // dd($user);/
-        //** @var User $user */
-        //if (! $user) {
-        //dd('Not user connected');
-        //$this->redirectToRoute('app_login');
-        //}
+        // ** @var User $user */
+        // if (! $user) {
+        // dd('Not user connected');
+        // $this->redirectToRoute('app_login');
+        // }
         /** @var User $user */
         $user = $this->getUser();
         $changeLevelScore = $userRepository->changeLevel($user);

@@ -15,20 +15,19 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * Contrôleur qui traite le profil de l'utilisateur
+ * Contrôleur qui traite le profil de l'utilisateur.
  */
 #[Route(path: '/user')]
 final class UserController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager
-    )
-    {
+    ) {
     }
 
     /**
      * Fonction qui permet l'affichage d'un utilisateur (selon son identifiant)
-     * user/show.html.twig : page d'affichage d'un joueur
+     * user/show.html.twig : page d'affichage d'un joueur.
      */
     #[Route(path: '/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
@@ -40,7 +39,7 @@ final class UserController extends AbstractController
 
     /**
      * Fonction de modification d'un utilisateur
-     * user/edit.html.twig : page de modification d'un joueur
+     * user/edit.html.twig : page de modification d'un joueur.
      */
     #[Route(path: '/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(
@@ -56,14 +55,14 @@ final class UserController extends AbstractController
         $plainPassword = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //Encode(hash) the plain password, and set it.
+            // Encode(hash) the plain password, and set it.
             $encodedPassword = $userPasswordHasher->hashPassword($user, $plainPassword);
 
             $user->setPassword($encodedPassword);
 
             $this->entityManager->flush();
 
-            //Destroy the currently active session.
+            // Destroy the currently active session.
             session_destroy();
 
             return $this->redirectToRoute('app_login');
@@ -77,7 +76,7 @@ final class UserController extends AbstractController
 
     /**
      * Fonction de suppression d'un utilisateur
-     * redirectToRoute('home') : redirection vers la page d'accueil
+     * redirectToRoute('home') : redirection vers la page d'accueil.
      */
     #[Route(path: '/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(
@@ -94,7 +93,7 @@ final class UserController extends AbstractController
             $userRepository->remove($user);
         }
 
-        //Destroy the currently active session.
+        // Destroy the currently active session.
         session_destroy();
 
         return $this->redirectToRoute('home');

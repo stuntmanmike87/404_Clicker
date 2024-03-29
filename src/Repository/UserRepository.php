@@ -4,29 +4,29 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use Override;
 use App\Entity\User;
-//use App\Repository\LevelRepository;
+// use App\Repository\LevelRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 // use Doctrine\ORM\OptimisticLockException;
 // use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
-//use App\Enum;
+// use App\Enum;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
+ * @method User|null   find($id, $lockMode = null, $lockVersion = null)
+ * @method User|null   findOneBy(array $criteria, array $orderBy = null)
  * @method array<User> findAll()
  * @method array<User> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
  * @see \App\Tests\Repository\UserRepositoryTest
  */
 final class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     /**
-     * Fonction qui est le constructeur de la classe UserRepository
+     * Fonction qui est le constructeur de la classe UserRepository.
      *
      * Cette fonction permet de contruire l'objet UserRepository en reprenant
      * les fonctions de sa classe parent qui est ServiceEntityRepository
@@ -45,9 +45,9 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
     public function add(User $entity, bool $flush = true): void
     {
         $em = $this->getEntityManager();
-        $em->persist($entity);//$this->_em->persist($entity);
+        $em->persist($entity); // $this->_em->persist($entity);
         if ($flush) {
-            $em->flush();//$this->_em->flush();
+            $em->flush(); // $this->_em->flush();
         }
     }
 
@@ -60,51 +60,46 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
     public function remove(User $entity, bool $flush = true): void
     {
         $em = $this->getEntityManager();
-        $em->remove($entity);//$this->_em->remove($entity);
+        $em->remove($entity); // $this->_em->remove($entity);
         if ($flush) {
-            $em->flush();//$this->_em->flush();
+            $em->flush(); // $this->_em->flush();
         }
     }
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
-    #[Override]
+    #[\Override]
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
-        if (! $user instanceof User) {
-            throw new UnsupportedUserException(
-                sprintf(
-                    'Instances of "%s" are not supported.',
-                    $user::class//\get_class($user)
-                )
-            );
+        if (!$user instanceof User) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class/* \get_class($user) */));
         }
 
-        /** @var User $user */
+        /* @var User $user */
         $user->setPassword($newHashedPassword);
 
         $em = $this->getEntityManager();
-        $em->persist($user);//$this->_em->persist($user);
-        $em->flush();//$this->_em->flush();
+        $em->persist($user); // $this->_em->persist($user);
+        $em->flush(); // $this->_em->flush();
     }
 
     /**
-     * Insert points into field: points
+     * Insert points into field: points.
      */
     public function insertPoints(float $points, User $user): void
     {
         $user->setPoints($points);
 
         $em = $this->getEntityManager();
-        $em->persist($user);//$this->_em->persist($user);
-        $em->flush();//$this->_em->flush();
+        $em->persist($user); // $this->_em->persist($user);
+        $em->flush(); // $this->_em->flush();
     }
 
     /**
      * Get user by DESC number of points
-     * return User[] : Returns an array of User objects
-     *///array<User>
+     * return User[] : Returns an array of User objects.
+     */ // array<User>
     public function findByPointsDesc(int $limit = 3): mixed
     {
         return $this->createQueryBuilder('u')
@@ -115,7 +110,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
     }
 
     /**
-     * Fonction qui permet de définir pour un joueur, le score à atteindre pour passer au niveau suivant
+     * Fonction qui permet de définir pour un joueur, le score à atteindre pour passer au niveau suivant.
      */
     public function checkLevelByMaxPoints(float $points, User $user): void
     {
@@ -150,32 +145,42 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         }
 
         $em = $this->getEntityManager();
-        $em->persist($user);//$this->_em->persist($user);
-        $em->flush();//$this->_em->flush();
+        $em->persist($user); // $this->_em->persist($user);
+        $em->flush(); // $this->_em->flush();
     }
 
     /**
-     * Fonction qui gère le changement de niveau selon le score du joueur
+     * Fonction qui gère le changement de niveau selon le score du joueur.
      */
     public function changeLevel(User $user): float
     {
-        if ($user->getPoints() < 20) {return 20;}//LevelsEnum:ONE
+        if ($user->getPoints() < 20) {
+            return 20;
+        }// LevelsEnum:ONE
 
-        if ($user->getPoints() >= 20 && $user->getPoints() < 50) {return 50;}//LevelsEnum:TWO
+        if ($user->getPoints() >= 20 && $user->getPoints() < 50) {
+            return 50;
+        }// LevelsEnum:TWO
 
-        if ($user->getPoints() >= 50 && $user->getPoints() < 100) {return 100;}//LevelsEnum:THREE
+        if ($user->getPoints() >= 50 && $user->getPoints() < 100) {
+            return 100;
+        }// LevelsEnum:THREE
 
-        if ($user->getPoints() >= 100 && $user->getPoints() < 200) {return 200;}//LevelsEnum:FOUR
+        if ($user->getPoints() >= 100 && $user->getPoints() < 200) {
+            return 200;
+        }// LevelsEnum:FOUR
 
-        if ($user->getPoints() >= 200 && $user->getPoints() < 500) {return 500;}//LevelsEnum:FIVE
+        if ($user->getPoints() >= 200 && $user->getPoints() < 500) {
+            return 500;
+        }// LevelsEnum:FIVE
 
-        return 0;//$changeLevelScore;
+        return 0; // $changeLevelScore;
     }
 
-    ///**
-    //* Fonction that is a custom user provider
-    //* Remove the property key 'email' from the user provider in security.yaml
-    //*/
+    // /**
+    // * Fonction that is a custom user provider
+    // * Remove the property key 'email' from the user provider in security.yaml
+    // */
     /* public function loadUserByIdentifier(string $usernameOrEmail): ?User
     {
         $entityManager = $this->getEntityManager();
@@ -189,9 +194,9 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
             ->getOneOrNullResult();
     } */
 
-    ///**
-    //* @return User[] Returns an array of User objects
-    //*/
+    // /**
+    // * @return User[] Returns an array of User objects
+    // */
     /*
     public function findByExampleField($value)
     {

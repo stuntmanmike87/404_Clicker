@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Override;
-use Doctrine\DBAL\Types\Types;
 use App\Repository\ResetPasswordRequestRepository;
-use DateTimeInterface;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestTrait;
@@ -24,7 +22,7 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
     private readonly int $id;
 
     /**
-     * Constructeur (méthode magique) de la classe ResetPasswordRequest déclarée
+     * Constructeur (méthode magique) de la classe ResetPasswordRequest déclarée.
      *
      * @param User $user
      */
@@ -32,16 +30,15 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
         #[ORM\ManyToOne(targetEntity: User::class)]
         #[ORM\JoinColumn(nullable: false)]
         private readonly object $user,
-        DateTimeInterface $expiresAt,
+        \DateTimeInterface $expiresAt,
         string $selector,
         string $hashedToken
-    )
-    {
+    ) {
         $this->initialize($expiresAt, $selector, $hashedToken);
     }
 
     /**
-     * Méthode pour récupérer l'identifiant d'un utilisateur
+     * Méthode pour récupérer l'identifiant d'un utilisateur.
      */
     public function getId(): ?int
     {
@@ -49,9 +46,9 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
     }
 
     /**
-     * Méthode qui donne accès à un utilisateur: objet User
+     * Méthode qui donne accès à un utilisateur: objet User.
      */
-    #[Override]
+    #[\Override]
     public function getUser(): object
     {
         return $this->user;

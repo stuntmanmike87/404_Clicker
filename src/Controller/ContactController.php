@@ -16,7 +16,7 @@ final class ContactController extends AbstractController
 {
     /**
      * Fonction qui traite le formulaire de contact
-     * contact/index.html.twig : page de contact
+     * contact/index.html.twig : page de contact.
      */
     #[Route(path: '/contact', name: 'contact')]
     public function index(Request $request, MailerInterface $mailer): Response
@@ -25,7 +25,6 @@ final class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             /** @var array<string> $contactFormData */
             $contactFormData = $form->getData();
 
@@ -46,7 +45,7 @@ final class ContactController extends AbstractController
         }
 
         return $this->render('contact/index.html.twig', [
-            'contactForm' => $form,//->createView(),
+            'contactForm' => $form, // ->createView(),
         ]);
     }
 }

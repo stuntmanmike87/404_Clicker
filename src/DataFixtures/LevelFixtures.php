@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use Override;
 use App\Entity\Level;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 /**
  * Classe qui gère les fixtures d'un objet Level
- * qui représente le niveau d'un joueur
+ * qui représente le niveau d'un joueur.
  */
 final class LevelFixtures extends Fixture
 {
@@ -19,7 +18,7 @@ final class LevelFixtures extends Fixture
      * Fonction qui permet de charger les fixtures:
      * enregistrement des niveaux en base de données
      */
-    #[Override]
+    #[\Override]
     public function load(ObjectManager $manager): void
     {
         $this->loadLevels($manager);
@@ -28,7 +27,7 @@ final class LevelFixtures extends Fixture
     }
 
     /**
-     * loadLevels function
+     * loadLevels function.
      */
     private function loadLevels(ObjectManager $manager): void
     {
@@ -37,7 +36,7 @@ final class LevelFixtures extends Fixture
                 $maxPoints,
                 $pathImg,
                 $nomLevel,
-                //$ref,
+                // $ref,
             ]
         ) {
             $level = new Level();
@@ -45,23 +44,23 @@ final class LevelFixtures extends Fixture
             $level->setMaxPoints((float) $maxPoints);
             $level->setPathImg($pathImg);
             $level->setNomLevel($nomLevel);
-            //$ref = ...
+            // $ref = ...
             $this->addReference($nomLevel, $level);
 
             $manager->persist($level);
         }
 
-        //$manager->flush();
+        // $manager->flush();
     }
 
     /**
-     * getLevelData function
+     * getLevelData function.
      *
      * @return array<array<string>>
      */
     private function getLevelData(): array
     {
-        return [//$levelData = [];
+        return [// $levelData = [];
             [
                 '0',
                 '/assets/images/level1_concept.png',

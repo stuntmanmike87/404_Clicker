@@ -13,7 +13,7 @@ final class PoolController extends AbstractController
 {
     /**
      * Fonction qui permet l'affichage du classement des joueurs
-     * classement/index.html.twig : page du classement des joueurs
+     * classement/index.html.twig : page du classement des joueurs.
      */
     #[Route(path: '/classement', name: 'classement')]
     public function index(UserRepository $repository): Response

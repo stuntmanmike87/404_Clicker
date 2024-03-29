@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use Override;
 use App\Entity\Level;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -16,13 +15,13 @@ final class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     public function __construct(private readonly UserPasswordHasherInterface $hasher)
     {
-        //Fixtures constructor for entity User
+        // Fixtures constructor for entity User
     }
 
     /**
-     * Fonction de chargement des fixtures en base de données
+     * Fonction de chargement des fixtures en base de données.
      */
-    #[Override]
+    #[\Override]
     public function load(ObjectManager $manager): void
     {
         $this->generateUsers(10, $manager);
@@ -31,10 +30,10 @@ final class UserFixtures extends Fixture implements DependentFixtureInterface
     }
 
     /**
-     * Fonction de liaison de dépendances entre fixtures
+     * Fonction de liaison de dépendances entre fixtures.
      */
-    //@return array<string>
-    #[Override]
+    // @return array<string>
+    #[\Override]
     public function getDependencies(): array
     {
         return [
@@ -43,12 +42,10 @@ final class UserFixtures extends Fixture implements DependentFixtureInterface
     }
 
     /**
-     * generateUsers function
+     * generateUsers function.
      */
-    private function generateUsers(
-        int $number,
-        ObjectManager $manager
-    ): void {
+    private function generateUsers(int $number, ObjectManager $manager): void
+    {
         for ($i = 0; $i < $number; ++$i) {
             $user = new User();
             $password = 'password';
@@ -64,7 +61,7 @@ final class UserFixtures extends Fixture implements DependentFixtureInterface
 
             /** @var Level $level */
             $level = $this->getReference('conception');
-            //get a reference to a LevelFixture
+            // get a reference to a LevelFixture
             $user->setLevel($level);
 
             $manager->persist($user);

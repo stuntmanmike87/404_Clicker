@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Override;
-use Doctrine\DBAL\Types\Types;
 use App\Repository\UserRepository;
-use DateTimeImmutable;
-use DateTimeInterface;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-//use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+// use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /** @final */
-//@UniqueEntity(fields={"email"},message="Impossible de créer un compte utilisateur avec cet e-mail.")
+// @UniqueEntity(fields={"email"},message="Impossible de créer un compte utilisateur avec cet e-mail.")
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -31,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     private string $email;
 
-    //private ?string $email = null;
+    // private ?string $email = null;
     /**
      * @var array<string> $roles
      */
@@ -47,27 +44,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::STRING)]
     private string $password;
 
-    //private ?string $password = null;
+    // private ?string $password = null;
     #[ORM\Column(type: Types::STRING, length: 255)]
     private string $username;
 
-    //private ?string $username = null;
+    // private ?string $username = null;
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     private ?float $points = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private DateTimeImmutable $createdAt;
+    private \DateTimeImmutable $createdAt;
 
-    //private ?\DateTimeImmutable $createdAt = null;
+    // private ?\DateTimeImmutable $createdAt = null;
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private DateTimeImmutable $updatedAt;
+    private \DateTimeImmutable $updatedAt;
 
-    //private ?\DateTimeImmutable $updatedAt = null;
+    // private ?\DateTimeImmutable $updatedAt = null;
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $token = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?DateTimeInterface $tokenDateValid = null;
+    private ?\DateTimeInterface $tokenDateValid = null;
 
     #[ORM\ManyToOne(targetEntity: Level::class, inversedBy: 'idUser')]
     private ?Level $level = null;
@@ -75,7 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::STRING, length: 255)]
     private string $fullName;
 
-    //private ?string $fullName = null;
+    // private ?string $fullName = null;
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isVerified = false;
 
@@ -86,7 +83,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $isExpired = false;
 
     /**
-     * Méthode de récupération de l'identifiant d'un utilisateur
+     * Méthode de récupération de l'identifiant d'un utilisateur.
      */
     public function getId(): ?int
     {
@@ -94,7 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de récupérer l'adresse e-mail de l'utilisateur
+     * Fonction qui permet de récupérer l'adresse e-mail de l'utilisateur.
      */
     public function getEmail(): ?string
     {
@@ -102,7 +99,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de définir l'adresse e-mail de l'utilisateur
+     * Fonction qui permet de définir l'adresse e-mail de l'utilisateur.
      */
     public function setEmail(string $email): self
     {
@@ -116,18 +113,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @see UserInterface
      */
-    #[Override]
+    #[\Override]
     public function getUserIdentifier(): string
     {
-        return /* (string)  */$this->email;
+        return /* (string) */ $this->email;
     }
 
     /**
-     * Fonction qui permet de récupérer le pseudo de l'utilisateur
+     * Fonction qui permet de récupérer le pseudo de l'utilisateur.
      */
     public function getUsername(): string
     {
-        return /* (string)  */$this->username;
+        return /* (string) */ $this->username;
     }
 
     /**
@@ -135,18 +132,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return array<string>
      */
-    #[Override]
+    #[\Override]
     public function getRoles(): array
     {
         $roles = $this->roles;
-        //guarantee every user at least has ROLE_USER
+        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
     /**
-     * Fonction qui permet de définir le rôle de l'utilisateur
+     * Fonction qui permet de définir le rôle de l'utilisateur.
      *
      * @param array<string> $roles
      */
@@ -160,14 +157,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    #[Override]
-    public function getPassword(): string//?string
+    #[\Override]
+    public function getPassword(): string// ?string
     {
         return $this->password;
     }
 
     /**
-     * Fonction qui permet de définir le mot de passe de l'utilisateur
+     * Fonction qui permet de définir le mot de passe de l'utilisateur.
      */
     public function setPassword(string $password): self
     {
@@ -188,21 +185,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction pour effacer des données sensibles ou temporaires sur l'utilisateur, 
-     * i.e. un mot de passe en clair
+     * Fonction pour effacer des données sensibles ou temporaires sur l'utilisateur,
+     * i.e. un mot de passe en clair.
      *
      * @see UserInterface
      */
-    #[Override]
+    #[\Override]
     public function eraseCredentials(): void
     {
-        //If you store any temporary, sensitive data
-        //on the user, clear it here
-        //$this->plainPassword = null;
+        // If you store any temporary, sensitive data
+        // on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     /**
-     * Fonction qui permet de définir le pseudo de l'utilisateur
+     * Fonction qui permet de définir le pseudo de l'utilisateur.
      */
     public function setUsername(string $username): self
     {
@@ -212,7 +209,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de récupérer le score de l'utilisateur
+     * Fonction qui permet de récupérer le score de l'utilisateur.
      */
     public function getPoints(): ?float
     {
@@ -220,7 +217,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de définir le score de l'utilisateur
+     * Fonction qui permet de définir le score de l'utilisateur.
      */
     public function setPoints(?float $points): self
     {
@@ -230,9 +227,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de récupérer la date d'enregistrement de l'utilisateur
+     * Fonction qui permet de récupérer la date d'enregistrement de l'utilisateur.
      */
-    public function getCreatedAt(): ?DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -240,16 +237,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\PrePersist]
     public function setCreatedAt(): self
     {
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable();
 
         return $this;
     }
 
     /**
      * Fonction qui permet de récupérer
-     * la date de mise à jour de l'utilisateur
+     * la date de mise à jour de l'utilisateur.
      */
-    public function getUpdatedAt(): ?DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
     }
@@ -258,13 +255,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\PreUpdate]
     public function setUpdatedAt(): self
     {
-        $this->updatedAt = new DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
 
         return $this;
     }
 
     /**
-     * Fonction de récupération du jeton de sécurité (token)
+     * Fonction de récupération du jeton de sécurité (token).
      */
     public function getToken(): ?string
     {
@@ -272,7 +269,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction pour définir le jeton de sécurité (token)
+     * Fonction pour définir le jeton de sécurité (token).
      */
     public function setToken(?string $token): self
     {
@@ -282,17 +279,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction de récupération la date de validité du jeton de sécurité (token)
+     * Fonction de récupération la date de validité du jeton de sécurité (token).
      */
-    public function getTokenDateValid(): ?DateTimeInterface
+    public function getTokenDateValid(): ?\DateTimeInterface
     {
         return $this->tokenDateValid;
     }
 
     /**
-     * Fonction pour définir la date de validité du jeton de sécurité (token)
+     * Fonction pour définir la date de validité du jeton de sécurité (token).
      */
-    public function setTokenDateValid(?DateTimeInterface $tokenDateValid): self
+    public function setTokenDateValid(?\DateTimeInterface $tokenDateValid): self
     {
         $this->tokenDateValid = $tokenDateValid;
 
@@ -300,7 +297,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de récupérer le niveau atteint par l'utilisateur
+     * Fonction qui permet de récupérer le niveau atteint par l'utilisateur.
      */
     public function getLevel(): ?Level
     {
@@ -308,7 +305,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de définir le niveau auquel se situe l'utilisateur
+     * Fonction qui permet de définir le niveau auquel se situe l'utilisateur.
      */
     public function setLevel(?Level $level): self
     {
@@ -318,7 +315,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de connaître le statut de vérification de l'adresse e-mail de l'utilisateur
+     * Fonction qui permet de connaître le statut de vérification de l'adresse e-mail de l'utilisateur.
      */
     public function getIsVerified(): ?bool
     {
@@ -326,7 +323,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de définir le statut de vérification de l'adresse e-mail de l'utilisateur
+     * Fonction qui permet de définir le statut de vérification de l'adresse e-mail de l'utilisateur.
      */
     public function setIsVerified(bool $isVerified): self
     {
@@ -336,7 +333,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de récupérer le nom complet de l'utilisateur
+     * Fonction qui permet de récupérer le nom complet de l'utilisateur.
      */
     public function getFullName(): ?string
     {
@@ -344,7 +341,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction qui permet de définir le nom complet de l'utilisateur
+     * Fonction qui permet de définir le nom complet de l'utilisateur.
      */
     public function setFullName(string $fullName): self
     {
@@ -354,7 +351,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction: méthode getter du user checker: statut de l'utilisateur: supprimé/non supprimé
+     * Fonction: méthode getter du user checker: statut de l'utilisateur: supprimé/non supprimé.
      */
     public function getIsDeleted(): ?bool
     {
@@ -362,7 +359,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction: méthode setter du user checker: statut de l'utilisateur: supprimé/non supprimé
+     * Fonction: méthode setter du user checker: statut de l'utilisateur: supprimé/non supprimé.
      */
     public function setIsDeleted(bool $isDeleted): self
     {
@@ -372,7 +369,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction: méthode getter du user checker: statut de l'utilisateur: expiré/non expiré
+     * Fonction: méthode getter du user checker: statut de l'utilisateur: expiré/non expiré.
      */
     public function getIsExpired(): ?bool
     {
@@ -380,7 +377,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Fonction: méthode setter du user checker: statut de l'utilisateur: expiré/non expiré
+     * Fonction: méthode setter du user checker: statut de l'utilisateur: expiré/non expiré.
      */
     public function setIsExpired(bool $isExpired): self
     {

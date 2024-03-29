@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use Override;
-use LogicException;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -14,21 +12,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class DeleteAndRecreateDatabaseCommand extends Command
-{//DeleteAndRecreateDatabaseWithStructureAndDataCommand
+{// DeleteAndRecreateDatabaseWithStructureAndDataCommand
     /**
-     * @var string|null $defaultName
+     * @var string|null
      */
     protected static $defaultName = 'app:clean-db';
 
     /**
-     * @var string|null $defaultDescription
+     * @var string|null
      */
     protected static $defaultDescription = 'Supprime et recrée la base de données avec sa structure et ses jeux de fausses données';
 
     /**
-     * execute
+     * execute.
      */
-    #[Override]
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -48,7 +46,7 @@ final class DeleteAndRecreateDatabaseCommand extends Command
     }
 
     /**
-     * runSymfonyCommand
+     * runSymfonyCommand.
      */
     private function runSymfonyCommand(
         InputInterface $input,
@@ -58,14 +56,14 @@ final class DeleteAndRecreateDatabaseCommand extends Command
     ): void {
         $application = $this->getApplication();
 
-        if (! $application instanceof Application) {
-            throw new LogicException('No application :(');
+        if (!$application instanceof Application) {
+            throw new \LogicException('No application :(');
         }
 
         $command = $application->find($command);
 
         if ($forceOption) {
-            $input = new ArrayInput(['--force' => true,]);
+            $input = new ArrayInput(['--force' => true]);
         }
 
         $input->setInteractive(false);

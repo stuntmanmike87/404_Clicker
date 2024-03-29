@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use Override;
 use App\Entity\ResetPasswordRequest;
 use App\Entity\User;
-use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 // use Doctrine\ORM\OptimisticLockException;
 // use Doctrine\ORM\ORMException;
@@ -17,8 +15,8 @@ use SymfonyCasts\Bundle\ResetPassword\Persistence\Repository\ResetPasswordReques
 use SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepositoryInterface;
 
 /**
- * @method ResetPasswordRequest|null find($id, $lockMode = null, $lockVersion = null)
- * @method ResetPasswordRequest|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ResetPasswordRequest|null   find($id, $lockMode = null, $lockVersion = null)
+ * @method ResetPasswordRequest|null   findOneBy(array $criteria, array $orderBy = null)
  * @method array<ResetPasswordRequest> findAll()
  * @method array<ResetPasswordRequest> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -35,12 +33,12 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
     //  * @throws ORMException
     //  * @throws OptimisticLockException
     //  */
-    public function add(ResetPasswordRequest $entity,  bool $flush = true): void
+    public function add(ResetPasswordRequest $entity, bool $flush = true): void
     {
         $em = $this->getEntityManager();
-        $em->persist($entity);//$this->_em->persist($entity);
+        $em->persist($entity); // $this->_em->persist($entity);
         if ($flush) {
-            $em->flush();//$this->_em->flush();
+            $em->flush(); // $this->_em->flush();
         }
     }
 
@@ -51,21 +49,21 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
     public function remove(ResetPasswordRequest $entity, bool $flush = true): void
     {
         $em = $this->getEntityManager();
-        $em->remove($entity);//$this->_em->remove($entity);
+        $em->remove($entity); // $this->_em->remove($entity);
         if ($flush) {
-            $em->flush();//$this->_em->flush();
+            $em->flush(); // $this->_em->flush();
         }
     }
 
-    ///** @param User $user */
-    #[Override]
+    // /** @param User $user */
+    #[\Override]
     public function createResetPasswordRequest(
         object $user,
-        DateTimeInterface $expiresAt,
+        \DateTimeInterface $expiresAt,
         string $selector,
         string $hashedToken
     ): ResetPasswordRequestInterface {
-        /** @var User $user */
+        /* @var User $user */
         return new ResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
     }
 }

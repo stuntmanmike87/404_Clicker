@@ -13,29 +13,29 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * Classe/contrôleur qui traite l'enregistrement des points d'un utilisateur dans la base de données
+ * Classe/contrôleur qui traite l'enregistrement des points d'un utilisateur dans la base de données.
  *
  * @method User|null getUser()
  */
 final class AxiosController extends AbstractController
 {
     /**
-     * Fonction qui permet la sauvegarde des points du joueur
+     * Fonction qui permet la sauvegarde des points du joueur.
      */
     #[Route(path: '/save_axios', name: 'app_save_axios')]
     public function save(Request $request, UserRepository $userRepository): Response
     {
-        //Récupère la donnée envoyée par le front-end
+        // Récupère la donnée envoyée par le front-end
         /** @var array<string> $data */
         $data = json_decode(
-            /* (string)  */
+            /* (string) */
             $request->getContent(),
             true,
             512,
             JSON_THROW_ON_ERROR
         );
-        //var_dump($data["points"]);exit;
-        //Vérifie si la clé "points" existe
+        // var_dump($data["points"]);exit;
+        // Vérifie si la clé "points" existe
         if (isset($data['points'])) {
             /** @var User $user */
             $user = $this->getUser();

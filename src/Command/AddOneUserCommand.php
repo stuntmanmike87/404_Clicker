@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use Override;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\CustomValidatorForCommand;
@@ -22,20 +21,20 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class AddOneUserCommand extends Command
 {
-    //EMAIL_ARGUMENT_DESCRIPTION
+    // EMAIL_ARGUMENT_DESCRIPTION
     private const string EMAIL_ARG = "L'e-mail de l'utilisateur";
 
-    //PASSWORD_ARGUMENT_DESCRIPTION
+    // PASSWORD_ARGUMENT_DESCRIPTION
     private const string PW_ARG = "Le mot de passe en clair de l'utilisateur";
 
-    //ROLE_ARGUMENT_DESCRIPTION
+    // ROLE_ARGUMENT_DESCRIPTION
     private const string ROLE_ARG = "Le rôle de l'utilisateur";
 
-    //ISVERIFIED_ARGUMENT_DESCRIPTION
+    // ISVERIFIED_ARGUMENT_DESCRIPTION
     private const string ISV_ARG = "Le statut du compte l'utilisateur (actif)";
 
     /**
-     * @var string|null $defaultName
+     * @var string|null
      */
     protected static $defaultName = 'app:add-one-user';
 
@@ -50,7 +49,7 @@ final class AddOneUserCommand extends Command
         parent::__construct();
     }
 
-    #[Override]
+    #[\Override]
     protected function configure(): void
     {
         $this->addArgument('email', InputArgument::REQUIRED, self::EMAIL_ARG);
@@ -62,7 +61,7 @@ final class AddOneUserCommand extends Command
     /**
      * Executed after configure() to initialize properties based on the input arguments and options.
      */
-    #[Override]
+    #[\Override]
     protected function initialize(
         InputInterface $input,
         OutputInterface $output
@@ -74,7 +73,7 @@ final class AddOneUserCommand extends Command
      * Executed after initialize() and before execute().
      * Checks if some of the options/arguments are missing and ask the user for those values.
      */
-    #[Override]
+    #[\Override]
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
         $this->io->section("AJOUT D'UN UTILISATEUR EN BASE DE DONNEES");
@@ -89,9 +88,9 @@ final class AddOneUserCommand extends Command
     }
 
     /**
-     * execute function
+     * execute function.
      */
-    #[Override]
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string $email */
@@ -106,7 +105,7 @@ final class AddOneUserCommand extends Command
         $role = [$input->getArgument('role')];
 
         /** @var bool $isVerified */
-        $isVerified = $input->getArgument('isVerified') !== 'INACTIF';
+        $isVerified = 'INACTIF' !== $input->getArgument('isVerified');
 
         $user = new User();
 
@@ -119,7 +118,7 @@ final class AddOneUserCommand extends Command
 
         $this->entityManager->flush();
 
-        /* $this->io */$io->success('UN NOUVEL UTILISATEUR EST PRESENT EN BASE DE DONNEES !');
+        /* $this->io */ $io->success('UN NOUVEL UTILISATEUR EST PRESENT EN BASE DE DONNEES !');
 
         return Command::SUCCESS;
     }
@@ -137,18 +136,13 @@ final class AddOneUserCommand extends Command
         /** @var callable|null $valid */
         $valid = $this->validator;
 
-        $emailQuestion->setValidator($valid);//,'validateEmail');
+        $emailQuestion->setValidator($valid); // ,'validateEmail');
 
         /** @var string $email */
         $email = $helper->ask($input, $output, $emailQuestion);
 
-        if ($this->isUserAlreadyExists($email) instanceof User) {//if ($this->isUserAlreadyExists($email) !== null) {
-            throw new RuntimeException(
-                sprintf(
-                    "UTILISATEUR DEJA PRESENT EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : %s",
-                    $email
-                )
-            );
+        if ($this->isUserAlreadyExists($email) instanceof User) {// if ($this->isUserAlreadyExists($email) !== null) {
+            throw new RuntimeException(sprintf("UTILISATEUR DEJA PRESENT EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : %s", $email));
         }
 
         $input->setArgument('email', $email);
@@ -181,7 +175,7 @@ final class AddOneUserCommand extends Command
 
         $passwordQuestion->setValidator($valid);
 
-        //Hide password when typing
+        // Hide password when typing
         $passwordQuestion->setHidden(true);
         $passwordQuestion->setHiddenFallback(false);
 
