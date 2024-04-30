@@ -29,7 +29,8 @@ final class RegistrationFormType extends AbstractType
     // @param array<string> $options
     #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void // Unused parameter $options.
-    {$builder->add('email', EmailType::class);
+    {
+        $builder->add('email', EmailType::class);
         $builder->add('username', TextType::class);
         $builder->add(
             'plainPassword',

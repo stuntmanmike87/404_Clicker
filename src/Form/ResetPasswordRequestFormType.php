@@ -19,20 +19,21 @@ final class ResetPasswordRequestFormType extends AbstractType
     // @param array<string> $options
     #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void // Unused parameter $options.
-    {$builder
-            ->add('email', EmailType::class, [
-                'attr' => [
-                    'autocomplete' => 'email',
-                    'class' => 'form-control',
-                    'placeholder' => 'reset@domaine.fr',
-                ],
-                // 'label' => "Adresse email :",
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir votre adresse e-mail',
-                    ]),
-                ],
-            ])
+    {
+        $builder
+                ->add('email', EmailType::class, [
+                    'attr' => [
+                        'autocomplete' => 'email',
+                        'class' => 'form-control',
+                        'placeholder' => 'reset@domaine.fr',
+                    ],
+                    // 'label' => "Adresse email :",
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'Veuillez saisir votre adresse e-mail',
+                        ]),
+                    ],
+                ])
         ;
     }
 

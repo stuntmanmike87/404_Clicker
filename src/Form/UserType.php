@@ -25,23 +25,24 @@ final class UserType extends AbstractType
     // @param array<string> $options
     #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void // Unused parameter $options.
-    {$builder
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
-                    /* ,'class' => 'form-control'], */
-                    'label' => 'Nouveau mot de passe',
-                ],
-                'second_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
-                    'label' => 'Saisir à nouveau le mot de passe',
-                ],
-                'invalid_message' => 'Les mots de passe doivent correspondre',
-                // Instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-            ])
+    {
+        $builder
+                ->add('plainPassword', RepeatedType::class, [
+                    'type' => PasswordType::class,
+                    'first_options' => [
+                        'attr' => ['autocomplete' => 'new-password'],
+                        /* ,'class' => 'form-control'], */
+                        'label' => 'Nouveau mot de passe',
+                    ],
+                    'second_options' => [
+                        'attr' => ['autocomplete' => 'new-password'],
+                        'label' => 'Saisir à nouveau le mot de passe',
+                    ],
+                    'invalid_message' => 'Les mots de passe doivent correspondre',
+                    // Instead of being set onto the object directly,
+                    // this is read and encoded in the controller
+                    'mapped' => false,
+                ])
         ;
     }
 

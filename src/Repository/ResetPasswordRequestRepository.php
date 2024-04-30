@@ -55,7 +55,6 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
         }
     }
 
-    // /** @param User $user */
     #[\Override]
     public function createResetPasswordRequest(
         object $user,
@@ -63,7 +62,9 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
         string $selector,
         string $hashedToken
     ): ResetPasswordRequestInterface {
-        /* @var User $user */
-        return new ResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
+        /** @var User $user */
+        $resetPWReq = new ResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
+
+        return $resetPWReq;
     }
 }

@@ -20,11 +20,12 @@ final class ContactType extends AbstractType
     // @param array<string> $options
     #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void // Unused parameter $options.
-    {$builder->add(
-        'nom',
-        TextType::class,
-        [/* 'label' => 'Nom', */]
-    );
+    {
+        $builder->add(
+            'nom',
+            TextType::class,
+            [/* 'label' => 'Nom', */]
+        );
         $builder->add(
             'email',
             EmailType::class,
