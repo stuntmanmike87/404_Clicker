@@ -7,14 +7,14 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-// use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /** @final */
-// @UniqueEntity(fields={"email"},message="Impossible de créer un compte utilisateur avec cet e-mail.")
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 #[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -26,9 +26,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: 'Veuillez saisir une valeur.')]
     #[Assert\Email(message: "L'e-mail {{value}} n'est pas valide.")]
     #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
-    private string $email;
+    private string $email; // private ?string $email = null;
 
-    // private ?string $email = null;
     /**
      * @var array<string> $roles
      */
@@ -42,24 +41,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotCompromisedPassword(message: "Ce mot de passe a été divulgué lors d'une fuite de données, veuillez utiliser un autre mot de passe pour votre sécurité.")]
     #[Assert\Regex(pattern: '/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*\d)(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/', message: 'Le mot de passe doit être composé de 12 caractères dont au minimum : 1 lettre minuscule, 1 lettre majuscule, 1 chiffre, 1 caractère spécial (dans un ordre aléatoire).')]
     #[ORM\Column(type: Types::STRING)]
-    private string $password;
+    private string $password; // private ?string $password = null;
 
-    // private ?string $password = null;
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $username;
+    private string $username; // private ?string $username = null;
 
-    // private ?string $username = null;
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     private ?float $points = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private \DateTimeImmutable $createdAt;
+    private \DateTimeImmutable $createdAt; // private ?\DateTimeImmutable $createdAt = null;
 
-    // private ?\DateTimeImmutable $createdAt = null;
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private \DateTimeImmutable $updatedAt;
+    private \DateTimeImmutable $updatedAt; // private ?\DateTimeImmutable $updatedAt = null;
 
-    // private ?\DateTimeImmutable $updatedAt = null;
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $token = null;
 
@@ -70,9 +65,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Level $level = null;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $fullName;
+    private string $fullName; // private ?string $fullName = null;
 
-    // private ?string $fullName = null;
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isVerified = false;
 
@@ -116,7 +110,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[\Override]
     public function getUserIdentifier(): string
     {
-        return /* (string) */ $this->email;
+        return $this->email;
     }
 
     /**
@@ -124,7 +118,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return /* (string) */ $this->username;
+        return $this->username;
     }
 
     /**
