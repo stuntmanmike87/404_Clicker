@@ -213,12 +213,12 @@
         "version": "v5.3.0"
     },
     "symfony/asset-mapper": {
-        "version": "6.4",
+        "version": "7.0",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "6.4",
-            "ref": "040e08b268490e84a8e05652d6e9d3d49576f1c6"
+            "ref": "6c28c471640cc2c6e60812ebcb961c526ef8997f"
         },
         "files": [
             "assets/app.js",
