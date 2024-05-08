@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App;
 
-use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use RectorPrefix202302\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 class Kernel extends BaseKernel
 {
