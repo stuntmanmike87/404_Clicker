@@ -15,6 +15,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Level|null   findOneBy(array $criteria, array $orderBy = null)
  * @method array<Level> findAll()
  * @method array<Level> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @template-extends ServiceEntityRepository<Level>
  */
 final class LevelRepository extends ServiceEntityRepository
 {
