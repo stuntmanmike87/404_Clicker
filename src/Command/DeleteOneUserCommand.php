@@ -82,7 +82,7 @@ final class DeleteOneUserCommand extends Command
 
         // $this->io
         $io->success(
-            sprintf('L\'UTILISATEUR AYANT L\'ID %s ET L\'E-MAIL %s N\'EXISTE PLUS DANS LA BASE DE DONNEES.', $userID, $email)
+            sprintf("L'UTILISATEUR AYANT L'ID %s ET L'E-MAIL %s N'EXISTE PLUS DANS LA BASE DE DONNEES.", $userID, $email)
         );
 
         return Command::SUCCESS;
