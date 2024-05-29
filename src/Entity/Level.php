@@ -32,7 +32,7 @@ class Level
     private string $nomLevel; // private ?string $nomLevel = null;
 
     /**
-     * @var ArrayCollection<User> $idUser
+     * @var ArrayCollection<int, User> $idUser
      */
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'level')]
     private ArrayCollection $idUser;
@@ -110,6 +110,8 @@ class Level
 
     /**
      * Fonction qui donne accès à une collection d'utilisateurs.
+     *
+     * @return Collection<int, User>
      */
     public function getIdUser(): Collection
     {
