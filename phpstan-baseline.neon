@@ -1,14 +1,4 @@
-parameters:
-    ignoreErrors:
-        # -
-        #     identifier: missingType.generics
-        -
-            message: '#Property App\\Entity\\Level::\$idUser with generic class Doctrine\\Common\\Collections\\ArrayCollection does not specify its types: TKey, T#'
-            path: src/Entity/Level.php
-        -
-            message: '#Method App\\Entity\\Level::getIdUser\(\) return type with generic interface Doctrine\\Common\\Collections\\Collection does not specify its types: TKey, T#'
-            path: src/Entity/Level.php
+# parameters:
+    # ignoreErrors:
 
     # treatPhpDocTypesAsCertain: false
-
-    # checkGenericClassInNonGenericObjectType: false
