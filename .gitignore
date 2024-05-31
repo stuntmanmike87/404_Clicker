@@ -7,7 +7,9 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
 .vscode
+
 ###> symfony/asset-mapper ###
 /public/assets/
 /assets/vendor/
@@ -18,13 +20,7 @@
 docs
 ###< PHPDOCUMENTOR ###
 
-###> PHPMetrics HTML report ###
-/myreport/
-###< PHPMetrics HTML report ###
-
 ###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
-
-node_modules
