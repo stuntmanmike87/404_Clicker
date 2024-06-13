@@ -5,27 +5,28 @@ declare(strict_types=1);
 namespace App\Command;
 
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(
+    name: 'app:delete-recreate-db',
+    description: 'Deletes and recreate the database.',
+    hidden: false,
+    aliases: ['app:drop-create-db']
+)]
 final class DeleteAndRecreateDatabaseCommand extends Command
 {// DeleteAndRecreateDatabaseWithStructureAndDataCommand
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     protected static $defaultName = 'app:clean-db';
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     protected static $defaultDescription = 'Supprime et recrée la base de données avec sa structure et ses jeux de fausses données';
 
-    /**
-     * execute.
-     */
+    /** execute. */
     #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -45,9 +46,7 @@ final class DeleteAndRecreateDatabaseCommand extends Command
         return Command::SUCCESS;
     }
 
-    /**
-     * runSymfonyCommand.
-     */
+    /** runSymfonyCommand. */
     private function runSymfonyCommand(
         InputInterface $input,
         OutputInterface $output,

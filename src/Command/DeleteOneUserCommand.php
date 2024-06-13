@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\CustomValidatorForCommand;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -17,16 +18,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(
+    name: 'app:delete-user',
+    description: 'Deletes a user.',
+    hidden: false,
+    aliases: ['app:remove-user']
+)]
 final class DeleteOneUserCommand extends Command
 {
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     protected static $defaultName = 'app:delete-one-user';
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     protected static $defaultDescription = 'Supprime un utilisateur en base de données';
 
     private SymfonyStyle $io;
@@ -35,7 +38,8 @@ final class DeleteOneUserCommand extends Command
         private readonly CustomValidatorForCommand $validator,
         private readonly EntityManagerInterface $entityManager,
         private readonly UserRepository $userRepository
-    ) {
+    )
+    {
         parent::__construct();
     }
 
@@ -45,18 +49,15 @@ final class DeleteOneUserCommand extends Command
         $this->addArgument('email', InputArgument::REQUIRED, "L'e-mail de l'utilisateur");
     }
 
-    /**
-     * Executed after configure() to initialize properties based on the input arguments and options.
-     */
+    /** Executed after configure()
+     * to initialize properties based on the input arguments and options. */
     #[\Override]
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
     }
 
-    /**
-     * execute function.
-     */
+    /** execute function. */
     #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -65,13 +66,12 @@ final class DeleteOneUserCommand extends Command
         /** @var string $email */
         $email = $input->getArgument('email');
 
-        $user = $this->userRepository->findOneBy([
-            'email' => $email,
-        ]);
+        $user = $this->userRepository->findOneBy(['email' => $email,]);
 
         if (!$user instanceof User) {
-            throw new RuntimeException('AUCUN UTILISATEUR N\'EST PRESENT
-                EN BASE DE DONNEES AVEC L\'E-MAIL SUIVANT : '.$email);
+            throw new RuntimeException(
+                'AUCUN UTILISATEUR N\'EST PRESENT EN BASE DE DONNEES AVEC L\'E-MAIL SUIVANT : '.$email
+            );
         }
 
         $userID = $user->getId();
@@ -82,7 +82,11 @@ final class DeleteOneUserCommand extends Command
 
         // $this->io
         $io->success(
-            sprintf("L'UTILISATEUR AYANT L'ID %s ET L'E-MAIL %s N'EXISTE PLUS DANS LA BASE DE DONNEES.", $userID, $email)
+            sprintf(
+                "L'UTILISATEUR AYANT L'ID %s ET L'E-MAIL %s N'EXISTE PLUS DANS LA BASE DE DONNEES.",
+                $userID,
+                $email
+            )
         );
 
         return Command::SUCCESS;
@@ -100,9 +104,7 @@ final class DeleteOneUserCommand extends Command
         $this->enterEmail($input, $output);
     }
 
-    /**
-     * Sets the user email.
-     */
+    /** Sets the user email. */
     private function enterEmail(InputInterface $input, OutputInterface $output): void
     {
         /** @var QuestionHelper $helper */

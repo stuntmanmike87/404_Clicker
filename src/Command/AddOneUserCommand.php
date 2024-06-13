@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\CustomValidatorForCommand;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -19,6 +20,12 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+#[AsCommand(
+    name: 'app:create-user',
+    description: 'Creates a new user.',
+    hidden: false,
+    aliases: ['app:add-user']
+)]
 final class AddOneUserCommand extends Command
 {
     // EMAIL_ARGUMENT_DESCRIPTION
@@ -45,7 +52,8 @@ final class AddOneUserCommand extends Command
         private readonly EntityManagerInterface $entityManager,
         private readonly UserPasswordHasherInterface $encoder,
         private readonly UserRepository $userRepository
-    ) {
+    )
+    {
         parent::__construct();
     }
 
@@ -62,10 +70,8 @@ final class AddOneUserCommand extends Command
      * Executed after configure() to initialize properties based on the input arguments and options.
      */
     #[\Override]
-    protected function initialize(
-        InputInterface $input,
-        OutputInterface $output
-    ): void {
+    protected function initialize(InputInterface $input, OutputInterface $output): void
+    {
         $this->io = new SymfonyStyle($input, $output);
     }
 
@@ -87,9 +93,7 @@ final class AddOneUserCommand extends Command
         $this->enterIsVerified($input, $output);
     }
 
-    /**
-     * execute function.
-     */
+    /** execute function. */
     #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -123,9 +127,7 @@ final class AddOneUserCommand extends Command
         return Command::SUCCESS;
     }
 
-    /**
-     * Sets the user email.
-     */
+    /** Sets the user email. */
     private function enterEmail(InputInterface $input, OutputInterface $output): void
     {
         /** @var QuestionHelper $helper */
@@ -142,7 +144,12 @@ final class AddOneUserCommand extends Command
         $email = $helper->ask($input, $output, $emailQuestion);
 
         if ($this->isUserAlreadyExists($email) instanceof User) {// if ($this->isUserAlreadyExists($email) !== null) {
-            throw new RuntimeException(sprintf("UTILISATEUR DEJA PRESENT EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : %s", $email));
+            throw new RuntimeException(
+                sprintf(
+                    "UTILISATEUR DEJA PRESENT EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : %s",
+                    $email
+                )
+            );
         }
 
         $input->setArgument('email', $email);
@@ -153,9 +160,7 @@ final class AddOneUserCommand extends Command
      */
     private function isUserAlreadyExists(string $email): ?User
     {
-        return $this->userRepository->findOneBy([
-            'email' => $email,
-        ]);
+        return $this->userRepository->findOneBy(['email' => $email,]);
     }
 
     /**
@@ -184,9 +189,7 @@ final class AddOneUserCommand extends Command
         $input->setArgument('plainPassword', $password);
     }
 
-    /**
-     * Sets the role choice in $input variable if it's valid.
-     */
+    /** Sets the role choice in $input variable if it's valid. */
     private function enterRole(InputInterface $input, OutputInterface $output): void
     {
         /** @var QuestionHelper $helper */
@@ -210,9 +213,7 @@ final class AddOneUserCommand extends Command
         $input->setArgument('role', $role);
     }
 
-    /**
-     * Sets the isVerified choice in $input variable if it's valid.
-     */
+    /** Sets the isVerified choice in $input variable if it's valid. */
     private function enterIsVerified(InputInterface $input, OutputInterface $output): void
     {
         /** @var QuestionHelper $helper */
@@ -232,7 +233,10 @@ final class AddOneUserCommand extends Command
         $isVerified = $helper->ask($input, $output, $isVerifiedQuestion);
 
         $output->writeln(
-            sprintf("<info>STATUT D'ACTIVATION DU COMPTE UTILISATEUR PRIS EN COMPTE : %s</info>", $isVerified)
+            sprintf(
+                "<info>STATUT D'ACTIVATION DU COMPTE UTILISATEUR PRIS EN COMPTE : %s</info>",
+                $isVerified
+            )
         );
 
         $input->setArgument('isVerified', $isVerified);
