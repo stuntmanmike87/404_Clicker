@@ -39,7 +39,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[Assert\NotBlank(message: 'Veuillez saisir une valeur.')]
     #[Assert\NotCompromisedPassword(message: "Ce mot de passe a été divulgué lors d'une fuite de données, veuillez utiliser un autre mot de passe pour votre sécurité.")]
-    #[Assert\Regex(pattern: '/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*\d)(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/', message: 'Le mot de passe doit être composé de 12 caractères dont au minimum : 1 lettre minuscule, 1 lettre majuscule, 1 chiffre, 1 caractère spécial (dans un ordre aléatoire).')]
+    #[Assert\Regex(
+        pattern: '/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*\d)(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/',
+        message: 'Le mot de passe doit être composé de 12 caractères dont au minimum : 1 lettre minuscule, 1 lettre majuscule, 1 chiffre, 1 caractère spécial (dans un ordre aléatoire).'
+        )]
     #[ORM\Column(type: Types::STRING)]
     private string $password; // private ?string $password = null;
 
@@ -75,6 +78,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isExpired = false;
+
+    #[ORM\Column(type: Types::STRING, length: 100, nullable: true)]
+    private ?string $resetToken = null;
 
     /**
      * Méthode de récupération de l'identifiant d'un utilisateur.
@@ -376,6 +382,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsExpired(bool $isExpired): self
     {
         $this->isExpired = $isExpired;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
 
         return $this;
     }
