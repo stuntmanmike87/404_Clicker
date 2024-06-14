@@ -1,0 +1,11 @@
+<h1>Activez votre compte</h1>
+<p>Bonjour {{ user.username }},</p>
+<p>Votre inscription est à valider en cliquant sur le lien ci-dessous :</p>
+<p><a href="{{ absolute_url(path('verify_user', {token: token})) }}">{{ absolute_url(path('verify_user', {token: token})) }}</a></p>
+<p>Ce lien expirera dans 3 heures</p>
+{# <h1>Activation de votre compte</h1>
+<p>Bonjour {{ user.username }},</p>
+<p>Pour activer votre compte cliquez sur le lien ci-dessous.</p>
+<p><a href="{{ absolute_url(path('verify_user', {token: token})) }}">Lien</a></p>
+{{ token }}
+<p>Merci</p> #}
