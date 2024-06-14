@@ -9,24 +9,27 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-// use Symfony\Component\Validator\Constraints\Length;
-// use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class ChangePasswordFormType extends AbstractType
 {
-    /**
-     * Fonction qui permet la construction du formulaire
-     * de changement de mot de passe.
-     */
+    private const DATA_LEAK_PW_MESSAGE = 'Ce mot de passe a été divulgué lors d\'une fuite de données, '
+     . PHP_EOL . 'veuillez utiliser un autre mot de passe pour votre sécurité.';
+    private const PW_CONSTRAINTS_MESSAGE = 'Le mot de passe doit être composé de 12 caractères '
+     . PHP_EOL . 'dont au minimum : 1 lettre minuscule, 1 lettre majuscule, '
+      . PHP_EOL . '1 chiffre, 1 caractère spécial (dans un ordre aléatoire).';
+
+     /** Fonction qui permet la construction du formulaire de changement de mot de passe. */
     // @param array<string> $options
-    #[Assert\NotCompromisedPassword(message: "Ce mot de passe a été divulgué lors d'une fuite de données, veuillez utiliser un autre mot de passe pour votre sécurité.")]
+    #[Assert\NotCompromisedPassword(message: self::DATA_LEAK_PW_MESSAGE)]
     #[Assert\NotBlank(message: 'Veuillez saisir un mot de passe')]
-    #[Assert\Regex(pattern: '/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*\d)(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/', message: 'Le mot de passe doit être composé de 12 caractères dont au minimum : 1 lettre minuscule, 1 lettre majuscule, 1 chiffre, 1 caractère spécial (dans un ordre aléatoire).')]
+    #[Assert\Regex(
+        pattern: '/^(?=.*[a-zà-ÿ])(?=.*[A-ZÀ-Ý])(?=.*\d)(?=.*[^a-zà-ÿA-ZÀ-Ý0-9]).{12,}$/',
+        message: self::PW_CONSTRAINTS_MESSAGE
+    )]
     #[\Override]
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options): void // Unused parameter $options.
     {
-        // Unused parameter $options.
         $builder
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,

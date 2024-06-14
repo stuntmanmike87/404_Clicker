@@ -29,16 +29,16 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 final class AddOneUserCommand extends Command
 {
     // EMAIL_ARGUMENT_DESCRIPTION
-    private const string EMAIL_ARG = "L'e-mail de l'utilisateur";
+    private const EMAIL_ARG = "L'e-mail de l'utilisateur";
 
     // PASSWORD_ARGUMENT_DESCRIPTION
-    private const string PW_ARG = "Le mot de passe en clair de l'utilisateur";
+    private const PW_ARG = "Le mot de passe en clair de l'utilisateur";
 
     // ROLE_ARGUMENT_DESCRIPTION
-    private const string ROLE_ARG = "Le rôle de l'utilisateur";
+    private const ROLE_ARG = "Le rôle de l'utilisateur";
 
     // ISVERIFIED_ARGUMENT_DESCRIPTION
-    private const string ISV_ARG = "Le statut du compte l'utilisateur (actif)";
+    private const ISV_ARG = "Le statut du compte l'utilisateur (actif)";
 
     /**
      * @var string|null

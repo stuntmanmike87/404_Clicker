@@ -70,7 +70,7 @@ final class DeleteOneUserCommand extends Command
 
         if (!$user instanceof User) {
             throw new RuntimeException(
-                'AUCUN UTILISATEUR N\'EST PRESENT EN BASE DE DONNEES AVEC L\'E-MAIL SUIVANT : '.$email
+                "AUCUN UTILISATEUR N'EST PRESENT EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : ".$email
             );
         }
 
