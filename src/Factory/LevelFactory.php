@@ -2,13 +2,13 @@
 
 namespace App\Factory;
 
-use App\Entity\User;
+use App\Entity\Level;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<User>
+ * @extends PersistentProxyObjectFactory<Level>
  */
-final class UserFactory extends PersistentProxyObjectFactory
+final class LevelFactory extends PersistentProxyObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
@@ -22,7 +22,7 @@ final class UserFactory extends PersistentProxyObjectFactory
 
     public static function class(): string
     {
-        return User::class;
+        return Level::class;
     }
 
     /**
@@ -33,16 +33,9 @@ final class UserFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            'email' => self::faker()->text(180),
-            'fullName' => self::faker()->text(255),
-            'isDeleted' => self::faker()->boolean(),
-            'isExpired' => self::faker()->boolean(),
-            'isVerified' => self::faker()->boolean(),
-            'password' => self::faker()->text(),
-            'roles' => [],
-            'updatedAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            'username' => self::faker()->text(255),
+            'maxPoints' => self::faker()->randomFloat(),
+            'nomLevel' => self::faker()->text(255),
+            'pathImg' => self::faker()->text(255),
         ];
     }
 
@@ -52,7 +45,7 @@ final class UserFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(User $user): void {})
+            // ->afterInstantiate(function(Level $level): void {})
         ;
     }
 }
