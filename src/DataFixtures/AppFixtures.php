@@ -6,7 +6,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Level;
 use App\Entity\User;
-// use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -26,12 +25,9 @@ final class AppFixtures extends Fixture implements DependentFixtureInterface
      * Fonction qui permet de charger des fixtures
      * en persistant des objets [user (utilisateur)] en base de données.
      */
-    #[\Override]
+    // #[\Override]
     public function load(ObjectManager $manager): void
     {
-        // UserFactory::new()->create();
-        // UserFactory::new()->createMany(10);
-
         $this->loadUsers($manager);
 
         $manager->flush();
@@ -41,7 +37,7 @@ final class AppFixtures extends Fixture implements DependentFixtureInterface
      * Fonction de liaison de dépendances avec une autre fixture.
      */
     // @return array<string>
-    #[\Override]
+    // #[\Override]
     public function getDependencies(): array
     {
         return [
@@ -67,9 +63,7 @@ final class AppFixtures extends Fixture implements DependentFixtureInterface
 
             $user->setEmail($email);
             $user->setRoles($roles);
-            $user->setPassword(
-                $this->hasher->hashPassword($user, $password)
-            );
+            $user->setPassword($this->hasher->hashPassword($user, $password));
             $user->setUsername($username);
             $user->setPoints($points);
             $user->setFullName($fullName);

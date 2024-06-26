@@ -18,7 +18,7 @@ final class LevelFixtures extends Fixture
      * Fonction qui permet de charger les fixtures:
      * enregistrement des niveaux en base de données
      */
-    #[\Override]
+    // #[\Override]
     public function load(ObjectManager $manager): void
     {
         $this->loadLevels($manager);

@@ -21,7 +21,7 @@ final class UserFixtures extends Fixture implements DependentFixtureInterface
     /**
      * Fonction de chargement des fixtures en base de données.
      */
-    #[\Override]
+    // #[\Override]
     public function load(ObjectManager $manager): void
     {
         $this->generateUsers(10, $manager);
@@ -33,7 +33,7 @@ final class UserFixtures extends Fixture implements DependentFixtureInterface
      * Fonction de liaison de dépendances entre fixtures.
      */
     // @return array<string>
-    #[\Override]
+    // #[\Override]
     public function getDependencies(): array
     {
         return [
@@ -48,13 +48,12 @@ final class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         for ($i = 0; $i < $number; ++$i) {
             $user = new User();
+
             $password = 'password';
 
             $user->setUsername('usertest'.$i);
             $user->setEmail('user'.$i.'@test.com');
-            $user->setPassword(
-                $this->hasher->hashPassword($user, $password)
-            );
+            $user->setPassword($this->hasher->hashPassword($user, $password));
             $user->setRoles(['ROLE_USER']);
             $user->setPoints((float) random_int(0, 19));
             $user->setFullName('User Number '.$i);
