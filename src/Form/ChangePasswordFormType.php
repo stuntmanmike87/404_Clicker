@@ -15,6 +15,7 @@ final class ChangePasswordFormType extends AbstractType
 {
     private const DATA_LEAK_PW_MESSAGE = 'Ce mot de passe a été divulgué lors d\'une fuite de données, '
      . PHP_EOL . 'veuillez utiliser un autre mot de passe pour votre sécurité.';
+
     private const PW_CONSTRAINTS_MESSAGE = 'Le mot de passe doit être composé de 12 caractères '
      . PHP_EOL . 'dont au minimum : 1 lettre minuscule, 1 lettre majuscule, '
       . PHP_EOL . '1 chiffre, 1 caractère spécial (dans un ordre aléatoire).';
