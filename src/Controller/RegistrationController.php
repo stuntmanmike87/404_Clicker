@@ -7,8 +7,11 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\LevelRepository;
-use App\Security\EmailVerifier;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Security\UserAuthenticator;
+use App\Service\JWTService;
+use App\Service\SendMailService;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,8 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 /**
  * Classe qui traite l'enregistrement d'un utilisateur.
@@ -26,10 +28,6 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
  */
 final class RegistrationController extends AbstractController
 {
-    public function __construct(private readonly EmailVerifier $emailVerifier)
-    {
-    }
-
     /**
      * Fonction qui traite l'inscription d'un utilisateur (joueur)
      * return $this->redirectToRoute('home') : redirection
@@ -40,7 +38,11 @@ final class RegistrationController extends AbstractController
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
-        LevelRepository $levelRepository
+        LevelRepository $levelRepository,
+        UserAuthenticatorInterface $userAuthenticator,
+        UserAuthenticator $authenticator,
+        JWTService $jwt,
+        SendMailService $mail
     ): Response {
         if ($this->getUser() instanceof User) {// if ($this->getUser() !== null) {
             return $this->render('home/index.html.twig');
@@ -51,16 +53,10 @@ final class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+        // /** @var string $form_data */
+        // $form_data = $form->get('plainPassword')->getData(); // $data = $form->get('email')->getData();
+
         if ($form->isSubmitted() && $form->isValid()) {
-            // vérifier si les champs saisis pour cet utilisateur
-            // existent déjà dans la base de données
-            // Don't use the following if statement [always false condition]
-            // but make a unique entity [constraint(s)]
-            /* if ($this->getUser()) {
-                $this->addFlash('error',
-                    'Utilisateur et/ou email déjà enregistré');
-                return $this->redirectToRoute('inscription');
-            } */
 
             $plainPassword = $form->get('plainPassword');
             /** @var string $plainPassword */
@@ -68,7 +64,7 @@ final class RegistrationController extends AbstractController
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword($user, /* (string) */ $plainPassword)
-            );
+            );//$user->setPassword($userPasswordHasher->hashPassword($user, $form_data));
             // initialisation des propriétés (champs) d'un user à l'enregistrement
             $user->setRoles(['ROLE_USER']);
             $user->setPoints(0);
@@ -95,11 +91,11 @@ final class RegistrationController extends AbstractController
                 'registration/confirmation_email.html.twig'
             );
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation(
+            /* $this->emailVerifier->sendEmailConfirmation(
                 'app_verify_email',
                 $user,
                 $email
-            );
+            ); */
             // do anything else you need here, like send an email
             $this->addFlash(
                 'success',
@@ -107,7 +103,31 @@ final class RegistrationController extends AbstractController
                 vos mails pour faire la vérification.'
             );
 
-            return $this->redirectToRoute('home');
+            $header = ['typ' => 'JWT', 'alg' => 'HS256',];
+
+            /** @var array<string> $payload */ // @var (null|int)[] $payload
+            $payload = ['user_id' => $user->getId(),];
+
+            /** @var string $secret */
+            $secret = $this->getParameter('app.jwtsecret');
+            $token = $jwt->generate($header, $payload, $secret);
+
+            /** @var array<string> $context() */
+            $context = ['user' => $user, 'token' => $token];
+
+            $mail->send(
+                'no-reply@mysite.net',
+                (string) $user->getEmail(),
+                'Votre compte est activé sur ce site',
+                'register',
+                $context
+            );
+
+            /** @var Response $response */
+            $response = $userAuthenticator->authenticateUser($user, $authenticator, $request);
+
+            // return $this->redirectToRoute('home');
+            return $response;
         }
 
         return $this->render('registration/register.html.twig', [
@@ -120,34 +140,37 @@ final class RegistrationController extends AbstractController
      * return $this->redirectToRoute('inscription') :
      * redirection vers la page d'inscription.
      */
-    #[Route(path: '/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
+    #[Route('/verif/{token}', name: 'verify_user')]
+    public function veriyfUser(
+        string $token, // TokenInterface $token,
+        JWTService $jwt,
+        UserRepository $userRepository,
+        EntityManagerInterface $em
+    ): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        // validate email confirmation link, sets User::isVerified=true and persists
-        try {
-            /** @var User $user */
-            $user = $this->getUser();
-            $this->emailVerifier->handleEmailConfirmation($request, $user);
-        } catch (VerifyEmailExceptionInterface $verifyEmailException) {
-            $this->addFlash(
-                'verify_email_error',
-                $translator->trans(
-                    $verifyEmailException->getReason(),
-                    [],
-                    'VerifyEmailBundle'
-                )
-            );
+        /** @var string $param */
+        $param = $this->getParameter('app.jwtsecret');
 
-            return $this->redirectToRoute('home');
+        if ($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $param)) {
+            $payload = $jwt->getPayload($token);
+
+            $user = $userRepository->find($payload['user_id']);
+
+            /** @var User $user */
+            /** @var bool $verifiedUser */
+            $verifiedUser = $user->getIsVerified();
+            if (null !== $user && !$verifiedUser) {
+                $user->setIsVerified(true);
+                $em->flush();
+
+                $this->addFlash('success', 'Cet utilisateur est activé');
+
+                return $this->redirectToRoute('app_main');
+            }
         }
 
-        // to_do_task: Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash(
-            'success',
-            "Votre adresse email vient d'être vérifiée avec succès."
-        );
+        $this->addFlash('danger', 'Le token est invalide ou a expiré');
 
-        return $this->redirectToRoute('inscription');
+        return $this->redirectToRoute('app_login');
     }
 }
