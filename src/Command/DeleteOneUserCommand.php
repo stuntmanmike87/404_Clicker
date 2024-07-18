@@ -38,8 +38,7 @@ final class DeleteOneUserCommand extends Command
         private readonly CustomValidatorForCommand $validator,
         private readonly EntityManagerInterface $entityManager,
         private readonly UserRepository $userRepository
-    )
-    {
+    ) {
         parent::__construct();
     }
 
@@ -66,12 +65,10 @@ final class DeleteOneUserCommand extends Command
         /** @var string $email */
         $email = $input->getArgument('email');
 
-        $user = $this->userRepository->findOneBy(['email' => $email,]);
+        $user = $this->userRepository->findOneBy(['email' => $email]);
 
         if (!$user instanceof User) {
-            throw new RuntimeException(
-                "AUCUN UTILISATEUR N'EST PRESENT EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : ".$email
-            );
+            throw new RuntimeException("AUCUN UTILISATEUR N'EST PRESENT EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : ".$email);
         }
 
         $userID = $user->getId();

@@ -78,10 +78,10 @@ final class SecurityController extends AbstractController
             $user = $userRepository->findOneByEmail($form_data);
 
             if ($user instanceof User) { // if (null !== $user) {
-                $header = ['typ' => 'JWT', 'alg' => 'HS256',];
+                $header = ['typ' => 'JWT', 'alg' => 'HS256'];
 
                 /** @var array<string> $payload */
-                $payload = ['user_id' => $user->getId(),];
+                $payload = ['user_id' => $user->getId()];
 
                 /** @var string $param */
                 $param = $this->getParameter('app.jwtsecret');

@@ -42,7 +42,7 @@ final class JWTService
         /* return 1 === preg_match(
             '/^[a-zA-Z0-9\-\_\=]+\.[a-zA-Z0-9\-\_\=]+\.[a-zA-Z0-9\-\_\=]+$/',
             $token
-        ); */        
+        ); */
         // /** @var null|array $result */
         /* $result = */ Strings::match(
             $token,

@@ -52,8 +52,7 @@ final class AddOneUserCommand extends Command
         private readonly EntityManagerInterface $entityManager,
         private readonly UserPasswordHasherInterface $encoder,
         private readonly UserRepository $userRepository
-    )
-    {
+    ) {
         parent::__construct();
     }
 
@@ -144,12 +143,7 @@ final class AddOneUserCommand extends Command
         $email = $helper->ask($input, $output, $emailQuestion);
 
         if ($this->isUserAlreadyExists($email) instanceof User) {// if ($this->isUserAlreadyExists($email) !== null) {
-            throw new RuntimeException(
-                sprintf(
-                    "UTILISATEUR DEJA PRESENT EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : %s",
-                    $email
-                )
-            );
+            throw new RuntimeException(sprintf("UTILISATEUR DEJA PRESENT EN BASE DE DONNEES AVEC L'E-MAIL SUIVANT : %s", $email));
         }
 
         $input->setArgument('email', $email);
@@ -160,7 +154,7 @@ final class AddOneUserCommand extends Command
      */
     private function isUserAlreadyExists(string $email): ?User
     {
-        return $this->userRepository->findOneBy(['email' => $email,]);
+        return $this->userRepository->findOneBy(['email' => $email]);
     }
 
     /**

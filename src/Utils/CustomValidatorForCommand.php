@@ -9,9 +9,9 @@ use Symfony\Component\Console\Exception\InvalidArgumentException;
 
 final class CustomValidatorForCommand
 {
-    private const PW_CONSTRAINTS_MESSAGE = 'LE MOT DE PASSE DOIT CONTENIR'. PHP_EOL .
-     '12 CARACTERES AU MINIMUM DANS UN ORDRE ALEATOIRE DONT: ' . PHP_EOL .
-     '1 LETTRE MINUSCULE? 1 LETTRE MAJUSCULE, 1 CHIFFRE, ET 1 CARACTERE SPECIAL.';
+    private const PW_CONSTRAINTS_MESSAGE = 'LE MOT DE PASSE DOIT CONTENIR'.PHP_EOL.
+        '12 CARACTERES AU MINIMUM DANS UN ORDRE ALEATOIRE DONT: '.PHP_EOL.
+        '1 LETTRE MINUSCULE? 1 LETTRE MAJUSCULE, 1 CHIFFRE, ET 1 CARACTERE SPECIAL.';
 
     /** Validates an email entered by the user in CLI. */
     public function validateEmail(?string $emailEntered): string

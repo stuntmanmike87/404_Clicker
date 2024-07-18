@@ -8,10 +8,10 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\LevelRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Security\UserAuthenticator;
 use App\Service\JWTService;
 use App\Service\SendMailService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,14 +57,13 @@ final class RegistrationController extends AbstractController
         // $form_data = $form->get('plainPassword')->getData(); // $data = $form->get('email')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $plainPassword = $form->get('plainPassword');
             /** @var string $plainPassword */
             $plainPassword = $form->getData();
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword($user, /* (string) */ $plainPassword)
-            );//$user->setPassword($userPasswordHasher->hashPassword($user, $form_data));
+            ); // $user->setPassword($userPasswordHasher->hashPassword($user, $form_data));
             // initialisation des propriétés (champs) d'un user à l'enregistrement
             $user->setRoles(['ROLE_USER']);
             $user->setPoints(0);
@@ -103,10 +102,10 @@ final class RegistrationController extends AbstractController
                 vos mails pour faire la vérification.'
             );
 
-            $header = ['typ' => 'JWT', 'alg' => 'HS256',];
+            $header = ['typ' => 'JWT', 'alg' => 'HS256'];
 
             /** @var array<string> $payload */ // @var (null|int)[] $payload
-            $payload = ['user_id' => $user->getId(),];
+            $payload = ['user_id' => $user->getId()];
 
             /** @var string $secret */
             $secret = $this->getParameter('app.jwtsecret');
@@ -146,8 +145,7 @@ final class RegistrationController extends AbstractController
         JWTService $jwt,
         UserRepository $userRepository,
         EntityManagerInterface $em
-    ): Response
-    {
+    ): Response {
         /** @var string $param */
         $param = $this->getParameter('app.jwtsecret');
 
